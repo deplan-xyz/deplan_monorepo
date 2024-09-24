@@ -1,4 +1,5 @@
 name: deplan_monorepo
+repository: https://github.com/deplan-xyz/deplan_monorepo.git
 
 packages:
   - apps/**

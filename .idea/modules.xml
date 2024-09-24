@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/apps/deplan_v2/melos_deplan.iml" filepath="$PROJECT_DIR$/apps/deplan_v2/melos_deplan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/deplan_core/melos_deplan_core.iml" filepath="$PROJECT_DIR$/packages/deplan_core/melos_deplan_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/deplan_v1/melos_deplan_v1.iml" filepath="$PROJECT_DIR$/apps/deplan_v1/melos_deplan_v1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/deplan_connect/melos_iw_app.iml" filepath="$PROJECT_DIR$/apps/deplan_connect/melos_iw_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/phorevr_v2/melos_phorevr.iml" filepath="$PROJECT_DIR$/apps/phorevr_v2/melos_phorevr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/phorevr_v1/melos_phorevr_v1.iml" filepath="$PROJECT_DIR$/apps/phorevr_v1/melos_phorevr_v1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/splinter/melos_splinter.iml" filepath="$PROJECT_DIR$/apps/splinter/melos_splinter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_deplan_monorepo.iml" filepath="$PROJECT_DIR$/melos_deplan_monorepo.iml" />
+    </modules>
+  </component>
+</project>
