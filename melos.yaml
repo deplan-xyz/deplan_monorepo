@@ -1,0 +1,6 @@
+name: deplan_monorepo
+
+packages:
+  - apps/**
+  - packages/**
+
