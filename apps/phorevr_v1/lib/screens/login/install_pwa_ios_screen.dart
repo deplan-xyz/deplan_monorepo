@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/screens/login/create_profile_screen.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/widgets/view/app_padding.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/screens/login/create_profile_screen.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/widgets/view/app_padding.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class InstallPwaIosScreen extends StatelessWidget {
   const InstallPwaIosScreen({super.key});

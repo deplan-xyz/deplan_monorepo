@@ -1,10 +1,9 @@
-import 'package:deplan/constants.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
+import 'package:deplan_v1/constants.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:open_store/open_store.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class UpdateScreen extends StatelessWidget {
   const UpdateScreen({super.key});

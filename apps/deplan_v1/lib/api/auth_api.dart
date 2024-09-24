@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:deplan/api/base_api.dart';
-import 'package:deplan/app_storage.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/utils/crypto.dart';
+import 'package:deplan_v1/api/base_api.dart';
+import 'package:deplan_v1/app_storage.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/utils/crypto.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';
 

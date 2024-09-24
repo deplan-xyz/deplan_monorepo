@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phorevr/theme/app_theme.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
 
 class InputForm extends StatelessWidget {
   final String? labelText;

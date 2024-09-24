@@ -2,12 +2,12 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan/api/auth_api.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/screens/login/login_code_screen.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/utils/crypto.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/screens/login/login_code_screen.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/utils/crypto.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateProfileScreen extends StatefulWidget {

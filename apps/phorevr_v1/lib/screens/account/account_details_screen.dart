@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/api/balance_api.dart';
-import 'package:phorevr/models/token_amount.dart';
-import 'package:phorevr/models/user.dart';
-import 'package:phorevr/screens/account/components/account_header.dart';
-import 'package:phorevr/screens/account/components/account_title.dart';
-import 'package:phorevr/screens/account/components/account_title_shimmer.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/api/balance_api.dart';
+import 'package:phorevr_v1/models/token_amount.dart';
+import 'package:phorevr_v1/models/user.dart';
+import 'package:phorevr_v1/screens/account/components/account_header.dart';
+import 'package:phorevr_v1/screens/account/components/account_title.dart';
+import 'package:phorevr_v1/screens/account/components/account_title_shimmer.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class AccountDetailsScreen extends StatefulWidget {
   const AccountDetailsScreen({Key? key}) : super(key: key);

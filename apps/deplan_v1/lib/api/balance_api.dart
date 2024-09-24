@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:deplan/api/base_api.dart';
+import 'package:deplan_v1/api/base_api.dart';
 
 class _BalanceApi extends BaseApi {
   Future<Response> getBalance() {

@@ -1,5 +1,5 @@
-import 'package:deplan_subscriptions_client/screens/signin.dart';
-import 'package:deplan_subscriptions_client/screens/subsciptions_home.dart';
+import 'package:deplan/screens/signin.dart';
+import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

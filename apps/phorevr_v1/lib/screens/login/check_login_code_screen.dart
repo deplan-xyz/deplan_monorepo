@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:phorevr/screens/home_screen.dart';
-import 'package:phorevr/widgets/form/input_form.dart';
-import 'package:phorevr/widgets/view/app_padding.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/screens/home_screen.dart';
+import 'package:phorevr_v1/widgets/form/input_form.dart';
+import 'package:phorevr_v1/widgets/view/app_padding.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class CheckLoginCodeScreen extends StatefulWidget {
   final String code;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/models/user.dart';
-import 'package:phorevr/screens/account/components/account_wallet_section.dart';
+import 'package:phorevr_v1/models/user.dart';
+import 'package:phorevr_v1/screens/account/components/account_wallet_section.dart';
 
 class AccountHeader extends StatelessWidget {
   final String? balance;

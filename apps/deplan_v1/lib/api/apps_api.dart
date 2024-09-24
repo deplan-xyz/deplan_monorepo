@@ -1,7 +1,7 @@
-import 'package:deplan/api/base_api.dart';
-import 'package:deplan/app_storage.dart';
-import 'package:deplan/models/app.dart';
-import 'package:deplan/models/app_session.dart';
+import 'package:deplan_v1/api/base_api.dart';
+import 'package:deplan_v1/app_storage.dart';
+import 'package:deplan_v1/models/app.dart';
+import 'package:deplan_v1/models/app_session.dart';
 import 'package:dio/dio.dart';
 
 class _AppsApi extends BaseApi {

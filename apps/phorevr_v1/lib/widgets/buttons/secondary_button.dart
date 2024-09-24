@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/theme/app_theme.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
 
 class SecondaryButton extends StatelessWidget {
   final Widget? child;

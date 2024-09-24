@@ -108,7 +108,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
       actions: [
         TextButton(
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
           ),
           onPressed: saving || !isFormDirty() ? null : onSave,
           child: Text(
@@ -121,7 +121,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
       ],
       leading: TextButton(
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
         ),
         onPressed: onCancel,
         child: const Text(

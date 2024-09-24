@@ -1,4 +1,4 @@
-import 'package:deplan_subscriptions_client/theme/app_theme.dart';
+import 'package:deplan/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

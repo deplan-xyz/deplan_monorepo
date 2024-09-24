@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phorevr/screens/login/dont_show_the_code_screen.dart';
-import 'package:phorevr/widgets/buttons/secondary_button.dart';
-import 'package:phorevr/widgets/form/input_form.dart';
-import 'package:phorevr/widgets/view/app_padding.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/screens/login/dont_show_the_code_screen.dart';
+import 'package:phorevr_v1/widgets/buttons/secondary_button.dart';
+import 'package:phorevr_v1/widgets/form/input_form.dart';
+import 'package:phorevr_v1/widgets/view/app_padding.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class LoginCodeScreen extends StatefulWidget {
   final String code;

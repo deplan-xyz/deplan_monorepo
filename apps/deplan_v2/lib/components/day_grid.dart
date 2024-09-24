@@ -1,6 +1,6 @@
-import 'package:deplan_subscriptions_client/api/common_api.dart';
-import 'package:deplan_subscriptions_client/models/subscription.dart';
-import 'package:deplan_subscriptions_client/models/subscription_details.dart';
+import 'package:deplan/api/common_api.dart';
+import 'package:deplan/models/subscription.dart';
+import 'package:deplan/models/subscription_details.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -26,7 +26,7 @@ class DayGrid extends StatelessWidget {
             SubscriptionDetailsModel? currentMonthSubscriptions = snapshot.data!
                 .where((element) => element.month == date.month)
                 .toList()
-                ?.first;
+                .first;
             return gridBuilder(
                 daysInMonth,
                 (BuildContext context, int index) => daysGrid(context, index,

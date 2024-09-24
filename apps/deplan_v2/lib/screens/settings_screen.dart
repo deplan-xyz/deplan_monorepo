@@ -1,6 +1,6 @@
-import 'package:deplan_subscriptions_client/api/auth.dart';
-import 'package:deplan_subscriptions_client/components/screen_wrapper.dart';
-import 'package:deplan_subscriptions_client/constants/routes.dart';
+import 'package:deplan/api/auth.dart';
+import 'package:deplan/components/screen_wrapper.dart';
+import 'package:deplan/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {

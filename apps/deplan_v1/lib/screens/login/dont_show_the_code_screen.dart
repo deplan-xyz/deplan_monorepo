@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:deplan/screens/login/check_login_code_screen.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/screens/login/check_login_code_screen.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 
 class DontShowTheCodeScreen extends StatelessWidget {
   final String code;

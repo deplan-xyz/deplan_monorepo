@@ -1,17 +1,17 @@
-import 'package:deplan/models/txn_history_item.dart';
-import 'package:deplan/models/user_balance.dart';
-import 'package:deplan/screens/app_iframe_screen.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/utils/datetime.dart';
-import 'package:deplan/utils/numbers.dart';
-import 'package:deplan/widgets/list/generic_list_tile.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
+import 'package:deplan_v1/models/txn_history_item.dart';
+import 'package:deplan_v1/models/user_balance.dart';
+import 'package:deplan_v1/screens/app_iframe_screen.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/utils/datetime.dart';
+import 'package:deplan_v1/utils/numbers.dart';
+import 'package:deplan_v1/widgets/list/generic_list_tile.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan/api/auth_api.dart';
-import 'package:deplan/api/balance_api.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/screens/account/components/account_header.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/api/balance_api.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/screens/account/components/account_header.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AccountDetailsScreen extends StatefulWidget {

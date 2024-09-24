@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan/api/auth_api.dart';
-import 'package:deplan/screens/home_screen.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/utils/crypto.dart';
-import 'package:deplan/widgets/form/input_form.dart';
-import 'package:deplan/widgets/list/keyboard_dismissable_list.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/screens/home_screen.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/utils/crypto.dart';
+import 'package:deplan_v1/widgets/form/input_form.dart';
+import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 
 class RestoreAccountScreen extends StatefulWidget {
   const RestoreAccountScreen({Key? key}) : super(key: key);

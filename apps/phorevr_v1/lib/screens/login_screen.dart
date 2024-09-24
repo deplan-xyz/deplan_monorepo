@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/screens/home_screen.dart';
-import 'package:phorevr/screens/login/create_profile_screen.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/utils/js_deplan.dart' as deplan;
-import 'package:phorevr/widgets/view/app_padding.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/screens/home_screen.dart';
+import 'package:phorevr_v1/screens/login/create_profile_screen.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/utils/js_deplan.dart' as deplan;
+import 'package:phorevr_v1/widgets/view/app_padding.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

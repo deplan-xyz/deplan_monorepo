@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:phorevr/models/user.dart';
-import 'package:phorevr/screens/account/deposit_amount_screen.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/widgets/buttons/icon_button_with_text.dart';
+import 'package:phorevr_v1/models/user.dart';
+import 'package:phorevr_v1/screens/account/deposit_amount_screen.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/widgets/buttons/icon_button_with_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AccountWalletSection extends StatelessWidget {
@@ -80,7 +80,7 @@ class AccountWalletSection extends StatelessWidget {
             );
           },
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
           ),
           child: const Text(
             'View your wallet on blockchain »',

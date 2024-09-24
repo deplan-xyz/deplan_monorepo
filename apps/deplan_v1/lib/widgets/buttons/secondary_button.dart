@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 
 class SecondaryButton extends StatelessWidget {
   final Widget? child;

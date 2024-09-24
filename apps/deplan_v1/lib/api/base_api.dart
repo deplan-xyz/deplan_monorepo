@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:deplan/api/auth_api.dart';
+import 'package:deplan_v1/api/auth_api.dart';
 
 class BaseApi {
   // final baseUrl = 'http://localhost:9898';

@@ -1,11 +1,11 @@
-import 'package:deplan/utils/validation.dart';
-import 'package:deplan/widgets/list/keyboard_dismissable_list.dart';
+import 'package:deplan_v1/utils/validation.dart';
+import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:deplan/screens/home_screen.dart';
-import 'package:deplan/widgets/form/input_form.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/screens/home_screen.dart';
+import 'package:deplan_v1/widgets/form/input_form.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 
 class CheckLoginCodeScreen extends StatefulWidget {
   final String code;

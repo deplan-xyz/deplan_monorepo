@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/balance_api.dart';
-import 'package:phorevr/utils/debounce.dart';
-import 'package:phorevr/utils/validation.dart';
-import 'package:phorevr/widgets/form/input_form.dart';
-import 'package:phorevr/widgets/list/keyboard_dismissable_list.dart';
-import 'package:phorevr/widgets/view/app_padding.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/api/balance_api.dart';
+import 'package:phorevr_v1/utils/debounce.dart';
+import 'package:phorevr_v1/utils/validation.dart';
+import 'package:phorevr_v1/widgets/form/input_form.dart';
+import 'package:phorevr_v1/widgets/list/keyboard_dismissable_list.dart';
+import 'package:phorevr_v1/widgets/view/app_padding.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DepositAmountScreen<T extends Widget> extends StatefulWidget {

@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/screens/home_screen.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/utils/crypto.dart';
-import 'package:phorevr/widgets/form/input_form.dart';
-import 'package:phorevr/widgets/list/keyboard_dismissable_list.dart';
-import 'package:phorevr/widgets/view/app_padding.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/screens/home_screen.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/utils/crypto.dart';
+import 'package:phorevr_v1/widgets/form/input_form.dart';
+import 'package:phorevr_v1/widgets/list/keyboard_dismissable_list.dart';
+import 'package:phorevr_v1/widgets/view/app_padding.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class RestoreAccountScreen extends StatefulWidget {
   const RestoreAccountScreen({Key? key}) : super(key: key);

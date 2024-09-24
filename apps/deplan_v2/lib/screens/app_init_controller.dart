@@ -1,9 +1,9 @@
-import 'package:deplan_subscriptions_client/api/auth.dart';
-import 'package:deplan_subscriptions_client/components/screen_wrapper.dart';
-import 'package:deplan_subscriptions_client/models/subscription_query_data.dart';
-import 'package:deplan_subscriptions_client/screens/confirm_subsciption.dart';
-import 'package:deplan_subscriptions_client/screens/signin.dart';
-import 'package:deplan_subscriptions_client/screens/subsciptions_home.dart';
+import 'package:deplan/api/auth.dart';
+import 'package:deplan/components/screen_wrapper.dart';
+import 'package:deplan/models/subscription_query_data.dart';
+import 'package:deplan/screens/confirm_subsciption.dart';
+import 'package:deplan/screens/signin.dart';
+import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppInitController extends StatefulWidget {

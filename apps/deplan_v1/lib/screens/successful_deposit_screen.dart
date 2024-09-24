@@ -1,6 +1,6 @@
-import 'package:deplan/app_home.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/utils/numbers.dart';
+import 'package:deplan_v1/app_home.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/utils/numbers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

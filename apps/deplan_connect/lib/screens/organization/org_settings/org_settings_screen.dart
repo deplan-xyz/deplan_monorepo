@@ -135,7 +135,7 @@ class _OrgSettingsScreenState extends State<OrgSettingsScreen> {
                   );
                 },
                 style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
                 ),
                 child: const Text(
                   'Edit',

@@ -136,7 +136,7 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
       actions: [
         TextButton(
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.transparent),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
           ),
           onPressed: saving ? null : onSave,
           child: Text(
@@ -149,7 +149,7 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
       ],
       leading: TextButton(
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
         ),
         onPressed: onCancel,
         child: const Text(

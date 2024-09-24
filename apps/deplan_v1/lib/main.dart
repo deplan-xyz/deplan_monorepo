@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:deplan/app.dart';
+import 'package:deplan_v1/app.dart';
 import 'package:flutter/services.dart';
 
 void main() {

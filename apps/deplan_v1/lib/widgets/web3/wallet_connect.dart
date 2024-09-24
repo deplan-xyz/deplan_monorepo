@@ -1,7 +1,7 @@
-import 'package:deplan/api/auth_api.dart';
-import 'package:deplan/services/app_link_service.dart';
-import 'package:deplan/services/navigator_service.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/services/app_link_service.dart';
+import 'package:deplan_v1/services/navigator_service.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:walletconnect_flutter_v2/walletconnect_flutter_v2.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 
 class AccountTitleShimmer extends StatelessWidget {
   const AccountTitleShimmer({super.key});

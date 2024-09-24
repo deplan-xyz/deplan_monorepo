@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/widgets/image/ipfs_image.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/widgets/image/ipfs_image.dart';
 
 class AccountTitle extends StatelessWidget {
   final User? user;

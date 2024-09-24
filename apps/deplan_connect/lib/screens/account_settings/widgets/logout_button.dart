@@ -18,8 +18,8 @@ class LogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton.icon(
       style: const ButtonStyle(
-        overlayColor: MaterialStatePropertyAll(Colors.transparent),
-        iconColor: MaterialStatePropertyAll(COLOR_RED),
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
+        iconColor: WidgetStatePropertyAll(COLOR_RED),
       ),
       onPressed: () {
         removeToken();

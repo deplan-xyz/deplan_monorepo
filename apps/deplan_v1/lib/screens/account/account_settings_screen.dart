@@ -1,14 +1,14 @@
-import 'package:deplan/models/app_link/app_link_data.dart';
-import 'package:deplan/models/app_link/app_link_type.dart';
-import 'package:deplan/screens/qr_scanner_screen.dart';
-import 'package:deplan/services/app_link_service.dart';
-import 'package:deplan/widgets/buttons/gray_button.dart';
+import 'package:deplan_v1/models/app_link/app_link_data.dart';
+import 'package:deplan_v1/models/app_link/app_link_type.dart';
+import 'package:deplan_v1/screens/qr_scanner_screen.dart';
+import 'package:deplan_v1/services/app_link_service.dart';
+import 'package:deplan_v1/widgets/buttons/gray_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:deplan/api/auth_api.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 import 'package:provider/provider.dart';
 
 class AccountSettingsSreen extends StatelessWidget {

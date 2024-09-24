@@ -1,11 +1,11 @@
-import 'package:deplan/screens/app_iframe_screen.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
+import 'package:deplan_v1/screens/app_iframe_screen.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/widgets/buttons/icon_button_with_text.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/widgets/buttons/icon_button_with_text.dart';
 
 class AccountWalletSection extends StatelessWidget {
   final User? user;

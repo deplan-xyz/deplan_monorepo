@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/models/file_info.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/utils/ipfs.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/models/file_info.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/utils/ipfs.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,7 +83,7 @@ class _ImageViewerScreenState extends State<ImageViewerScreen> {
               );
             },
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
             ),
             child: const Text(
               'Check photo on blockchain »',

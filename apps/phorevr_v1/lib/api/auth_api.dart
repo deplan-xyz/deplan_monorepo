@@ -3,11 +3,11 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:phorevr/api/base_api.dart';
-import 'package:phorevr/app_storage.dart';
-import 'package:phorevr/models/user.dart';
-import 'package:phorevr/utils/crypto.dart';
-import 'package:phorevr/utils/js_deplan.dart';
+import 'package:phorevr_v1/api/base_api.dart';
+import 'package:phorevr_v1/app_storage.dart';
+import 'package:phorevr_v1/models/user.dart';
+import 'package:phorevr_v1/utils/crypto.dart';
+import 'package:phorevr_v1/utils/js_deplan.dart';
 import 'package:solana/base58.dart';
 import 'package:solana/encoder.dart';
 import 'package:solana/solana.dart';

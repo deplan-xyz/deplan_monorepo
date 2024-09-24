@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:deplan/models/app_link/app_link_data.dart';
-import 'package:deplan/models/app_link/app_link_type.dart';
-import 'package:deplan/utils/app_link.dart';
+import 'package:deplan_v1/models/app_link/app_link_data.dart';
+import 'package:deplan_v1/models/app_link/app_link_type.dart';
+import 'package:deplan_v1/utils/app_link.dart';
 
 class AppLinkService {
   final StreamController<String> _addressCtrl =

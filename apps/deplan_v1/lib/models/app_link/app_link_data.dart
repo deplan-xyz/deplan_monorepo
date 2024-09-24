@@ -1,4 +1,4 @@
-import 'package:deplan/models/app_link/app_link_type.dart';
+import 'package:deplan_v1/models/app_link/app_link_type.dart';
 
 class AppLinkData {
   AppLinkType type;

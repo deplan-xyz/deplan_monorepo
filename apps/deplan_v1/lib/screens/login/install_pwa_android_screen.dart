@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:deplan/screens/login/create_profile_screen.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/screens/login/create_profile_screen.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 
 class InstallPwaAndroidScreen extends StatelessWidget {
   const InstallPwaAndroidScreen({super.key});

@@ -257,10 +257,10 @@
       "name": "deplan_monorepo",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-09-24T10:28:51.425285Z",
+  "generated": "2024-09-24T11:42:56.075673Z",
   "generator": "pub",
   "generatorVersion": "3.4.1",
   "flutterRoot": "file:///Users/antonpash/flutter-3.16",

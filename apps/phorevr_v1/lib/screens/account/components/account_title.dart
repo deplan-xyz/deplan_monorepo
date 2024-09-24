@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:phorevr/models/user.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/widgets/image/ipfs_image.dart';
+import 'package:phorevr_v1/models/user.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/widgets/image/ipfs_image.dart';
 
 class AccountTitle extends StatelessWidget {
   final User? user;

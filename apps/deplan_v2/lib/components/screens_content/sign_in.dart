@@ -1,8 +1,8 @@
-import 'package:deplan_subscriptions_client/components/apple_sign_in_button.dart';
-import 'package:deplan_subscriptions_client/models/subscription_query_data.dart';
-import 'package:deplan_subscriptions_client/screens/login_with_credentials.dart';
-import 'package:deplan_subscriptions_client/screens/signup_with_credentials.dart';
-import 'package:deplan_subscriptions_client/theme/app_theme.dart';
+import 'package:deplan/components/apple_sign_in_button.dart';
+import 'package:deplan/models/subscription_query_data.dart';
+import 'package:deplan/screens/login_with_credentials.dart';
+import 'package:deplan/screens/signup_with_credentials.dart';
+import 'package:deplan/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 enum Mode { signUp, signIn }

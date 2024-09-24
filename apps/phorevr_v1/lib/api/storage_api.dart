@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:phorevr/api/base_api.dart';
+import 'package:phorevr_v1/api/base_api.dart';
 
 class _StorageApi extends BaseApi {
   Future<Response> store(

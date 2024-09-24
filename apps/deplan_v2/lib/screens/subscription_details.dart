@@ -1,10 +1,10 @@
-import 'package:deplan_subscriptions_client/api/common_api.dart';
-import 'package:deplan_subscriptions_client/components/day_grid.dart';
-import 'package:deplan_subscriptions_client/components/screen_wrapper.dart';
-import 'package:deplan_subscriptions_client/components/subscription_card.dart';
-import 'package:deplan_subscriptions_client/models/me.dart';
-import 'package:deplan_subscriptions_client/models/subscription.dart';
-import 'package:deplan_subscriptions_client/theme/app_theme.dart';
+import 'package:deplan/api/common_api.dart';
+import 'package:deplan/components/day_grid.dart';
+import 'package:deplan/components/screen_wrapper.dart';
+import 'package:deplan/components/subscription_card.dart';
+import 'package:deplan/models/me.dart';
+import 'package:deplan/models/subscription.dart';
+import 'package:deplan/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

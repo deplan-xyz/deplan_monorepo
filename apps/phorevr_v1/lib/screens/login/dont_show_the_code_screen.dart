@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/screens/login/check_login_code_screen.dart';
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/screens/login/check_login_code_screen.dart';
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class DontShowTheCodeScreen extends StatelessWidget {
   final String code;

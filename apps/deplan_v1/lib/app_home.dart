@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:deplan/api/auth_api.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/screens/home_screen.dart';
-import 'package:deplan/screens/login_screen.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/screens/home_screen.dart';
+import 'package:deplan_v1/screens/login_screen.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 
 class AppHome extends StatefulWidget {
   static const routeName = '/';

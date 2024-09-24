@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:deplan/screens/login/create_profile_screen.dart';
-import 'package:deplan/screens/login/install_pwa_android_screen.dart';
-import 'package:deplan/screens/login/install_pwa_ios_screen.dart';
-import 'package:deplan/screens/login/restore_account_screen.dart';
-import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/utils/platform.dart';
-import 'package:deplan/widgets/buttons/secondary_button.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
+import 'package:deplan_v1/screens/login/create_profile_screen.dart';
+import 'package:deplan_v1/screens/login/install_pwa_android_screen.dart';
+import 'package:deplan_v1/screens/login/install_pwa_ios_screen.dart';
+import 'package:deplan_v1/screens/login/restore_account_screen.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/utils/platform.dart';
+import 'package:deplan_v1/widgets/buttons/secondary_button.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

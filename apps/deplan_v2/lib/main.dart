@@ -1,5 +1,5 @@
-import 'package:deplan_subscriptions_client/api/auth.dart';
-import 'package:deplan_subscriptions_client/app.dart';
+import 'package:deplan/api/auth.dart';
+import 'package:deplan/app.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/foundation.dart';

@@ -1,6 +1,6 @@
-import 'package:deplan_subscriptions_client/components/screen_wrapper.dart';
-import 'package:deplan_subscriptions_client/components/screens_content/sign_in.dart';
-import 'package:deplan_subscriptions_client/models/subscription_query_data.dart';
+import 'package:deplan/components/screen_wrapper.dart';
+import 'package:deplan/components/screens_content/sign_in.dart';
+import 'package:deplan/models/subscription_query_data.dart';
 import 'package:flutter/material.dart';
 
 class Signin extends StatelessWidget {

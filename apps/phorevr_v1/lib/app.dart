@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/app_home.dart';
-import 'package:phorevr/theme/app_theme.dart';
+import 'package:phorevr_v1/app_home.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

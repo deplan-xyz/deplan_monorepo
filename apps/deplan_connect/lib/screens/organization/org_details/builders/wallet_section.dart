@@ -58,7 +58,7 @@ buildWalletSection(BuildContext context, Organization org) {
           );
         },
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
         ),
         child: const Text(
           'View wallet on blockchain »',

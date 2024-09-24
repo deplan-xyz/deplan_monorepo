@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:deplan_subscriptions_client/api/base_api.dart';
-import 'package:deplan_subscriptions_client/app_storage.dart';
-import 'package:deplan_subscriptions_client/constants/common.dart';
+import 'package:deplan/api/base_api.dart';
+import 'package:deplan/app_storage.dart';
+import 'package:deplan/constants/common.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -39,7 +39,7 @@ class Auth {
 
     if (kIsWeb) {
       try {
-        await await FirebaseAuth.instance.signInWithCredential(credentials);
+        await FirebaseAuth.instance.signInWithCredential(credentials);
       } on FirebaseAuthException catch (err) {
         print("Auth error: ${err.code}");
         rethrow;

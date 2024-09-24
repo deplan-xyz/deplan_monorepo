@@ -1,4 +1,4 @@
-import 'package:deplan_subscriptions_client/theme/app_theme.dart';
+import 'package:deplan/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:transparent_image/transparent_image.dart';

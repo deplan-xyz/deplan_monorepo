@@ -1,9 +1,9 @@
-import 'package:deplan_subscriptions_client/api/base_api.dart';
-import 'package:deplan_subscriptions_client/models/me.dart';
-import 'package:deplan_subscriptions_client/models/organization.dart';
-import 'package:deplan_subscriptions_client/models/payment_info.dart';
-import 'package:deplan_subscriptions_client/models/subscription.dart';
-import 'package:deplan_subscriptions_client/models/subscription_details.dart';
+import 'package:deplan/api/base_api.dart';
+import 'package:deplan/models/me.dart';
+import 'package:deplan/models/organization.dart';
+import 'package:deplan/models/payment_info.dart';
+import 'package:deplan/models/subscription.dart';
+import 'package:deplan/models/subscription_details.dart';
 import 'package:dio/dio.dart';
 
 class API extends BaseApi {

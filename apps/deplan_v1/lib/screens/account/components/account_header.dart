@@ -1,9 +1,9 @@
-import 'package:deplan/models/user_balance.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/models/user_balance.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan/models/user.dart';
-import 'package:deplan/screens/account/components/account_wallet_section.dart';
+import 'package:deplan_v1/models/user.dart';
+import 'package:deplan_v1/screens/account/components/account_wallet_section.dart';
 
 class AccountHeader extends StatelessWidget {
   final UserBalance? balance;

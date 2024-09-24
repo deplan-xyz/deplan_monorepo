@@ -88,7 +88,7 @@ buildWalletSection(BuildContext context, Account account) {
           );
         },
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
+          overlayColor: WidgetStateProperty.all(Colors.transparent),
         ),
         child: const Text(
           'View your wallet on blockchain »',

@@ -1,5 +1,5 @@
-import 'package:deplan_subscriptions_client/models/subscription.dart';
-import 'package:deplan_subscriptions_client/theme/app_theme.dart';
+import 'package:deplan/models/subscription.dart';
+import 'package:deplan/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
 

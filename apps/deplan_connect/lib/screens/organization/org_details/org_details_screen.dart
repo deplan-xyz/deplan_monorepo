@@ -123,7 +123,7 @@ class _OrgDetailsScreenState extends State<OrgDetailsScreen> {
       height: 38,
       child: TextButton(
         style: btnStyle.copyWith(
-          backgroundColor: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all(
             revenuePeriod == period ? COLOR_ALMOST_BLACK : COLOR_LIGHT_GRAY,
           ),
         ),

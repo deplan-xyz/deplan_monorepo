@@ -19,10 +19,10 @@ class WithdrawScreen extends StatelessWidget {
           const SizedBox(height: 35),
           TextButton.icon(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all<Color>(
+              overlayColor: WidgetStateProperty.all<Color>(
                 Colors.transparent,
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(10),
               ),
             ),
@@ -68,10 +68,10 @@ class WithdrawScreen extends StatelessWidget {
           const SizedBox(height: 10),
           TextButton.icon(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all<Color>(
+              overlayColor: WidgetStateProperty.all<Color>(
                 Colors.transparent,
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(10),
               ),
             ),
@@ -117,10 +117,10 @@ class WithdrawScreen extends StatelessWidget {
           const SizedBox(height: 10),
           TextButton.icon(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all<Color>(
+              overlayColor: WidgetStateProperty.all<Color>(
                 Colors.transparent,
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(10),
               ),
             ),
@@ -160,10 +160,10 @@ class WithdrawScreen extends StatelessWidget {
           const SizedBox(height: 10),
           TextButton.icon(
             style: ButtonStyle(
-              overlayColor: MaterialStateProperty.all<Color>(
+              overlayColor: WidgetStateProperty.all<Color>(
                 Colors.transparent,
               ),
-              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(10),
               ),
             ),

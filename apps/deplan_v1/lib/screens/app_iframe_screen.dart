@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:deplan/models/web3_message.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/models/web3_message.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';

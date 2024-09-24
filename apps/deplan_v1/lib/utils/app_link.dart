@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
-import 'package:deplan/models/app_link/app_link_data.dart';
-import 'package:deplan/models/app_link/app_link_type.dart';
+import 'package:deplan_v1/models/app_link/app_link_data.dart';
+import 'package:deplan_v1/models/app_link/app_link_type.dart';
 
 class AppLinkUtils {
   static final _appLink = AppLinks();

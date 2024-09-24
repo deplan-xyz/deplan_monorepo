@@ -1,4 +1,4 @@
-import 'package:phorevr/utils/numbers.dart';
+import 'package:phorevr_v1/utils/numbers.dart';
 
 class TokenAmount {
   String? amount;

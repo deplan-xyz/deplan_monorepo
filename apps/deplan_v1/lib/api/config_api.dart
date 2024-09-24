@@ -1,4 +1,4 @@
-import 'package:deplan/api/base_api.dart';
+import 'package:deplan_v1/api/base_api.dart';
 import 'package:dio/dio.dart';
 
 class _ConfigApi extends BaseApi {

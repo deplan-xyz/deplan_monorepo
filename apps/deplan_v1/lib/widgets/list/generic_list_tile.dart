@@ -1,4 +1,4 @@
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class GenericListTile extends StatelessWidget {

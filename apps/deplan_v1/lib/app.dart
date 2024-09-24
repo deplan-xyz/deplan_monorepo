@@ -1,12 +1,12 @@
 import 'package:app_version_update/data/models/app_version_result.dart';
-import 'package:deplan/constants.dart';
-import 'package:deplan/services/app_link_service.dart';
-import 'package:deplan/screens/update_screen.dart';
-import 'package:deplan/services/navigator_service.dart';
-import 'package:deplan/widgets/web3/wallet_connect.dart';
+import 'package:deplan_v1/constants.dart';
+import 'package:deplan_v1/services/app_link_service.dart';
+import 'package:deplan_v1/screens/update_screen.dart';
+import 'package:deplan_v1/services/navigator_service.dart';
+import 'package:deplan_v1/widgets/web3/wallet_connect.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan/app_home.dart';
-import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan_v1/app_home.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:app_version_update/app_version_update.dart';
 

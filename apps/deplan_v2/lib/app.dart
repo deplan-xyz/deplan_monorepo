@@ -1,18 +1,18 @@
 import 'dart:async';
-import 'package:deplan_subscriptions_client/models/subscription.dart';
-import 'package:deplan_subscriptions_client/models/subscription_query_data.dart';
-import 'package:deplan_subscriptions_client/screens/app_init_controller.dart';
-import 'package:deplan_subscriptions_client/screens/settings_screen.dart';
-import 'package:deplan_subscriptions_client/screens/subsciptions_home.dart';
-import 'package:deplan_subscriptions_client/screens/subscription_details.dart';
-import 'package:deplan_subscriptions_client/utilities/uri.dart';
+import 'package:deplan/models/subscription.dart';
+import 'package:deplan/models/subscription_query_data.dart';
+import 'package:deplan/screens/app_init_controller.dart';
+import 'package:deplan/screens/settings_screen.dart';
+import 'package:deplan/screens/subsciptions_home.dart';
+import 'package:deplan/screens/subscription_details.dart';
+import 'package:deplan/utilities/uri.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan_subscriptions_client/screens/confirm_subsciption.dart';
-import 'package:deplan_subscriptions_client/screens/signin.dart';
-import 'package:deplan_subscriptions_client/theme/app_theme.dart';
-import 'package:deplan_subscriptions_client/constants/routes.dart';
+import 'package:deplan/screens/confirm_subsciption.dart';
+import 'package:deplan/screens/signin.dart';
+import 'package:deplan/theme/app_theme.dart';
+import 'package:deplan/constants/routes.dart';
 import 'package:uni_links/uni_links.dart';
 
 class App extends StatefulWidget {

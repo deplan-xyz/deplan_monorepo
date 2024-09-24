@@ -1,12 +1,12 @@
-import 'package:deplan_subscriptions_client/api/auth.dart';
-import 'package:deplan_subscriptions_client/components/custom_button.dart';
-import 'package:deplan_subscriptions_client/components/custom_testfield.dart';
-import 'package:deplan_subscriptions_client/components/ui_notifications.dart';
-import 'package:deplan_subscriptions_client/models/subscription_query_data.dart';
-import 'package:deplan_subscriptions_client/screens/confirm_subsciption.dart';
-import 'package:deplan_subscriptions_client/screens/signup_with_credentials.dart';
-import 'package:deplan_subscriptions_client/screens/subsciptions_home.dart';
-import 'package:deplan_subscriptions_client/utilities/validators.dart';
+import 'package:deplan/api/auth.dart';
+import 'package:deplan/components/custom_button.dart';
+import 'package:deplan/components/custom_testfield.dart';
+import 'package:deplan/components/ui_notifications.dart';
+import 'package:deplan/models/subscription_query_data.dart';
+import 'package:deplan/screens/confirm_subsciption.dart';
+import 'package:deplan/screens/signup_with_credentials.dart';
+import 'package:deplan/screens/subsciptions_home.dart';
+import 'package:deplan/utilities/validators.dart';
 import 'package:flutter/material.dart';
 
 class LoginWithCredentialsScreen extends StatefulWidget {

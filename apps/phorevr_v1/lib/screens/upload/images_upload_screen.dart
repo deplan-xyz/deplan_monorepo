@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/api/storage_api.dart';
-import 'package:phorevr/theme/app_theme.dart';
-import 'package:phorevr/utils/image.dart';
-import 'package:phorevr/utils/js_deplan.dart' as deplan;
-import 'package:phorevr/widgets/view/screen_scaffold.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/api/storage_api.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
+import 'package:phorevr_v1/utils/image.dart';
+import 'package:phorevr_v1/utils/js_deplan.dart' as deplan;
+import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';
 
 class ImagesUploadScreen extends StatefulWidget {
   final PlatformFile file;

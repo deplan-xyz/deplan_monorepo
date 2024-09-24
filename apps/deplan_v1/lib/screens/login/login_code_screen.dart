@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:deplan/screens/login/dont_show_the_code_screen.dart';
-import 'package:deplan/widgets/buttons/secondary_button.dart';
-import 'package:deplan/widgets/form/input_form.dart';
-import 'package:deplan/widgets/view/app_padding.dart';
-import 'package:deplan/widgets/view/screen_scaffold.dart';
+import 'package:deplan_v1/screens/login/dont_show_the_code_screen.dart';
+import 'package:deplan_v1/widgets/buttons/secondary_button.dart';
+import 'package:deplan_v1/widgets/form/input_form.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 
 class LoginCodeScreen extends StatefulWidget {
   final String code;

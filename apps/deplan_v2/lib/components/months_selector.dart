@@ -1,4 +1,4 @@
-import 'package:deplan_subscriptions_client/utilities/datetime.dart';
+import 'package:deplan/utilities/datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 

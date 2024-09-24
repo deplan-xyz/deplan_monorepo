@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:phorevr/api/auth_api.dart';
-import 'package:phorevr/models/user.dart';
-import 'package:phorevr/screens/home_screen.dart';
-import 'package:phorevr/screens/login_screen.dart';
-import 'package:phorevr/theme/app_theme.dart';
+import 'package:phorevr_v1/api/auth_api.dart';
+import 'package:phorevr_v1/models/user.dart';
+import 'package:phorevr_v1/screens/home_screen.dart';
+import 'package:phorevr_v1/screens/login_screen.dart';
+import 'package:phorevr_v1/theme/app_theme.dart';
 
 class AppHome extends StatefulWidget {
   static const routeName = '/';
