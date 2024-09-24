@@ -32,7 +32,7 @@ class SubscriptionDetailsModel {
   factory SubscriptionDetailsModel.fromJson(Map<String, dynamic> json) {
     final usagePerMonth = Map<String, List<num>>.from(json['usagePerMonth'].map(
       (key, value) => MapEntry(key, List<num>.from(value)),
-    ));
+    ),);
 
     return SubscriptionDetailsModel(
       orgId: json['orgId'],

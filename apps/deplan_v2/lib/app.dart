@@ -48,15 +48,18 @@ class _AppState extends State<App> {
 
   void _handleIncomingLinks() async {
     // Handle deep link when the app is already running (iOS only)
-    _sub = uriLinkStream.listen((Uri? uri) {
-      final orgId = getOrgIdFromUri(uri);
-      if (orgId != null) {
-        _navigateToConfirmSubscription(orgId);
-      }
-    }, onError: (err) {
-      // Handle error
-      print('Error: $err');
-    });
+    _sub = uriLinkStream.listen(
+      (Uri? uri) {
+        final orgId = getOrgIdFromUri(uri);
+        if (orgId != null) {
+          _navigateToConfirmSubscription(orgId);
+        }
+      },
+      onError: (err) {
+        // Handle error
+        print('Error: $err');
+      },
+    );
   }
 
   @override

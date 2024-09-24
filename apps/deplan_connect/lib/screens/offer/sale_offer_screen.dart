@@ -384,7 +384,7 @@ class _SaleOfferScreenState extends State<SaleOfferScreen> {
         'accepted',
         config.mode == Mode.Lite,
       );
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
       }
     } catch (err) {

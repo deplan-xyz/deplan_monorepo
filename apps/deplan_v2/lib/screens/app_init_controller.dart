@@ -57,7 +57,7 @@ class _AppInitControllerState extends State<AppInitController> {
 
     if (isAuthenticated && hasQueryParams == true) {
       final subscriptionQueryData = SubscriptionQueryData(
-          orgId: orgId!, redirectUrl: redirectUrl!, data: data!);
+          orgId: orgId!, redirectUrl: redirectUrl!, data: data!,);
       return ConfirmSubsciption(subscriptionQueryData: subscriptionQueryData);
     }
 
@@ -68,7 +68,7 @@ class _AppInitControllerState extends State<AppInitController> {
     if (!isAuthenticated) {
       final subscriptionQueryData = hasQueryParams == true
           ? SubscriptionQueryData(
-              orgId: orgId!, redirectUrl: redirectUrl!, data: data!)
+              orgId: orgId!, redirectUrl: redirectUrl!, data: data!,)
           : null;
       return Signin(subscriptionQueryData: subscriptionQueryData);
     }

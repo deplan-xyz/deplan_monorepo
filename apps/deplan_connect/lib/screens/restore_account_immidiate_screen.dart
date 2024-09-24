@@ -37,7 +37,7 @@ class _RestoreAccountImmidiateScreenState
     try {
       final response = await usersApi.restoreAccount(widget.code);
       await appStorage.write('jwt_token', response.token);
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(AppHome.routeName, (route) => false);
       }

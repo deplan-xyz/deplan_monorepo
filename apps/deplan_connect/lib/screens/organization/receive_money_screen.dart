@@ -44,7 +44,7 @@ class _ReceiveMoneyScreenState extends State<ReceiveMoneyScreen> {
           await orgsApi.receivePayment(organization.id, _item, _price!);
       final paymentData = Payment.fromJson(response.data);
 
-      if (context.mounted) {
+      if (mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(

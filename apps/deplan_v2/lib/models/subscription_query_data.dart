@@ -4,5 +4,5 @@ class SubscriptionQueryData {
   final String data;
 
   SubscriptionQueryData(
-      {required this.orgId, required this.redirectUrl, required this.data});
+      {required this.orgId, required this.redirectUrl, required this.data,});
 }

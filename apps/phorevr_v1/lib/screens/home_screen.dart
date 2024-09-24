@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
       type: FileType.image,
       allowMultiple: false,
     );
-    if (pickedImage != null && context.mounted) {
+    if (pickedImage != null && mounted) {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => ImagesUploadScreen(file: pickedImage.files.first),

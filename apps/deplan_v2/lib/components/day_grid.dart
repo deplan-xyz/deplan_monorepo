@@ -9,8 +9,11 @@ class DayGrid extends StatelessWidget {
   final DateTime date;
   final Subscription subscriptionData;
 
-  const DayGrid(
-      {super.key, required this.date, required this.subscriptionData});
+  const DayGrid({
+    super.key,
+    required this.date,
+    required this.subscriptionData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,9 @@ class DayGrid extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: FutureBuilder<List<SubscriptionDetailsModel>>(
         future: api.subsciptionDetails(
-            subscriptionData.orgId, date.millisecondsSinceEpoch),
+          subscriptionData.orgId,
+          date.millisecondsSinceEpoch,
+        ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             SubscriptionDetailsModel? currentMonthSubscriptions = snapshot.data!
@@ -28,11 +33,15 @@ class DayGrid extends StatelessWidget {
                 .toList()
                 .first;
             return gridBuilder(
-                daysInMonth,
-                (BuildContext context, int index) => daysGrid(context, index,
-                    usage: currentMonthSubscriptions?.eventsByDay ?? [],
-                    currentMonthName:
-                        "${DateFormat('MMMM').format(date)} ${index + 1}"));
+              daysInMonth,
+              (BuildContext context, int index) => daysGrid(
+                context,
+                index,
+                usage: currentMonthSubscriptions.eventsByDay,
+                currentMonthName:
+                    "${DateFormat('MMMM').format(date)} ${index + 1}",
+              ),
+            );
           }
 
           if (snapshot.hasError) {
@@ -77,7 +86,7 @@ mockGrid(BuildContext context, int index) {
     ),
     child: Center(
       child: Text(
-        "$dayNumber",
+        '$dayNumber',
         style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -99,10 +108,13 @@ skeletonGrid(BuildContext context, int index) {
   );
 }
 
-daysGrid(BuildContext context, int index,
-    {List<Map<String, num>>? usage,
-    int? usageIndex,
-    String? currentMonthName}) {
+daysGrid(
+  BuildContext context,
+  int index, {
+  List<Map<String, num>>? usage,
+  int? usageIndex,
+  String? currentMonthName,
+}) {
   int dayNumber = index + 1;
   Map<String, num> usageData = usage?[index] ?? {};
   final usageColors = [
@@ -191,14 +203,16 @@ daysGrid(BuildContext context, int index,
       richMessage: TextSpan(
         text: '$currentMonthName\n',
         children: usageData.entries
-            .map((entry) => TextSpan(
-                  text: '${entry.key}: ${entry.value} \n',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF6D7086),
-                  ),
-                ))
+            .map(
+              (entry) => TextSpan(
+                text: '${entry.key}: ${entry.value} \n',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF6D7086),
+                ),
+              ),
+            )
             .toList(),
         style: const TextStyle(
           fontSize: 14,
@@ -207,12 +221,14 @@ daysGrid(BuildContext context, int index,
         ),
       ),
       child: Center(
-        child: Text(dayNumber.toString(),
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-              color: getUsageFontColor(summaryEventUsage),
-            )),
+        child: Text(
+          dayNumber.toString(),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: getUsageFontColor(summaryEventUsage),
+          ),
+        ),
       ),
     ),
   );

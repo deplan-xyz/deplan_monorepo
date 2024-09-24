@@ -59,7 +59,7 @@ class MonthSelectorState extends State<MonthSelector> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 9),
+                          horizontal: 10, vertical: 9,),
                       decoration: BoxDecoration(
                         color: isSelected ? Colors.purple : Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
@@ -98,7 +98,7 @@ class MonthSelectorState extends State<MonthSelector> {
           icon: SizedBox(
               width: 25,
               height: 25,
-              child: Image.asset('assets/icons/calendar-icon.png')),
+              child: Image.asset('assets/icons/calendar-icon.png'),),
         ),
       ],
     );

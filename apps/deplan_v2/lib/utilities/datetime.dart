@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 String formatMonthYear(DateTime date) {
-  String formattedDate = DateFormat("MMM yy").format(date);
+  String formattedDate = DateFormat('MMM yy').format(date);
   return formattedDate;
 }
 

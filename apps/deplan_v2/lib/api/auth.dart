@@ -33,7 +33,7 @@ class Auth {
   }
 
   static Future<void> signInWithApple(OAuthCredential credentials) async {
-    final appleProvider = OAuthProvider("apple.com")
+    final appleProvider = OAuthProvider('apple.com')
       ..addScope('name')
       ..addScope('email');
 
@@ -41,7 +41,7 @@ class Auth {
       try {
         await FirebaseAuth.instance.signInWithCredential(credentials);
       } on FirebaseAuthException catch (err) {
-        print("Auth error: ${err.code}");
+        print('Auth error: ${err.code}');
         rethrow;
       }
 
@@ -53,7 +53,7 @@ class Auth {
   }
 
   static Future<void> signUpWithCredentials(
-      String email, String password) async {
+      String email, String password,) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -72,7 +72,7 @@ class Auth {
   }
 
   static Future<UserCredential?> signInWithCredentials(
-      String email, String password) async {
+      String email, String password,) async {
     try {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -105,7 +105,7 @@ class Auth {
   static Future<String> getDeplanAuthToken() async {
     final firebaseUserId = FirebaseAuth.instance.currentUser?.uid;
     final response = await client.post('/auth/signin/firebase',
-        data: {'firebaseUserId': firebaseUserId});
+        data: {'firebaseUserId': firebaseUserId},);
     return response.data['token'];
   }
 

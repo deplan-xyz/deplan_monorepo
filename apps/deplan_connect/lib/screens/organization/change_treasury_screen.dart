@@ -53,7 +53,7 @@ class _ChangeTreasuryScreenState extends State<ChangeTreasuryScreen> {
         await updaTreasury();
         widget.organization.settings!.treasury = treasury;
 
-        if (context.mounted) {
+        if (mounted) {
           Navigator.of(context).pop(treasury);
         }
       } catch (e) {

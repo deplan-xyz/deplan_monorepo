@@ -454,7 +454,7 @@ class _OfferPreviewScreenState extends State<OfferPreviewScreen> {
       });
     } on DioError catch (err) {
       final equityError = err.response?.data['equityAllocation'];
-      if (equityError != null && context.mounted) {
+      if (equityError != null && mounted) {
         Navigator.of(context).pop(equityError);
       }
     } catch (err) {
@@ -472,7 +472,7 @@ class _OfferPreviewScreenState extends State<OfferPreviewScreen> {
     });
     try {
       await orgsApi.revokeOffer(widget.organization.id!, offer.id!);
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context).pop();
       }
       if (widget.onRevoke != null) {

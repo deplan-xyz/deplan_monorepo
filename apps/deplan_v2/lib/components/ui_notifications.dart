@@ -8,7 +8,7 @@ enum SnackBarType {
 }
 
 showSnackBar(BuildContext context, String message,
-    {SnackBarType type = SnackBarType.error}) {
+    {SnackBarType type = SnackBarType.error,}) {
   Color color;
   switch (type) {
     case SnackBarType.error:

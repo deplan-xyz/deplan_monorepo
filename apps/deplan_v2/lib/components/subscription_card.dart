@@ -73,7 +73,7 @@ class SubscriptionCard extends StatelessWidget {
                   BoxShadow(
                       color: Colors.grey.withOpacity(0.2),
                       blurRadius: 5,
-                      offset: const Offset(0, 5))
+                      offset: const Offset(0, 5),),
                 ],
               ),
               child: isEmpty
@@ -124,7 +124,7 @@ class SubscriptionCard extends StatelessWidget {
                                 decoration:
                                     isEmpty ? null : TextDecoration.lineThrough,
                               ),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(width: 30),
@@ -149,9 +149,9 @@ class SubscriptionCard extends StatelessWidget {
                                     ? FontWeight.normal
                                     : FontWeight.w700,
                               ),
-                            )
+                            ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ],

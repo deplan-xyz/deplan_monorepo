@@ -15,7 +15,7 @@ class SubscriptionDetails extends StatefulWidget {
   final DateTime selectedDate;
 
   const SubscriptionDetails(
-      {super.key, required this.subscriptionData, required this.selectedDate});
+      {super.key, required this.subscriptionData, required this.selectedDate,});
 
   @override
   State<SubscriptionDetails> createState() => _SubscriptionDetailsState();
@@ -104,12 +104,12 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                       onPressed: () {
                         final wallet = snapshot.data!.user.wallet;
                         launchUrl(
-                            Uri.parse('https://solscan.io/address/$wallet'));
+                            Uri.parse('https://solscan.io/address/$wallet'),);
                       },
-                      child: const Text('View on Chain'));
+                      child: const Text('View on Chain'),);
                 }
                 return const CupertinoActivityIndicator();
-              }),
+              },),
           Flexible(
             child: DayGrid(
               date: widget.selectedDate,

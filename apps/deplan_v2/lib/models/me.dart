@@ -1,23 +1,23 @@
-class _User {
+class User {
   final String wallet;
 
-  _User({required this.wallet});
+  User({required this.wallet});
 
-  factory _User.fromJson(Map<String, dynamic> json) {
-    return _User(
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
       wallet: json['wallet'],
     );
   }
 }
 
 class UserResponse {
-  final _User user;
+  final User user;
 
   UserResponse({required this.user});
 
   factory UserResponse.fromJson(Map<String, dynamic> json) {
     return UserResponse(
-      user: _User.fromJson(json['user']),
+      user: User.fromJson(json['user']),
     );
   }
 }

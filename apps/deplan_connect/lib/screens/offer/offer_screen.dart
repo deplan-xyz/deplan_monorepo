@@ -526,7 +526,7 @@ class _OfferScreenState extends State<OfferScreen> {
         status,
         config.mode == Mode.Lite,
       );
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
       }
     } on DioError catch (err) {

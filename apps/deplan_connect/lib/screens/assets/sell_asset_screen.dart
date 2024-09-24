@@ -162,7 +162,7 @@ class _SellAssetScreenState extends State<SellAssetScreen> {
         orgId: widget.organization.id!,
       );
       final newSaleOffer = SaleOffer.fromJson(response.data!);
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => SaleOfferPreviewScreen(

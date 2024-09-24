@@ -29,7 +29,7 @@ class API extends BaseApi {
   }
 
   Future<List<SubscriptionDetailsModel>> subsciptionDetails(
-      String orgId, num date) async {
+      String orgId, num date,) async {
     final response = await getRequest('/events/orgs/$orgId?date=$date');
     final fromJsonData = (response.data as List<dynamic>)
         .map((item) => SubscriptionDetailsModel.fromJson(item))
@@ -44,7 +44,7 @@ class API extends BaseApi {
 
   Future<String> getPaymentLink() async {
     final response = await getRequest('/events/payment');
-    return response.data["paymentUrl"];
+    return response.data['paymentUrl'];
   }
 
   Future<UserResponse> getMe() async {

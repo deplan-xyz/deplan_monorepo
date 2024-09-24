@@ -44,7 +44,7 @@ class _OfferInvestorPreviewState extends State<OfferInvestorPreview> {
         config.mode == Mode.Lite,
         amount: widget.amount,
       );
-      if (context.mounted) {
+      if (mounted) {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
       }
     } on DioError catch (err) {

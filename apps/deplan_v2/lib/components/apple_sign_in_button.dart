@@ -22,7 +22,7 @@ class AppleSignInButton extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ConfirmSubsciption(
-                    subscriptionQueryData: subscriptionQueryData)));
+                    subscriptionQueryData: subscriptionQueryData,),),);
       } else {
         Navigator.pushNamed(context, Routes.subscriptionsHome);
       }
@@ -37,7 +37,7 @@ class AppleSignInButton extends StatelessWidget {
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
             clientId: 'com.deplan.dev',
-            redirectUri: Uri.parse('https://${window.location.host}')),
+            redirectUri: Uri.parse('https://${window.location.host}'),),
         nonce: hashSHA256String,
         state: 'deplan-state',
       );
@@ -56,7 +56,7 @@ class AppleSignInButton extends StatelessWidget {
 
       await Auth.signInWithApple(credentials);
       navigateToSubscriptionsHome(subscriptionQueryData);
-    });
+    },);
 
     // return ElevatedButton.icon(
     //   style: ElevatedButton.styleFrom(backgroundColor: Colors.black),

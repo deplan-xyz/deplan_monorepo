@@ -27,7 +27,7 @@ class SignInBody extends StatelessWidget {
         Expanded(child: Image.asset('assets/images/subsription-logo.png')),
         const SizedBox(height: 30),
         Text(
-          "Pay for how much you actually use your subscriptions",
+          'Pay for how much you actually use your subscriptions',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
@@ -36,7 +36,7 @@ class SignInBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Text(
-                "Control all your subscriptions in one place",
+                'Control all your subscriptions in one place',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
@@ -50,7 +50,7 @@ class SignInBody extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: 52,
                 child: AppleSignInButton(
-                    subscriptionQueryData: subscriptionQueryData),
+                    subscriptionQueryData: subscriptionQueryData,),
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -76,7 +76,7 @@ class EnterWithCredentialsButton extends StatelessWidget {
   final SubscriptionQueryData? subscriptionQueryData;
 
   const EnterWithCredentialsButton(
-      {super.key, required this.mode, this.subscriptionQueryData});
+      {super.key, required this.mode, this.subscriptionQueryData,});
 
   @override
   Widget build(BuildContext context) {

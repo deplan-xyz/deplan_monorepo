@@ -1,4 +1,3 @@
-import 'package:deplan/api/auth.dart';
 import 'package:deplan/api/common_api.dart';
 import 'package:deplan/components/months_selector.dart';
 import 'package:deplan/components/screen_wrapper.dart';
@@ -8,7 +7,6 @@ import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
 import 'package:deplan/screens/subscription_details.dart';
 import 'package:deplan/theme/app_theme.dart';
-import 'package:deplan/utilities/error_handlers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,7 +30,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
 
     subscriptionsFuture = api.listSubscriptions(
         DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
-            .millisecondsSinceEpoch);
+            .millisecondsSinceEpoch,);
 
     api.getPaymentLink().then((paymentlinkResponse) {
       setState(() {
@@ -90,15 +88,15 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                       subscriptionsFuture = api.listSubscriptions(DateTime(
                               selectedDate.year,
                               selectedDate.month,
-                              selectedDate.day + 1)
-                          .millisecondsSinceEpoch);
+                              selectedDate.day + 1,)
+                          .millisecondsSinceEpoch,);
                     });
-                  }),
+                  },),
             ),
             const SizedBox(height: 24),
             // Title
             const Text(
-              "Usage of your subscriptions",
+              'Usage of your subscriptions',
               style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'SF Pro Display',
@@ -119,18 +117,18 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
-                              child: CircularProgressIndicator());
+                              child: CircularProgressIndicator(),);
                         } else if (snapshot.hasError) {
                           if (snapshot.error is DioException) {
                             final dioError = snapshot.error as DioException;
                             if (dioError.type == DioExceptionType.unknown) {
                               return const Center(
                                   child: Text(
-                                      'Error: Please check your internet connection'));
+                                      'Error: Please check your internet connection',),);
                             }
                           }
                           return Center(
-                              child: Text('Error: ${snapshot.error}'));
+                              child: Text('Error: ${snapshot.error}'),);
                         } else if (!snapshot.hasData ||
                             snapshot.data!.isEmpty) {
                           return Column(
@@ -165,8 +163,8 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                   DateTime(
                                           selectedDate.year,
                                           selectedDate.month,
-                                          selectedDate.day + 1)
-                                      .millisecondsSinceEpoch);
+                                          selectedDate.day + 1,)
+                                      .millisecondsSinceEpoch,);
                             });
                           },
                           child: ListView.builder(
@@ -213,9 +211,9 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
 
                         return snapshot.data!.paymentInfo.youPay > 0.5
                             ? buildBottomSheet(context,
-                                snapshot.data!.paymentInfo, paymentLink)
+                                snapshot.data!.paymentInfo, paymentLink,)
                             : Container();
-                      })
+                      },),
                 ],
               ),
             ),
@@ -227,7 +225,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
 }
 
 Widget buildBottomSheet(
-    BuildContext context, PaymentInfo paymentInfo, String? paymentLink) {
+    BuildContext context, PaymentInfo paymentInfo, String? paymentLink,) {
   if (paymentLink == null) {
     return Container();
   }
@@ -244,7 +242,7 @@ Widget buildBottomSheet(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "You save \$${(paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2)} this month",
+            'You save \$${(paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2)} this month',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -268,7 +266,7 @@ Widget buildBottomSheet(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Pay ",
+                  'Pay ',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -276,7 +274,7 @@ Widget buildBottomSheet(
                   ),
                 ),
                 Text(
-                  "\$${paymentInfo.fullPrice.toStringAsFixed(2)}",
+                  '\$${paymentInfo.fullPrice.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.grey,
@@ -285,7 +283,7 @@ Widget buildBottomSheet(
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  "\$${paymentInfo.youPay.toStringAsFixed(2)}",
+                  '\$${paymentInfo.youPay.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,

@@ -42,16 +42,16 @@ class _LoginWithCredentialsScreenState
       });
       return true;
     } else if (_email.text.isEmpty) {
-      showSnackBar(context, "Email is required");
+      showSnackBar(context, 'Email is required');
       return false;
     } else if (!validEmail) {
-      showSnackBar(context, "Please enter a valid email");
+      showSnackBar(context, 'Please enter a valid email');
       return false;
     } else if (_password.text.isEmpty) {
-      showSnackBar(context, "Password is required");
+      showSnackBar(context, 'Password is required');
       return false;
     } else {
-      showSnackBar(context, "Please enter both email and password");
+      showSnackBar(context, 'Please enter both email and password');
       return false;
     }
   }
@@ -85,11 +85,13 @@ class _LoginWithCredentialsScreenState
             builder: (context) => const SubsciptionsHome(),
           ),
         );
-      } else {
-        showSnackBar(context, "User not found");
+      } else if (context.mounted) {
+        showSnackBar(context, 'User not found');
       }
     } catch (e) {
-      showSnackBar(context, "Credentials are invalid or user not found");
+      if (context.mounted) {
+        showSnackBar(context, 'Credentials are invalid or user not found');
+      }
     } finally {
       setState(() {
         isLoading = false;
@@ -105,24 +107,26 @@ class _LoginWithCredentialsScreenState
         child: Column(
           children: [
             const Spacer(),
-            const Text("Login to DePlan",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500)),
+            const Text(
+              'Login to DePlan',
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 50),
             CustomTextField(
-              hint: "Enter Email",
-              label: "Email",
+              hint: 'Enter Email',
+              label: 'Email',
               controller: _email,
             ),
             const SizedBox(height: 20),
             CustomTextField(
               isPassword: true,
-              hint: "Enter Password",
-              label: "Password",
+              hint: 'Enter Password',
+              label: 'Password',
               controller: _password,
             ),
             const SizedBox(height: 30),
             CustomButton(
-              label: "Login",
+              label: 'Login',
               onPressed: isLoading
                   ? null
                   : () async {
@@ -130,24 +134,27 @@ class _LoginWithCredentialsScreenState
                     },
             ),
             const SizedBox(height: 15),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              const Text("Don't have an account? "),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignupWithCredentialsScreen(
-                        subscriptionQueryData: widget.subscriptionQueryData,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Don't have an account? "),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignupWithCredentialsScreen(
+                          subscriptionQueryData: widget.subscriptionQueryData,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child:
-                    const Text("Signup", style: TextStyle(color: Colors.red)),
-              )
-            ]),
-            const Spacer()
+                    );
+                  },
+                  child:
+                      const Text('Signup', style: TextStyle(color: Colors.red)),
+                ),
+              ],
+            ),
+            const Spacer(),
           ],
         ),
       ),

@@ -108,7 +108,7 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
       try {
         await updateOrg();
 
-        if (context.mounted) {
+        if (mounted) {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const HomeScreen()),
             (route) => false,

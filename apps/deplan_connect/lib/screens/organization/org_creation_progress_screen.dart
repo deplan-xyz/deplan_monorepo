@@ -49,7 +49,7 @@ class _OrgCreationProgressScreenState extends State<OrgCreationProgressScreen> {
       authApi.getMe().then((response) => Account.fromJson(response.data));
 
   navigateToHome() {
-    if (context.mounted) {
+    if (mounted) {
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => const HomeScreen()),
         (route) => false,
@@ -118,7 +118,7 @@ class _OrgCreationProgressScreenState extends State<OrgCreationProgressScreen> {
         navigateToHome();
       } else {
         final message = err.response!.data['message'];
-        if (message != null && mounted) {
+        if (message != null && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(message),
@@ -127,13 +127,13 @@ class _OrgCreationProgressScreenState extends State<OrgCreationProgressScreen> {
             ),
           );
         }
-        if (mounted) {
+        if (context.mounted) {
           Navigator.of(context).pop();
         }
       }
     } catch (err) {
       print(err);
-      if (mounted) {
+      if (context.mounted) {
         Navigator.of(context).pop();
       }
     }

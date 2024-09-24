@@ -23,10 +23,10 @@ class BaseApi {
 
   @protected
   Future<Response<T>> getRequest<T>(String path,
-      {Map<String, dynamic> queryParameters = const {}}) async {
+      {Map<String, dynamic> queryParameters = const {},}) async {
     final headers = this.headers;
     return client.get(path,
-        queryParameters: queryParameters, options: Options(headers: headers));
+        queryParameters: queryParameters, options: Options(headers: headers),);
   }
 
   @protected
@@ -34,7 +34,7 @@ class BaseApi {
     final headers = this.headers;
     try {
       return await client.post(path,
-          data: body, options: Options(headers: headers));
+          data: body, options: Options(headers: headers),);
     } on DioException catch (e) {
       return e.response;
     }

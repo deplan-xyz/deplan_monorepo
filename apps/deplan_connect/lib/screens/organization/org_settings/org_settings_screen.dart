@@ -93,7 +93,7 @@ class _OrgSettingsScreenState extends State<OrgSettingsScreen> {
   onSplitNowPressed() async {
     try {
       await orgsApi.splitNow(widget.organization.id!);
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Split successful'),

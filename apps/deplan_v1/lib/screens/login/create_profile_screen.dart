@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:deplan_v1/api/auth_api.dart';
@@ -20,8 +18,8 @@ class CreateProfileScreen extends StatefulWidget {
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
   User user = User();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
-  Uint8List? _imageBuffer;
+  // bool _isLoading = false;
+  // Uint8List? _imageBuffer;
 
   @override
   initState() {
@@ -39,16 +37,16 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
       final bytes = await pickedImage.readAsBytes();
       user.avatarToSet = bytes;
 
-      setState(() {
-        _imageBuffer = bytes;
-      });
+      // setState(() {
+      //   _imageBuffer = bytes;
+      // });
     }
   }
 
   createUser() async {
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
 
     try {
       final entropy = CryptoUtils.generateEntropy();
@@ -66,9 +64,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
       print(e.toString());
       navigateBack();
     } finally {
-      setState(() {
-        _isLoading = false;
-      });
+      // setState(() {
+      //   _isLoading = false;
+      // });
     }
   }
 
