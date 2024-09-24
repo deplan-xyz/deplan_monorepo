@@ -207,7 +207,7 @@ class AppTextFormFieldBordered extends StatelessWidget {
   final bool obscureText;
   final String? errorText;
   final List<TextInputFormatter>? inputFormatters;
-
+  final TextInputAction? textInputAction;
   const AppTextFormFieldBordered({
     Key? key,
     this.textAlign = TextAlign.start,
@@ -232,6 +232,7 @@ class AppTextFormFieldBordered extends StatelessWidget {
     this.errorText,
     this.obscureText = false,
     this.inputFormatters = const [],
+    this.textInputAction,
   }) : super(key: key);
 
   @override
@@ -260,6 +261,7 @@ class AppTextFormFieldBordered extends StatelessWidget {
       autofocus: autofocus,
       readOnly: readOnly,
       obscureText: obscureText,
+      textInputAction: textInputAction,
       decoration: InputDecoration(
         errorText: errorText,
         errorStyle: errorStyle,

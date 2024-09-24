@@ -111,6 +111,7 @@ class _SignupEmailScreenState extends State<SignupEmailScreen> {
                   children: [
                     const SizedBox(height: 35),
                     AppTextFormFieldBordered(
+                      textInputAction: TextInputAction.next,
                       labelText: 'Email',
                       inputType: TextInputType.emailAddress,
                       validator: _validateEmail,
@@ -122,9 +123,11 @@ class _SignupEmailScreenState extends State<SignupEmailScreen> {
                     ),
                     const SizedBox(height: 15),
                     AppTextFormFieldBordered(
+                      textInputAction: TextInputAction.next,
                       labelText: 'Password',
                       inputType: TextInputType.visiblePassword,
                       validator: _validatePassword,
+                      obscureText: true,
                       onChanged: (value) {
                         setState(() {
                           _password = value;
@@ -133,8 +136,10 @@ class _SignupEmailScreenState extends State<SignupEmailScreen> {
                     ),
                     const SizedBox(height: 15),
                     AppTextFormFieldBordered(
+                      textInputAction: TextInputAction.done,
                       labelText: 'Confirm Password',
                       inputType: TextInputType.visiblePassword,
+                      obscureText: true,
                       validator: _validateConfirmPassword,
                     ),
                   ],

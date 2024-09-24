@@ -76,6 +76,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                     AppTextFormFieldBordered(
                       labelText: 'Email',
                       inputType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
                       validator: _validateEmail,
                       onChanged: (value) {
                         setState(() {
@@ -87,6 +88,7 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                     AppTextFormFieldBordered(
                       labelText: 'Password',
                       inputType: TextInputType.visiblePassword,
+                      textInputAction: TextInputAction.done,
                       obscureText: true,
                       validator: _validatePassword,
                       onChanged: (value) {
