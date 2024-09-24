@@ -1,0 +1,74 @@
+{
+  "assets": {
+    "assets/icon.png": {
+      "path": "assets/icon.png",
+      "sha256": "i+QoSiPqQE/jjDcRwbnN12bJw5PmP8UUefir6jKXn/s=",
+      "uri": "https://arweave.net/1Yav1tDPrhv77yI8Np4GYdCez3XSDDIX0Ha8-Rh7tcQ"
+    },
+    "assets/screenshot1.jpg": {
+      "path": "assets/screenshot1.jpg",
+      "sha256": "VT40lFdNjlgG8KHwM/jhFRl9YOaoFaxfr3wPgCnG0yo=",
+      "uri": "https://arweave.net/rBhuICe7Thvj9pVEqJd5VFHZGiM7qyc6DQpag70RASM"
+    },
+    "assets/screenshot4.jpeg": {
+      "path": "assets/screenshot4.jpeg",
+      "sha256": "gGfFyJTYCrGPolp1IVu8PlZFtwiAjhhl/gBDnWczEaw=",
+      "uri": "https://arweave.net/Fu-nuStMK-rFMZQmZOWZM-oMW5I1wYkPnzb0UPRK2Xo"
+    },
+    "assets/screenshot3.jpeg": {
+      "path": "assets/screenshot3.jpeg",
+      "sha256": "f4GXwOBK8Skz1pSFrHO0K8K3DlSYtckLRshmCXB3vK8=",
+      "uri": "https://arweave.net/27ea-6x4-OYzyDswEpHkgZXF9cSvqkHQD01axta5j6s"
+    },
+    "assets/screenshot5.jpeg": {
+      "path": "assets/screenshot5.jpeg",
+      "sha256": "tgXbzQce+2STIYjbJvmvuWjDRBzu6rmnzIyKzfa1OIA=",
+      "uri": "https://arweave.net/e7JixIPeGqqp8fh_eUe-LyCKOgO3vFq799FiIF6iIQA"
+    },
+    "assets/screenshot2.jpeg": {
+      "path": "assets/screenshot2.jpeg",
+      "sha256": "Sh8RI9k317u2KHgHGGYWGm6Pwiz8/Ea4icqCdtaIDqI=",
+      "uri": "https://arweave.net/RQoC6jXG_4cSUfK1s8SPtrWlxoj7oik7p1JFqx89Jw8"
+    },
+    "../../build/app/outputs/apk/release/app-release.apk": {
+      "path": "../../build/app/outputs/apk/release/app-release.apk",
+      "sha256": "aQs2kvEeMVl79t5Rjnw7M5pqAqvVADfbj+yEnGnWnOk=",
+      "uri": "https://arweave.net/Fz4ZxthyDcHgMaywuXrhFAZItqsCfVi7afcNk1H5mN0"
+    },
+    "../../build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk": {
+      "path": "../../build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk",
+      "sha256": "VdY9xJ+YO6IdXPa+fDa6EjxDGGE8XaILqI2GIYQVNvA=",
+      "uri": "https://arweave.net/aefWPgtbuYxlnwDGfQefbfU4xLBDQUTKgQE_z4oecEQ"
+    },
+    "../../build/app/outputs/flutter-apk/app-arm64-v8a-release.apk": {
+      "path": "../../build/app/outputs/flutter-apk/app-arm64-v8a-release.apk",
+      "sha256": "BcEDRsBU0c1qtVBGyfuICW6ufpffDXWpszU1+LirktA=",
+      "uri": "https://arweave.net/ZyWFa69E0VJeKaLzalT3lvl-VtnibPhDVtEwtKFDExA"
+    },
+    "assets/Screenshot_SAGA_2.jpg": {
+      "path": "assets/Screenshot_SAGA_2.jpg",
+      "sha256": "CiCKaJS84173N99HDxtOoFkquYWMpq2lsQUo8xlimDQ=",
+      "uri": "https://arweave.net/KXcql_sJhNrfxXDzCLlUFNmKjjd9X8a4UuNdUKu3ago"
+    },
+    "assets/Screenshot_SAGA_1.jpg": {
+      "path": "assets/Screenshot_SAGA_1.jpg",
+      "sha256": "EG8DWGvSUcpsK4LRQPDffnLpx8XQkhOnhidCVM5Nd+o=",
+      "uri": "https://arweave.net/l_qxS9ZJ6OhE923K2j2HtFqupUWwU6YqTds7PWxa4IU"
+    },
+    "assets/Screenshot_SAGA_3.jpg": {
+      "path": "assets/Screenshot_SAGA_3.jpg",
+      "sha256": "3/qzHmfoYLR/CO2TP64WVjwONh40mRZ/PD24UIcVJno=",
+      "uri": "https://arweave.net/KG3YPWQ99Fc8zeFAtbGZsaaBI1bi2ZFQf7nxm7kizag"
+    },
+    "assets/Screenshot_SAGA_5.jpg": {
+      "path": "assets/Screenshot_SAGA_5.jpg",
+      "sha256": "boa5J9PbuaWFyAVSPGgOZmV45IaTmzCvk/ltMDSf1XA=",
+      "uri": "https://arweave.net/zYmyRI9XznKNHjGnyhs-9WfctS12DX9pBmUzYzUYHPE"
+    },
+    "assets/Screenshot_SAGA_4.jpg": {
+      "path": "assets/Screenshot_SAGA_4.jpg",
+      "sha256": "RADoyCPk31azggM1D8EQcrLhFTDXdFj0uDs9JMj1ITk=",
+      "uri": "https://arweave.net/oVm4fqcK8j91gwarg-uD3y4a8vdqyDf4kxRv9-9cXQk"
+    }
+  }
+}

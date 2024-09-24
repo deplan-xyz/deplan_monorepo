@@ -1,0 +1,54 @@
+publisher:
+  name: DePlan Labs.
+  address: EceGWVZZVobKdUZPaePWCrS7ikG1dAvNSNrdfZjcKWsx
+  website: https://deplan.xyz
+  email: mail@deplan.xyz
+  media:
+    - purpose: icon
+      uri: assets/icon.png
+app:
+  name: DePlan
+  address: 9oRneZpiVvofUL67ccBSdXJXhVsi6BWvkTGbh5idCeYk
+  android_package: xyz.deplan.app
+  urls:
+    license_url: https://deplan.xyz/license
+    copyright_url: https://deplan.xyz/copyright
+    privacy_policy_url: https://deplan.xyz/privacy
+    website: https://deplan.xyz
+  media:
+    - purpose: icon
+      uri: assets/icon.png
+release:
+  address: Ct8am5dkNXc5oDkCkRY5ZJnruYnWLM5nWKBmz8BnQCPj
+  media:
+    - purpose: icon
+      uri: assets/icon.png
+    - purpose: screenshot
+      uri: assets/Screenshot_SAGA_1.jpg
+    - purpose: screenshot
+      uri: assets/Screenshot_SAGA_2.jpg
+    - purpose: screenshot
+      uri: assets/Screenshot_SAGA_3.jpg
+    - purpose: screenshot
+      uri: assets/Screenshot_SAGA_4.jpg
+    - purpose: screenshot
+      uri: assets/Screenshot_SAGA_5.jpg
+  files:
+    - purpose: install
+      uri: ../../build/app/outputs/apk/release/app-release.apk
+  catalog:
+    en-US:
+      name: DePlan
+      short_description: Pay-As-You-Go Browser
+      long_description: Unique browser that lets you use products without subscriptions. Pay-As-You-Go. Only pay for how much you actually use the products.
+      new_in_version: Improvements and bug fixes
+      saga_features: ''
+solana_mobile_dapp_publisher_portal:
+  google_store_package: xyz.deplan.app
+  testing_instructions: ''
+lastSubmittedVersionOnChain:
+  address: Ct8am5dkNXc5oDkCkRY5ZJnruYnWLM5nWKBmz8BnQCPj
+  version_code: 13
+  apk_hash: aQs2kvEeMVl79t5Rjnw7M5pqAqvVADfbj+yEnGnWnOk=
+lastUpdatedVersionOnStore:
+  address: Ct8am5dkNXc5oDkCkRY5ZJnruYnWLM5nWKBmz8BnQCPj
