@@ -5,7 +5,7 @@ import 'package:bip39/bip39.dart';
 import 'package:ed25519_hd_key/ed25519_hd_key.dart';
 import 'package:encrypt/encrypt.dart' as encryption;
 import 'package:flutter/foundation.dart';
-import 'package:phorevr/utils/js_crypto.dart' as js_crypto;
+import 'package:phorevr/utils/js_crypto/js_crypto.dart' as js_crypto;
 import 'package:solana/base58.dart';
 import 'package:solana/solana.dart';
 

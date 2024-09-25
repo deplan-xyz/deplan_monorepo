@@ -1,5 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phorevr/api/auth_api.dart';
@@ -8,6 +6,8 @@ import 'package:phorevr/screens/login/login_email_screen.dart';
 import 'package:phorevr/theme/app_theme.dart';
 import 'package:phorevr/widgets/view/app_padding.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:phorevr/utils/html_shim.dart'
+    if (dart.library.js_interop) 'dart:html' show window;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
