@@ -73,7 +73,11 @@ class _AuthApi extends BaseApi {
     return response;
   }
 
-  Future<Response> signinApple(String authorizationCode) async {
+  Future<Response> signinApple(
+    String authorizationCode,
+    bool useBundleId,
+    String redirectUrl,
+  ) async {
     await Future.delayed(Durations.long1);
     final entropy = CryptoUtils.generateEntropy();
     final keypair = await CryptoUtils.generateKeypair(entropy);
@@ -83,6 +87,8 @@ class _AuthApi extends BaseApi {
       data: {
         'wallet': keypair.address,
         'authorizationCode': authorizationCode,
+        'useBundleId': useBundleId,
+        'redirectUrl': redirectUrl,
       },
     );
     await appStorage.write('sk', await CryptoUtils.getSecretKey(keypair));

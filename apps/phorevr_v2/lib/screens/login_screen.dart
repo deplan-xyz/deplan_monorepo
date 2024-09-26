@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phorevr/api/auth_api.dart';
@@ -24,19 +28,26 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         isLoading = true;
       });
+      final redirectUrl = kIsWeb
+          ? 'https://${window.location.host}'
+          : 'https://${authApi.baseUrl}/phorevr/auth/signin/apple/callback';
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
           clientId: 'com.phorevr.dev',
-          redirectUri: Uri.parse('https://${window.location.host}'),
+          redirectUri: Uri.parse(redirectUrl),
         ),
         state: 'state',
         nonce: 'nonce',
       );
-
-      await authApi.signinApple(credential.authorizationCode);
+      final useBundleId = !kIsWeb && (Platform.isIOS || Platform.isMacOS);
+      await authApi.signinApple(
+        credential.authorizationCode,
+        useBundleId,
+        redirectUrl,
+      );
       if (context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -45,13 +56,30 @@ class _LoginScreenState extends State<LoginScreen> {
           (_) => false,
         );
       }
+    } on DioException catch (e) {
+      if (e.response?.data['message'] != null) {
+        _displayError(e.response!.data['message']);
+      } else {
+        _displayError('Login failed. Please try again.');
+      }
     } catch (e) {
       print(e);
+      _displayError('Login failed. Please try again.');
     } finally {
       setState(() {
         isLoading = false;
       });
     }
+  }
+
+  void _displayError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: COLOR_RED,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   @override
