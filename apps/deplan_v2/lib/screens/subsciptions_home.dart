@@ -29,14 +29,18 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
     super.initState();
 
     subscriptionsFuture = api.listSubscriptions(
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
-            .millisecondsSinceEpoch,);
+      DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
+          .millisecondsSinceEpoch,
+    );
+    _getPaymentLink();
+  }
 
-    api.getPaymentLink().then((paymentlinkResponse) {
-      setState(() {
-        paymentLink = paymentlinkResponse;
-      });
-    });
+  _getPaymentLink() async {
+    try {
+      paymentLink = await api.getPaymentLink();
+    } on DioException catch (e) {
+      print('Get payment link failed: $e');
+    }
   }
 
   @override
@@ -81,17 +85,20 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
               height: 40,
               width: double.infinity,
               child: MonthSelector(
-                  initialDate: selectedDate,
-                  onChange: (month, date) {
-                    setState(() {
-                      selectedDate = date!;
-                      subscriptionsFuture = api.listSubscriptions(DateTime(
-                              selectedDate.year,
-                              selectedDate.month,
-                              selectedDate.day + 1,)
-                          .millisecondsSinceEpoch,);
-                    });
-                  },),
+                initialDate: selectedDate,
+                onChange: (month, date) {
+                  setState(() {
+                    selectedDate = date!;
+                    subscriptionsFuture = api.listSubscriptions(
+                      DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day + 1,
+                      ).millisecondsSinceEpoch,
+                    );
+                  });
+                },
+              ),
             ),
             const SizedBox(height: 24),
             // Title
@@ -117,18 +124,22 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
-                              child: CircularProgressIndicator(),);
+                            child: CircularProgressIndicator(),
+                          );
                         } else if (snapshot.hasError) {
                           if (snapshot.error is DioException) {
                             final dioError = snapshot.error as DioException;
                             if (dioError.type == DioExceptionType.unknown) {
                               return const Center(
-                                  child: Text(
-                                      'Error: Please check your internet connection',),);
+                                child: Text(
+                                  'Error: Please check your internet connection',
+                                ),
+                              );
                             }
                           }
                           return Center(
-                              child: Text('Error: ${snapshot.error}'),);
+                            child: Text('Error: ${snapshot.error}'),
+                          );
                         } else if (!snapshot.hasData ||
                             snapshot.data!.isEmpty) {
                           return Column(
@@ -160,11 +171,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                           onRefresh: () async {
                             setState(() {
                               subscriptionsFuture = api.listSubscriptions(
-                                  DateTime(
-                                          selectedDate.year,
-                                          selectedDate.month,
-                                          selectedDate.day + 1,)
-                                      .millisecondsSinceEpoch,);
+                                DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day + 1,
+                                ).millisecondsSinceEpoch,
+                              );
                             });
                           },
                           child: ListView.builder(
@@ -198,22 +210,25 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                     ),
                   ),
                   FutureBuilder(
-                      future: api.getPaymentInfo(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Text('');
-                        }
+                    future: api.getPaymentInfo(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text('');
+                      }
 
-                        if (snapshot.hasError) {
-                          return const Text('');
-                        }
+                      if (snapshot.hasError) {
+                        return const Text('');
+                      }
 
-                        return snapshot.data!.paymentInfo.youPay > 0.5
-                            ? buildBottomSheet(context,
-                                snapshot.data!.paymentInfo, paymentLink,)
-                            : Container();
-                      },),
+                      return snapshot.data!.paymentInfo.youPay > 0.5
+                          ? buildBottomSheet(
+                              context,
+                              snapshot.data!.paymentInfo,
+                              paymentLink,
+                            )
+                          : Container();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -225,7 +240,10 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
 }
 
 Widget buildBottomSheet(
-    BuildContext context, PaymentInfo paymentInfo, String? paymentLink,) {
+  BuildContext context,
+  PaymentInfo paymentInfo,
+  String? paymentLink,
+) {
   if (paymentLink == null) {
     return Container();
   }

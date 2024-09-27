@@ -63,6 +63,7 @@ class SubscriptionCard extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               clipBehavior: Clip.hardEdge,
@@ -71,9 +72,10 @@ class SubscriptionCard extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      blurRadius: 5,
-                      offset: const Offset(0, 5),),
+                    color: Colors.grey.withOpacity(0.2),
+                    blurRadius: 5,
+                    offset: const Offset(0, 5),
+                  ),
                 ],
               ),
               child: isEmpty
@@ -91,7 +93,8 @@ class SubscriptionCard extends StatelessWidget {
                         )
                       : const SizedBox(),
             ),
-            Expanded(
+            Flexible(
+              flex: 2,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(

@@ -5,6 +5,7 @@ import 'package:deplan/screens/confirm_subsciption.dart';
 import 'package:deplan/screens/signin.dart';
 import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AppInitController extends StatefulWidget {
   const AppInitController({super.key});
@@ -14,21 +15,15 @@ class AppInitController extends StatefulWidget {
 }
 
 class _AppInitControllerState extends State<AppInitController> {
-  bool? hasQueryParams;
-  String? orgId;
-  String? redirectUrl;
-  String? data;
-
   @override
   void initState() {
     super.initState();
-    _handleQueryParameters(context);
   }
 
-  void _handleQueryParameters(BuildContext ctx) {
-    if (!ctx.mounted) {
-      return;
-    }
+  Future<SubscriptionQueryData?> _handleQueryParameters(
+    BuildContext ctx,
+  ) async {
+    Future.delayed(const Duration(milliseconds: 200));
     final Uri uri = Uri.base;
 
     final Map<String, String> queryParams = uri.queryParameters;
@@ -38,50 +33,39 @@ class _AppInitControllerState extends State<AppInitController> {
     String? data = queryParams['data'];
 
     if (data != null && orgId != null && redirectUrl != null) {
-      setState(() {
-        hasQueryParams = true;
-        this.orgId = orgId;
-        this.redirectUrl = redirectUrl;
-        this.data = data;
-      });
-    } else {
-      setState(() {
-        hasQueryParams = false;
-      });
+      return SubscriptionQueryData(
+          orgId: orgId, redirectUrl: redirectUrl, data: data);
+    }
+
+    return null;
+  }
+
+  _handleInitialNavigation(SubscriptionQueryData? subscriptionQueryData) {
+    final isAuthenticated = Auth.isUserAuthenticated;
+    final hasQueryParams = subscriptionQueryData != null;
+
+    if (isAuthenticated && hasQueryParams) {
+      return ConfirmSubsciption(subscriptionQueryData: subscriptionQueryData);
+    } else if (isAuthenticated && !hasQueryParams) {
+      return const SubsciptionsHome();
+    } else if (!isAuthenticated) {
+      return Signin(subscriptionQueryData: subscriptionQueryData);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isAuthenticated = Auth.isUserAuthenticated;
-
-    if (isAuthenticated && hasQueryParams == true) {
-      final subscriptionQueryData = SubscriptionQueryData(
-        orgId: orgId!,
-        redirectUrl: redirectUrl!,
-        data: data!,
-      );
-      return ConfirmSubsciption(subscriptionQueryData: subscriptionQueryData);
-    }
-
-    if (isAuthenticated && hasQueryParams == false) {
-      return const SubsciptionsHome();
-    }
-
-    if (!isAuthenticated) {
-      final subscriptionQueryData = hasQueryParams == true
-          ? SubscriptionQueryData(
-              orgId: orgId!,
-              redirectUrl: redirectUrl!,
-              data: data!,
-            )
-          : null;
-      return Signin(subscriptionQueryData: subscriptionQueryData);
-    }
-
-    return const ScreenWrapper(
+    return ScreenWrapper(
       child: Center(
-        child: CupertinoActivityIndicator(),
+        child: FutureBuilder(
+          future: _handleQueryParameters(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CupertinoActivityIndicator();
+            }
+            return _handleInitialNavigation(snapshot.data);
+          },
+        ),
       ),
     );
   }
