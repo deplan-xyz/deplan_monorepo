@@ -62,6 +62,12 @@ class ChangePassword extends StatelessWidget {
 
       await Auth.signOut();
       navigateToSignin(context);
+      showSnackBar(
+        context,
+        'Password changed successfully',
+        type: SnackBarType.success,
+        duration: const Duration(seconds: 1),
+      );
     }
 
     return ScreenWrapper(

@@ -7,8 +7,14 @@ enum SnackBarType {
   warning,
 }
 
-showSnackBar(BuildContext context, String message,
-    {SnackBarType type = SnackBarType.error,}) {
+showSnackBar(
+  BuildContext context,
+  String message, {
+  SnackBarType type = SnackBarType.error,
+  Duration duration = const Duration(
+    seconds: 3,
+  ),
+}) {
   Color color;
   switch (type) {
     case SnackBarType.error:
@@ -32,6 +38,7 @@ showSnackBar(BuildContext context, String message,
     SnackBar(
       backgroundColor: color,
       content: Text(message),
+      duration: duration,
     ),
   );
 }
