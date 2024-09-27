@@ -65,9 +65,19 @@ class ChangePassword extends StatelessWidget {
     }
 
     return ScreenWrapper(
+      showAppBar: true,
+      appBar: AppBar(
+        title: const Text('Change Password'),
+        automaticallyImplyLeading: false, // Removes the default back button
+        leading: IconButton(
+          icon: const Icon(Icons.chevron_left, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       child: Column(
         children: [
-          const SizedBox(height: 50),
           TextField(
             controller: currentPasswordController,
             obscureText: true,

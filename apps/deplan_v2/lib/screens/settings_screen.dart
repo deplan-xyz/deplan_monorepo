@@ -17,6 +17,7 @@ class SettingsScreen extends StatelessWidget {
     return ScreenWrapper(
       showAppBar: true,
       appBar: AppBar(
+        title: const Text('Settings'),
         automaticallyImplyLeading: false, // Removes the default back button
         leading: IconButton(
           icon: const Icon(Icons.chevron_left, color: Colors.black),
@@ -28,15 +29,6 @@ class SettingsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Settings',
-            style: TextStyle(
-              color: TEXT_MAIN,
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 20),
           const Column(
             children: [
               Row(
