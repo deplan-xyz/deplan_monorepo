@@ -23,6 +23,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   String? paymentLink;
 
   late Future<List<Subscription>> subscriptionsFuture;
+  late Future<PaymentInfoResponse> paymentInfoFuture;
 
   @override
   void initState() {
@@ -32,12 +33,16 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
       DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
           .millisecondsSinceEpoch,
     );
+    paymentInfoFuture = api.getPaymentInfo();
     _getPaymentLink();
   }
 
   _getPaymentLink() async {
     try {
-      paymentLink = await api.getPaymentLink();
+      final link = await api.getPaymentLink();
+      setState(() {
+        paymentLink = link;
+      });
     } on DioException catch (e) {
       print('Get payment link failed: $e');
     }
@@ -210,7 +215,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                     ),
                   ),
                   FutureBuilder(
-                    future: api.getPaymentInfo(),
+                    future: paymentInfoFuture,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Text('');
@@ -247,6 +252,8 @@ Widget buildBottomSheet(
   if (paymentLink == null) {
     return Container();
   }
+
+  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
 
   return Container(
     decoration: const BoxDecoration(
@@ -301,7 +308,7 @@ Widget buildBottomSheet(
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '\$${paymentInfo.youPay.toStringAsFixed(2)}',
+                  '\$${paymentWithoutComission.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -311,6 +318,36 @@ Widget buildBottomSheet(
               ],
             ),
           ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     ),
