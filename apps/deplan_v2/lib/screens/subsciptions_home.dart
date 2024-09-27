@@ -319,35 +319,18 @@ Widget buildBottomSheet(
             ),
           ),
           const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                const Expanded(
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                const Expanded(
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                ),
-              ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     ),
