@@ -19,61 +19,50 @@ class AppleSignInButton extends StatelessWidget {
     navigateToSubscriptionsHome(SubscriptionQueryData? subscriptionQueryData) {
       if (subscriptionQueryData != null) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ConfirmSubsciption(
-                    subscriptionQueryData: subscriptionQueryData,),),);
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConfirmSubsciption(
+              subscriptionQueryData: subscriptionQueryData,
+            ),
+          ),
+        );
       } else {
         Navigator.pushNamed(context, Routes.subscriptionsHome);
       }
     }
 
-    return SignInWithAppleButton(onPressed: () async {
-      String rawNonce = generateNonce();
-      String hashSHA256String = createHashSHA256String(rawNonce);
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-        ],
-        webAuthenticationOptions: WebAuthenticationOptions(
+    return SignInWithAppleButton(
+      onPressed: () async {
+        String rawNonce = generateNonce();
+        String hashSHA256String = createHashSHA256String(rawNonce);
+        final credential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+          ],
+          webAuthenticationOptions: WebAuthenticationOptions(
             clientId: 'com.deplan.dev',
-            redirectUri: Uri.parse('https://${window.location.host}'),),
-        nonce: hashSHA256String,
-        state: 'deplan-state',
-      );
+            redirectUri: Uri.parse('https://${window.location.host}'),
+          ),
+          nonce: hashSHA256String,
+          state: 'deplan-state',
+        );
 
-      String idToken = credential.identityToken!;
+        String idToken = credential.identityToken!;
 
-      final fullName = AppleFullPersonName(
-        familyName: 'Name',
-        givenName: 'Your',
-      );
-      final credentials = AppleAuthProvider.credentialWithIDToken(
-        idToken,
-        rawNonce,
-        fullName,
-      );
+        final fullName = AppleFullPersonName(
+          familyName: 'Name',
+          givenName: 'Your',
+        );
+        final credentials = AppleAuthProvider.credentialWithIDToken(
+          idToken,
+          rawNonce,
+          fullName,
+        );
 
-      await Auth.signInWithApple(credentials);
-      navigateToSubscriptionsHome(subscriptionQueryData);
-    },);
-
-    // return ElevatedButton.icon(
-    //   style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-    //   onPressed: () async {
-    //   try {
-    //     await Auth.signInWithApple();
-    //     navigateToSubscriptionsHome(subscriptionQueryData);
-    //   } on FirebaseAuthException catch (e) {
-    //     print('AppleSignInButton: Error signing in with apple: $e');
-    //     if (context.mounted) {
-    //       shouwAuthErrorDialog(context: context, error: e);
-    //     }
-    //   }
-    // },
-    //   label: const Text('Sign In with Apple'),
-    //   icon: const Icon(Icons.apple),
-    // );
+        await Auth.signInWithApple(credentials);
+        navigateToSubscriptionsHome(subscriptionQueryData);
+      },
+    );
   }
 }
 
