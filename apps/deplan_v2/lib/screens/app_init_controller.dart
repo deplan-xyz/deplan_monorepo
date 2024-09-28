@@ -55,17 +55,15 @@ class _AppInitControllerState extends State<AppInitController> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenWrapper(
-      child: Center(
-        child: FutureBuilder(
-          future: _handleQueryParameters(context),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CupertinoActivityIndicator();
-            }
-            return _handleInitialNavigation(snapshot.data);
-          },
-        ),
+    return Center(
+      child: FutureBuilder(
+        future: _handleQueryParameters(context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CupertinoActivityIndicator();
+          }
+          return _handleInitialNavigation(snapshot.data);
+        },
       ),
     );
   }

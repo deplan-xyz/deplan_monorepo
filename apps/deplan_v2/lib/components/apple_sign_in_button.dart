@@ -2,9 +2,9 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:deplan/api/auth.dart';
 import 'dart:convert';
-import 'package:deplan/constants/routes.dart';
 import 'package:deplan/models/subscription_query_data.dart';
 import 'package:deplan/screens/confirm_subsciption.dart';
+import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -18,7 +18,7 @@ class AppleSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     navigateToSubscriptionsHome(SubscriptionQueryData? subscriptionQueryData) {
       if (subscriptionQueryData != null) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => ConfirmSubsciption(
@@ -27,7 +27,12 @@ class AppleSignInButton extends StatelessWidget {
           ),
         );
       } else {
-        Navigator.pushNamed(context, Routes.subscriptionsHome);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SubsciptionsHome(),
+          ),
+        );
       }
     }
 

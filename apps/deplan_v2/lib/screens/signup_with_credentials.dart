@@ -64,19 +64,21 @@ class _SignupWithCredentialsScreenState
 
     if (context.mounted) {
       if (widget.subscriptionQueryData != null) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => ConfirmSubsciption(
               subscriptionQueryData: widget.subscriptionQueryData!,
             ),
           ),
+          (route) => false,
         );
       }
 
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const SubsciptionsHome()),
+        (route) => false,
       );
     }
   }

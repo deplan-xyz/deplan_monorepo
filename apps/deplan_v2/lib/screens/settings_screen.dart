@@ -1,7 +1,7 @@
 import 'package:deplan/api/auth.dart';
 import 'package:deplan/components/screen_wrapper.dart';
-import 'package:deplan/constants/routes.dart';
 import 'package:deplan/screens/change_password.dart';
+import 'package:deplan/screens/signin.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,11 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   _navigateToSignin(BuildContext context) {
-    Navigator.pushNamed(context, Routes.signin);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const Signin()),
+      (route) => false,
+    );
   }
 
   @override
