@@ -272,7 +272,7 @@ Widget buildBottomSheet(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'You save \$${(paymentInfo.fullPrice - (paymentInfo.youPay + paymentInfo.comission)).toStringAsFixed(2)} this month',
+            'You save \$${((paymentInfo.fullPrice + paymentInfo.comission) - paymentInfo.youPay).toStringAsFixed(2)} this month',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
