@@ -2,9 +2,9 @@ import 'package:deplan/api/common_api.dart';
 import 'package:deplan/components/months_selector.dart';
 import 'package:deplan/components/screen_wrapper.dart';
 import 'package:deplan/components/subscription_card.dart';
-import 'package:deplan/constants/routes.dart';
 import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
+import 'package:deplan/screens/settings_screen.dart';
 import 'package:deplan/screens/subscription_details.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:dio/dio.dart';
@@ -71,7 +71,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                     IconButton(
                       onPressed: () {
                         if (mounted) {
-                          Navigator.pushNamed(context, Routes.settings);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsScreen(),
+                            ),
+                          );
                         }
                       },
                       icon: SizedBox(
@@ -267,7 +272,7 @@ Widget buildBottomSheet(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'You save \$${(paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2)} this month',
+            'You save \$${(paymentInfo.fullPrice - (paymentInfo.youPay + paymentInfo.comission)).toStringAsFixed(2)} this month',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
