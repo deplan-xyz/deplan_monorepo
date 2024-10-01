@@ -1,16 +1,18 @@
 class PaymentInfo {
   final double fullPrice;
   final double youPay;
-
+  final double comission;
   PaymentInfo({
     required this.fullPrice,
     required this.youPay,
+    required this.comission,
   });
 
   factory PaymentInfo.fromJson(Map<String, dynamic> json) {
     return PaymentInfo(
       fullPrice: json['fullPrice'].toDouble(),
       youPay: json['youPay'].toDouble(),
+      comission: json['comission'].toDouble(),
     );
   }
 
@@ -18,6 +20,7 @@ class PaymentInfo {
     return {
       'fullPrice': fullPrice,
       'youPay': youPay,
+      'comission': comission,
     };
   }
 }

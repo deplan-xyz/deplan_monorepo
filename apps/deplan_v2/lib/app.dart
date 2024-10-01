@@ -77,7 +77,6 @@ class _AppState extends State<App> {
       initialRoute: Routes.appInitController,
       routes: {
         Routes.appInitController: (context) => const AppInitController(),
-        Routes.signin: (context) => const Signin(),
         Routes.subscriptionsHome: (context) => const SubsciptionsHome(),
         Routes.settings: (context) => const SettingsScreen(),
         Routes.confirmSubscription: (context) => ConfirmSubsciption(
@@ -92,6 +91,7 @@ class _AppState extends State<App> {
                   ModalRoute.of(context)!.settings.arguments as Subscription,
               selectedDate: DateTime.now(),
             ),
+        Routes.signin: (context) => const Signin(),
       },
     );
   }

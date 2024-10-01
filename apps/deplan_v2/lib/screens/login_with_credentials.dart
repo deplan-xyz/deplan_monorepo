@@ -66,24 +66,26 @@ class _LoginWithCredentialsScreenState
           await Auth.signInWithCredentials(_email.text, _password.text);
 
       if (widget.subscriptionQueryData != null && context.mounted) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => ConfirmSubsciption(
               subscriptionQueryData: widget.subscriptionQueryData!,
             ),
           ),
+          (route) => false,
         );
 
         return;
       }
 
       if (user != null && context.mounted) {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => const SubsciptionsHome(),
           ),
+          (route) => false,
         );
       } else if (context.mounted) {
         showSnackBar(context, 'User not found');

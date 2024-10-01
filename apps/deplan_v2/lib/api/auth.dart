@@ -53,7 +53,9 @@ class Auth {
   }
 
   static Future<void> signUpWithCredentials(
-      String email, String password,) async {
+    String email,
+    String password,
+  ) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -72,7 +74,9 @@ class Auth {
   }
 
   static Future<UserCredential?> signInWithCredentials(
-      String email, String password,) async {
+    String email,
+    String password,
+  ) async {
     try {
       final userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -92,6 +96,27 @@ class Auth {
     }
   }
 
+  static Future<void> changePassword(
+      String currentPassword, String newPassword) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        throw Exception('User not found');
+      }
+
+      final cred = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+      await user.reauthenticateWithCredential(cred);
+      await user.updatePassword(newPassword);
+    } catch (e) {
+      print('Error changing password: $e');
+      rethrow;
+    }
+  }
+
   static Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     try {
@@ -104,8 +129,10 @@ class Auth {
 
   static Future<String> getDeplanAuthToken() async {
     final firebaseUserId = FirebaseAuth.instance.currentUser?.uid;
-    final response = await client.post('/auth/signin/firebase',
-        data: {'firebaseUserId': firebaseUserId},);
+    final response = await client.post(
+      '/auth/signin/firebase',
+      data: {'firebaseUserId': firebaseUserId},
+    );
     return response.data['token'];
   }
 

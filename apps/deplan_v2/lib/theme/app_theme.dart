@@ -151,3 +151,4 @@ const Color TEXT_MAIN = Color(0xff11243E);
 const Color TEXT_SECONDARY = Color(0xff6B6B6B);
 const Color TEXT_SECONDARY_ACCENT = Color(0xff88919E);
 const Color MAIN_COLOR = Color(0xffAA32E3);
+const Color MAIN_COLOR_2 = Color.fromARGB(255, 164, 115, 187);

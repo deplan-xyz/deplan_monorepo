@@ -50,7 +50,8 @@ class SignInBody extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: 52,
                 child: AppleSignInButton(
-                    subscriptionQueryData: subscriptionQueryData,),
+                  subscriptionQueryData: subscriptionQueryData,
+                ),
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -75,15 +76,18 @@ class EnterWithCredentialsButton extends StatelessWidget {
   final Mode mode;
   final SubscriptionQueryData? subscriptionQueryData;
 
-  const EnterWithCredentialsButton(
-      {super.key, required this.mode, this.subscriptionQueryData,});
+  const EnterWithCredentialsButton({
+    super.key,
+    required this.mode,
+    this.subscriptionQueryData,
+  });
 
   @override
   Widget build(BuildContext context) {
     final signUpButton = TextButton(
       child: const Text('Register using email'),
       onPressed: () async {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => SignupWithCredentialsScreen(
@@ -104,7 +108,7 @@ class EnterWithCredentialsButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => LoginWithCredentialsScreen(

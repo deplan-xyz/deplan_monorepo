@@ -2,9 +2,9 @@ import 'package:deplan/api/common_api.dart';
 import 'package:deplan/components/months_selector.dart';
 import 'package:deplan/components/screen_wrapper.dart';
 import 'package:deplan/components/subscription_card.dart';
-import 'package:deplan/constants/routes.dart';
 import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
+import 'package:deplan/screens/settings_screen.dart';
 import 'package:deplan/screens/subscription_details.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:dio/dio.dart';
@@ -23,20 +23,29 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   String? paymentLink;
 
   late Future<List<Subscription>> subscriptionsFuture;
+  late Future<PaymentInfoResponse> paymentInfoFuture;
 
   @override
   void initState() {
     super.initState();
 
     subscriptionsFuture = api.listSubscriptions(
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
-            .millisecondsSinceEpoch,);
+      DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
+          .millisecondsSinceEpoch,
+    );
+    paymentInfoFuture = api.getPaymentInfo();
+    _getPaymentLink();
+  }
 
-    api.getPaymentLink().then((paymentlinkResponse) {
+  _getPaymentLink() async {
+    try {
+      final link = await api.getPaymentLink();
       setState(() {
-        paymentLink = paymentlinkResponse;
+        paymentLink = link;
       });
-    });
+    } on DioException catch (e) {
+      print('Get payment link failed: $e');
+    }
   }
 
   @override
@@ -62,7 +71,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                     IconButton(
                       onPressed: () {
                         if (mounted) {
-                          Navigator.pushNamed(context, Routes.settings);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsScreen(),
+                            ),
+                          );
                         }
                       },
                       icon: SizedBox(
@@ -81,17 +95,20 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
               height: 40,
               width: double.infinity,
               child: MonthSelector(
-                  initialDate: selectedDate,
-                  onChange: (month, date) {
-                    setState(() {
-                      selectedDate = date!;
-                      subscriptionsFuture = api.listSubscriptions(DateTime(
-                              selectedDate.year,
-                              selectedDate.month,
-                              selectedDate.day + 1,)
-                          .millisecondsSinceEpoch,);
-                    });
-                  },),
+                initialDate: selectedDate,
+                onChange: (month, date) {
+                  setState(() {
+                    selectedDate = date!;
+                    subscriptionsFuture = api.listSubscriptions(
+                      DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day + 1,
+                      ).millisecondsSinceEpoch,
+                    );
+                  });
+                },
+              ),
             ),
             const SizedBox(height: 24),
             // Title
@@ -117,18 +134,22 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Center(
-                              child: CircularProgressIndicator(),);
+                            child: CircularProgressIndicator(),
+                          );
                         } else if (snapshot.hasError) {
                           if (snapshot.error is DioException) {
                             final dioError = snapshot.error as DioException;
                             if (dioError.type == DioExceptionType.unknown) {
                               return const Center(
-                                  child: Text(
-                                      'Error: Please check your internet connection',),);
+                                child: Text(
+                                  'Error: Please check your internet connection',
+                                ),
+                              );
                             }
                           }
                           return Center(
-                              child: Text('Error: ${snapshot.error}'),);
+                            child: Text('Error: ${snapshot.error}'),
+                          );
                         } else if (!snapshot.hasData ||
                             snapshot.data!.isEmpty) {
                           return Column(
@@ -160,11 +181,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                           onRefresh: () async {
                             setState(() {
                               subscriptionsFuture = api.listSubscriptions(
-                                  DateTime(
-                                          selectedDate.year,
-                                          selectedDate.month,
-                                          selectedDate.day + 1,)
-                                      .millisecondsSinceEpoch,);
+                                DateTime(
+                                  selectedDate.year,
+                                  selectedDate.month,
+                                  selectedDate.day + 1,
+                                ).millisecondsSinceEpoch,
+                              );
                             });
                           },
                           child: ListView.builder(
@@ -198,22 +220,25 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                     ),
                   ),
                   FutureBuilder(
-                      future: api.getPaymentInfo(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Text('');
-                        }
+                    future: paymentInfoFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text('');
+                      }
 
-                        if (snapshot.hasError) {
-                          return const Text('');
-                        }
+                      if (snapshot.hasError) {
+                        return const Text('');
+                      }
 
-                        return snapshot.data!.paymentInfo.youPay > 0.5
-                            ? buildBottomSheet(context,
-                                snapshot.data!.paymentInfo, paymentLink,)
-                            : Container();
-                      },),
+                      return snapshot.data!.paymentInfo.youPay > 0.5
+                          ? buildBottomSheet(
+                              context,
+                              snapshot.data!.paymentInfo,
+                              paymentLink,
+                            )
+                          : Container();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -225,10 +250,15 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
 }
 
 Widget buildBottomSheet(
-    BuildContext context, PaymentInfo paymentInfo, String? paymentLink,) {
+  BuildContext context,
+  PaymentInfo paymentInfo,
+  String? paymentLink,
+) {
   if (paymentLink == null) {
     return Container();
   }
+
+  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
 
   return Container(
     decoration: const BoxDecoration(
@@ -242,7 +272,7 @@ Widget buildBottomSheet(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'You save \$${(paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2)} this month',
+            'You save \$${((paymentInfo.fullPrice + paymentInfo.comission) - paymentInfo.youPay).toStringAsFixed(2)} this month',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -283,7 +313,7 @@ Widget buildBottomSheet(
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '\$${paymentInfo.youPay.toStringAsFixed(2)}',
+                  '\$${paymentWithoutComission.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -291,6 +321,19 @@ Widget buildBottomSheet(
                   ),
                 ),
               ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ),
         ],
