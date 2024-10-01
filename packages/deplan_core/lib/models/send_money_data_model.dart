@@ -13,4 +13,12 @@ class SendMoneyData {
     this.recipient,
     this.token,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'amount': amount,
+      'recipient': recipient,
+      'token': token?.name,
+    };
+  }
 }

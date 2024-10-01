@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:deplan_v1/api/auth_api.dart';
 
 class BaseApi {
-  // final baseUrl = 'http://localhost:9898';
-  final baseUrl = 'https://phorevr-09ba19e6f8ae.herokuapp.com';
+  // final baseUrl = 'http://localhost:9899';
+  final baseUrl = 'https://deplan-560eb4c67350.herokuapp.com';
   late final Dio _dioClient;
   BaseApi() {
     _dioClient = Dio(

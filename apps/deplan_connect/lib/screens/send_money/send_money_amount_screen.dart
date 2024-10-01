@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iw_app/api/models/send_money_data_model.dart';
+import 'package:deplan_core/deplan_core.dart';
 import 'package:iw_app/screens/send_money/send_money_preview_screen.dart';
 import 'package:iw_app/utils/validation.dart';
 import 'package:iw_app/widgets/form/input_form.dart';

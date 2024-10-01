@@ -1,4 +1,6 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:deplan_v1/screens/app_iframe_screen.dart';
+import 'package:deplan_v1/screens/withdraw/withdraw_token_recipient_screen.dart';
 import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -177,6 +179,20 @@ class AccountWalletSection extends StatelessWidget {
               text: 'Receive',
               backgroundColor: COLOR_BLUE,
               onPressed: () => showReceiveInfo(context),
+            ),
+            IconButtonWithText(
+              image: SvgPicture.asset('assets/icons/arrow_right_box.svg'),
+              text: 'Withdraw',
+              backgroundColor: COLOR_GREEN,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => WithdrawTokenRecipientScreen(
+                      token: SendMoneyToken.DPLN,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

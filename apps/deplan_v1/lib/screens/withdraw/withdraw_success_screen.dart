@@ -1,17 +1,15 @@
+import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:deplan_core/deplan_core.dart';
-import 'package:iw_app/app_home.dart';
-import 'package:iw_app/theme/app_theme.dart';
-import 'package:iw_app/widgets/utils/app_padding.dart';
+import 'package:deplan_v1/app_home.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
 
-class SendMoneySuccessScreen<T extends Widget> extends StatelessWidget {
+class WithdrawSuccessScreen<T extends Widget> extends StatelessWidget {
   final SendMoneyData sendMoneyData;
-  final T Function() originScreenFactory;
 
-  const SendMoneySuccessScreen({
+  const WithdrawSuccessScreen({
     Key? key,
     required this.sendMoneyData,
-    required this.originScreenFactory,
   }) : super(key: key);
 
   @override
@@ -30,23 +28,11 @@ class SendMoneySuccessScreen<T extends Widget> extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             Text(
-              '${sendMoneyData.amount!.toStringAsFixed(2)} DPLN Sent!',
+              'Your withdrawal was submitted',
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     fontFamily: 'Gilroy',
                     fontWeight: FontWeight.w500,
                   ),
-            ),
-            const SizedBox(height: 30),
-            AppPadding(
-              child: Text(
-                'Your money has been successfully sent to ${sendMoneyData.recipient!.replaceRange(4, 40, '...')}',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontFamily: 'Gilroy',
-                      color: COLOR_GRAY,
-                      fontWeight: FontWeight.w500,
-                    ),
-              ),
             ),
             const SizedBox(height: 100),
             SizedBox(
@@ -55,12 +41,12 @@ class SendMoneySuccessScreen<T extends Widget> extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                      builder: (_) => originScreenFactory(),
+                      builder: (_) => const AppHome(),
                     ),
-                    ModalRoute.withName(AppHome.routeName),
+                    (_) => false,
                   );
                 },
-                child: const Text('Done'),
+                child: const Text('Go to your account'),
               ),
             ),
           ],

@@ -1,18 +1,20 @@
+import 'package:deplan_v1/api/auth_api.dart';
+import 'package:deplan_v1/api/balance_api.dart';
+import 'package:deplan_v1/theme/app_theme.dart';
+import 'package:deplan_v1/widgets/view/app_padding.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:deplan_core/deplan_core.dart';
-import 'package:iw_app/screens/withdraw/withdraw_success_screen.dart';
-import 'package:iw_app/theme/app_theme.dart';
-import 'package:iw_app/widgets/list/keyboard_dismissable_list.dart';
-import 'package:iw_app/widgets/scaffold/screen_scaffold.dart';
+import 'package:deplan_v1/screens/withdraw/withdraw_success_screen.dart';
+import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
+import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
 
 class WithdrawPreviewScreen<T extends Widget> extends StatefulWidget {
   final SendMoneyData sendMoneyData;
-  final Future Function(SendMoneyData) onWithdrawPressed;
 
   const WithdrawPreviewScreen({
     Key? key,
     required this.sendMoneyData,
-    required this.onWithdrawPressed,
   }) : super(key: key);
 
   @override
@@ -27,8 +29,11 @@ class _WithdrawPreviewScreenState extends State<WithdrawPreviewScreen> {
       isLoading = true;
     });
     try {
-      await widget.onWithdrawPressed(widget.sendMoneyData);
-
+      final response = await balanceApi.withdraw(widget.sendMoneyData);
+      final txn = response.data['txn'];
+      final res = await authApi.signTxn(txn);
+      final signedTxn = res[0];
+      await balanceApi.withdraw(widget.sendMoneyData, signedTxn);
       if (context.mounted) {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -38,13 +43,26 @@ class _WithdrawPreviewScreenState extends State<WithdrawPreviewScreen> {
           ),
         );
       }
+    } on DioException catch (e) {
+      final message = e.response?.data['message'];
+      _displayError(message ?? 'Something went wrong');
     } catch (e) {
-      print(e);
+      _displayError('Something went wrong');
     } finally {
       setState(() {
         isLoading = false;
       });
     }
+  }
+
+  _displayError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: COLOR_RED,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 
   buildAmount(BuildContext context) {
@@ -67,7 +85,7 @@ class _WithdrawPreviewScreenState extends State<WithdrawPreviewScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: COLOR_LIGHT_GRAY3,
+        color: COLOR_LIGHT_GRAY,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -101,13 +119,20 @@ class _WithdrawPreviewScreenState extends State<WithdrawPreviewScreen> {
                   child: buildAmount(context),
                 ),
                 const SizedBox(height: 50),
-                buildInfo(
-                  'Withdraw method',
-                  widget.sendMoneyData.token?.name ?? '',
-                  shouldCut: false,
+                AppPadding(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      buildInfo(
+                        'Withdraw method',
+                        widget.sendMoneyData.token?.name ?? '',
+                        shouldCut: false,
+                      ),
+                      const SizedBox(height: 10),
+                      buildInfo('To', widget.sendMoneyData.recipient!),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                buildInfo('To', widget.sendMoneyData.recipient!),
               ],
             ),
           ),

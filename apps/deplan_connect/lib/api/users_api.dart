@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:deplan_core/deplan_core.dart';
 import 'package:iw_app/api/base_api.dart';
-import 'package:iw_app/api/models/send_money_data_model.dart';
 import 'package:iw_app/api/models/user_to_update.dart';
 import 'package:iw_app/models/user_model.dart';
 

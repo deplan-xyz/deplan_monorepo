@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:iw_app/api/models/send_money_data_model.dart';
+import 'package:deplan_core/deplan_core.dart';
 import 'package:iw_app/api/orgs_api.dart';
 import 'package:iw_app/models/config_model.dart';
 import 'package:iw_app/models/organization_member_model.dart';

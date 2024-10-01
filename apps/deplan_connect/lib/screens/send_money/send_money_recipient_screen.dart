@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iw_app/api/models/send_money_data_model.dart';
+import 'package:deplan_core/deplan_core.dart';
 import 'package:iw_app/screens/send_money/send_money_amount_screen.dart';
 import 'package:iw_app/utils/validation.dart';
 import 'package:iw_app/widgets/form/input_form.dart';
@@ -39,46 +39,47 @@ class SendMoneyRecipientScreen<T extends Widget> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenScaffold(
-        title: 'Recipient',
-        child: Column(
-          children: [
-            Expanded(
-              child: KeyboardDismissableListView(
-                children: [
-                  const SizedBox(height: 40),
-                  InputForm(
-                    formKey: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppTextFormField(
-                          labelText: 'Enter Recipient’s Solana Wallet',
-                          helperText:
-                              'Please enter an address of wallet on the Solana blockchain you are goning to send money to.',
-                          onChanged: (value) {
-                            data.recipient = value;
-                          },
-                          validator: multiValidate([
-                            requiredField('Recipient’s Solana Wallet'),
-                            walletAddres(),
-                          ]),
-                          maxLines: 1,
-                        ),
-                      ],
-                    ),
+      title: 'Recipient',
+      child: Column(
+        children: [
+          Expanded(
+            child: KeyboardDismissableListView(
+              children: [
+                const SizedBox(height: 40),
+                InputForm(
+                  formKey: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextFormField(
+                        labelText: 'Enter Recipient’s Solana Wallet',
+                        helperText:
+                            'Please enter an address of wallet on the Solana blockchain you are goning to send money to.',
+                        onChanged: (value) {
+                          data.recipient = value;
+                        },
+                        validator: multiValidate([
+                          requiredField('Recipient’s Solana Wallet'),
+                          walletAddres(),
+                        ]),
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: 290,
-              child: ElevatedButton(
-                onPressed: () => handleNextPressed(context),
-                child: const Text('Next'),
-              ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: 290,
+            child: ElevatedButton(
+              onPressed: () => handleNextPressed(context),
+              child: const Text('Next'),
             ),
-          ],
-        ),);
+          ),
+        ],
+      ),
+    );
   }
 }
