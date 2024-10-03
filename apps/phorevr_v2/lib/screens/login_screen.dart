@@ -145,12 +145,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            ElevatedButton(
-                              onPressed: isLoading
-                                  ? null
-                                  : () => loginWithApple(context),
-                              child: const Text('Continue with Apple'),
-                            ),
+                            if (Platform.isIOS || Platform.isMacOS)
+                              ElevatedButton(
+                                onPressed: isLoading
+                                    ? null
+                                    : () => loginWithApple(context),
+                                child: const Text('Continue with Apple'),
+                              ),
                             const SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: () {
@@ -162,12 +163,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 );
                               },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                side:
-                                    const BorderSide(color: COLOR_ALMOST_BLACK),
-                                foregroundColor: COLOR_ALMOST_BLACK,
-                              ),
+                              style: Platform.isIOS || Platform.isMacOS
+                                  ? ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      side: const BorderSide(
+                                          color: COLOR_ALMOST_BLACK),
+                                      foregroundColor: COLOR_ALMOST_BLACK,
+                                    )
+                                  : null,
                               child: const Text('Continue with Email'),
                             ),
                           ],
