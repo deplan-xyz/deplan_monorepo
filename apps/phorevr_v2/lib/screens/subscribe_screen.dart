@@ -130,7 +130,7 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
               final user = await futureUser;
               final data = const JsonEncoder().convert({'userId': user?.id});
               final url =
-                  'https://deplan-xyz.github.io/deplan-subsciptions-client-web/?orgId=66221d9cf2adbf150283556f&redirectUrl=https://sub.phorevr.com&data=$data';
+                  'https://deplan.app?orgId=66221d9cf2adbf150283556f&redirectUrl=https://sub.phorevr.com&data=$data';
               await launchUrl(Uri.parse(url), webOnlyWindowName: '_self');
             } catch (e) {
               print(e);
