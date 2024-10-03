@@ -97,7 +97,9 @@ class Auth {
   }
 
   static Future<void> changePassword(
-      String currentPassword, String newPassword) async {
+    String currentPassword,
+    String newPassword,
+  ) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
 

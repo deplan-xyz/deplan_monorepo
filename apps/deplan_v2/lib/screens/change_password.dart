@@ -20,7 +20,7 @@ class ChangePassword extends StatelessWidget {
     navigateToSignin(BuildContext context) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Signin()),
+        MaterialPageRoute(builder: (context) => const Signin()),
       );
     }
 
@@ -53,21 +53,27 @@ class ChangePassword extends StatelessWidget {
       try {
         await Auth.changePassword(currentPassword, password);
       } on FirebaseAuthException catch (e) {
-        showSnackBar(context, e.message ?? 'Error changing password');
+        if (context.mounted) {
+          showSnackBar(context, e.message ?? 'Error changing password');
+        }
         return;
       } catch (e) {
-        showSnackBar(context, e.toString());
+        if (context.mounted) {
+          showSnackBar(context, e.toString());
+        }
         return;
       }
 
       await Auth.signOut();
-      navigateToSignin(context);
-      showSnackBar(
-        context,
-        'Password changed successfully',
-        type: SnackBarType.success,
-        duration: const Duration(seconds: 1),
-      );
+      if (context.mounted) {
+        navigateToSignin(context);
+        showSnackBar(
+          context,
+          'Password changed successfully',
+          type: SnackBarType.success,
+          duration: const Duration(seconds: 1),
+        );
+      }
     }
 
     return ScreenWrapper(
@@ -118,8 +124,10 @@ class ChangePassword extends StatelessWidget {
             onPressed: () async {
               await onPasswordChanged(context);
             },
-            label: const Text('Change Password',
-                style: TextStyle(color: COLOR_WHITE)),
+            label: const Text(
+              'Change Password',
+              style: TextStyle(color: COLOR_WHITE),
+            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: MAIN_COLOR,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),

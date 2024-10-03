@@ -84,11 +84,11 @@ class SettingsScreen extends StatelessWidget {
                       SizedBox(width: 10),
                       Text('Change password'),
                       Spacer(),
-                      Icon(Icons.chevron_right)
+                      Icon(Icons.chevron_right),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
           const Spacer(),

@@ -1,11 +1,9 @@
 import 'package:deplan/api/auth.dart';
-import 'package:deplan/components/screen_wrapper.dart';
 import 'package:deplan/models/subscription_query_data.dart';
 import 'package:deplan/screens/confirm_subsciption.dart';
 import 'package:deplan/screens/signin.dart';
 import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class AppInitController extends StatefulWidget {
   const AppInitController({super.key});
@@ -34,7 +32,10 @@ class _AppInitControllerState extends State<AppInitController> {
 
     if (data != null && orgId != null && redirectUrl != null) {
       return SubscriptionQueryData(
-          orgId: orgId, redirectUrl: redirectUrl, data: data);
+        orgId: orgId,
+        redirectUrl: redirectUrl,
+        data: data,
+      );
     }
 
     return null;
