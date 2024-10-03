@@ -29,17 +29,24 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   void initState() {
     super.initState();
 
+    final date =
+        DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     subscriptionsFuture = api.listSubscriptions(
-      DateTime(selectedDate.year, selectedDate.month, selectedDate.day + 1)
-          .millisecondsSinceEpoch,
+      date.millisecondsSinceEpoch,
     );
-    paymentInfoFuture = api.getPaymentInfo();
+    paymentInfoFuture = api.getPaymentInfo(
+      date.millisecondsSinceEpoch,
+    );
     _getPaymentLink();
   }
 
   _getPaymentLink() async {
     try {
-      final link = await api.getPaymentLink();
+      final date =
+          DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+      final link = await api.getPaymentLink(
+        date.millisecondsSinceEpoch,
+      );
       setState(() {
         paymentLink = link;
       });
@@ -103,7 +110,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                       DateTime(
                         selectedDate.year,
                         selectedDate.month,
-                        selectedDate.day + 1,
+                        selectedDate.day,
                       ).millisecondsSinceEpoch,
                     );
                   });
@@ -184,7 +191,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                 DateTime(
                                   selectedDate.year,
                                   selectedDate.month,
-                                  selectedDate.day + 1,
+                                  selectedDate.day,
                                 ).millisecondsSinceEpoch,
                               );
                             });
