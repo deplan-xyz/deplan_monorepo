@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -26,13 +28,18 @@ class _ImagesUploadScreenState extends State<ImagesUploadScreen> {
     uploadFile();
   }
 
+  Future<Uint8List> getFileBytes() {
+    final file = File(widget.file.path!);
+    return file.readAsBytes();
+  }
+
   uploadFile() async {
     try {
       setState(() {
         progress = 'Encrypting...';
       });
       await Future.delayed(const Duration(milliseconds: 500));
-      final originalData = await authApi.encrypt(widget.file.bytes!);
+      final originalData = await authApi.encrypt(await getFileBytes());
       await storageApi.store(
         [originalData],
         widget.file.name,
