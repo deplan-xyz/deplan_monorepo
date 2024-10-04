@@ -19,7 +19,7 @@ app:
     - purpose: icon
       uri: assets/icon.png
 release:
-  address: Ct8am5dkNXc5oDkCkRY5ZJnruYnWLM5nWKBmz8BnQCPj
+  address: H1iWVuEvDF2EQ5yegTJDHt93CfJu2AEn8DPuCNbgABCa
   media:
     - purpose: icon
       uri: assets/icon.png
@@ -47,8 +47,8 @@ solana_mobile_dapp_publisher_portal:
   google_store_package: xyz.deplan.app
   testing_instructions: ''
 lastSubmittedVersionOnChain:
-  address: Ct8am5dkNXc5oDkCkRY5ZJnruYnWLM5nWKBmz8BnQCPj
-  version_code: 13
-  apk_hash: aQs2kvEeMVl79t5Rjnw7M5pqAqvVADfbj+yEnGnWnOk=
+  address: H1iWVuEvDF2EQ5yegTJDHt93CfJu2AEn8DPuCNbgABCa
+  version_code: 16
+  apk_hash: 1fPfCQHEqFCnuEs3lwLrLPMp+mpOchxp6/QSweOlbYw=
 lastUpdatedVersionOnStore:
-  address: Ct8am5dkNXc5oDkCkRY5ZJnruYnWLM5nWKBmz8BnQCPj
+  address: H1iWVuEvDF2EQ5yegTJDHt93CfJu2AEn8DPuCNbgABCa
