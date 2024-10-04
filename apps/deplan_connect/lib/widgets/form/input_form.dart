@@ -99,7 +99,7 @@ class AppTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final String? initialValue;
   final FloatingLabelBehavior? floatingLabelBehavior;
-
+  final List<TextInputFormatter>? inputFormatters;
   const AppTextFormField({
     Key? key,
     this.enabled = true,
@@ -123,6 +123,7 @@ class AppTextFormField extends StatelessWidget {
     this.textInputAction,
     this.initialValue,
     this.floatingLabelBehavior,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -163,6 +164,7 @@ class AppTextFormField extends StatelessWidget {
       minLines: minLines,
       style:
           Theme.of(context).textTheme.bodyLarge!.copyWith(color: COLOR_BLACK),
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         floatingLabelBehavior: floatingLabelBehavior,
         errorText: errorText,
