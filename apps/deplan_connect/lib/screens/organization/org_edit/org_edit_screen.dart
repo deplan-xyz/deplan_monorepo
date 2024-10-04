@@ -219,7 +219,8 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
                         organization.settings?.pricePerMonth?.toString() ?? '',
                     labelText: 'Price per month',
                     textInputAction: TextInputAction.done,
-                    inputType: TextInputType.number,
+                    inputType:
+                        const TextInputType.numberWithOptions(decimal: true),
                     prefix: '\$',
                     suffix: const Text('/ mo'),
                     validator: (organization.settings?.isApp ?? false)
