@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            if (Platform.isIOS || Platform.isMacOS)
+                            if (kIsWeb || Platform.isIOS || Platform.isMacOS)
                               ElevatedButton(
                                 onPressed: isLoading
                                     ? null
@@ -163,14 +163,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 );
                               },
-                              style: Platform.isIOS || Platform.isMacOS
-                                  ? ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      side: const BorderSide(
-                                          color: COLOR_ALMOST_BLACK),
-                                      foregroundColor: COLOR_ALMOST_BLACK,
-                                    )
-                                  : null,
+                              style:
+                                  kIsWeb || Platform.isIOS || Platform.isMacOS
+                                      ? ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.transparent,
+                                          side: const BorderSide(
+                                            color: COLOR_ALMOST_BLACK,
+                                          ),
+                                          foregroundColor: COLOR_ALMOST_BLACK,
+                                        )
+                                      : null,
                               child: const Text('Continue with Email'),
                             ),
                           ],
