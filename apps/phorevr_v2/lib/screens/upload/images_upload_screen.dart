@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:phorevr/api/auth_api.dart';
 import 'package:phorevr/api/storage_api.dart';
@@ -29,6 +30,9 @@ class _ImagesUploadScreenState extends State<ImagesUploadScreen> {
   }
 
   Future<Uint8List> getFileBytes() {
+    if (kIsWeb) {
+      return Future.value(widget.file.bytes!);
+    }
     final file = File(widget.file.path!);
     return file.readAsBytes();
   }
