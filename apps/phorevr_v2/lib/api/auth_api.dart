@@ -225,6 +225,11 @@ class _AuthApi extends BaseApi {
       data,
     );
   }
+
+  Future<Response> deleteAccount() async {
+    await logout();
+    return client.delete('/phorevr/auth/me');
+  }
 }
 
 final authApi = _AuthApi();
