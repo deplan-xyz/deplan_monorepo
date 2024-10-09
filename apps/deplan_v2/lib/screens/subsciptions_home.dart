@@ -69,7 +69,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
               children: [
                 Center(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 400),
+                    constraints: const BoxConstraints(maxWidth: 400, maxHeight: 37),
                     child: Image.asset('assets/images/DePlan_Logo Black.png'),
                   ),
                 ),

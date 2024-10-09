@@ -26,9 +26,9 @@ class SettingsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Column(
+          Column(
             children: [
-              Row(
+              const Row(
                 children: [
                   Icon(
                     Icons.person_2_outlined,
@@ -45,7 +45,18 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Divider(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 10),
+                  Text(
+                    Auth.currentUser?.email ?? '',
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(fontSize: 16, color: COLOR_GRAY),
+                  ),
+                ],
+              ),
+              const Divider(
                 color: COLOR_GRAY2,
                 height: 20,
                 thickness: 1,
