@@ -10,7 +10,7 @@ import 'package:phorevr/screens/login/login_email_screen.dart';
 import 'package:phorevr/theme/app_theme.dart';
 import 'package:phorevr/widgets/view/app_padding.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:phorevr/utils/html_shim.dart'
+import 'package:deplan_core/deplan_core.dart'
     if (dart.library.js_interop) 'dart:html' show window;
 
 class LoginScreen extends StatefulWidget {
