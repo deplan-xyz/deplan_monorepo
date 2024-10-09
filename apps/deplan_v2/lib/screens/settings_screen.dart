@@ -22,13 +22,6 @@ class SettingsScreen extends StatelessWidget {
       showAppBar: true,
       appBar: AppBar(
         title: const Text('Settings'),
-        automaticallyImplyLeading: false, // Removes the default back button
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

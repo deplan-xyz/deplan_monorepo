@@ -14,8 +14,11 @@ class SubscriptionDetails extends StatefulWidget {
   final Subscription subscriptionData;
   final DateTime selectedDate;
 
-  const SubscriptionDetails(
-      {super.key, required this.subscriptionData, required this.selectedDate,});
+  const SubscriptionDetails({
+    super.key,
+    required this.subscriptionData,
+    required this.selectedDate,
+  });
 
   @override
   State<SubscriptionDetails> createState() => _SubscriptionDetailsState();
@@ -35,10 +38,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
     return ScreenWrapper(
       showAppBar: true,
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Removes the default back button
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
               width: 28,
@@ -60,12 +60,6 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
             ),
           ],
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       child: Column(
         children: [
@@ -85,31 +79,34 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
             usagePercentage: widget.subscriptionData.usage,
           ),
           FutureBuilder(
-              future: meFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return TextButton(
-                      style: TextButton.styleFrom(
-                        splashFactory: NoSplash.splashFactory,
-                        backgroundColor: Colors.transparent,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        textStyle: const TextStyle(
-                          color: TEXT_SECONDARY_ACCENT,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      onPressed: () {
-                        final wallet = snapshot.data!.user.wallet;
-                        launchUrl(
-                            Uri.parse('https://solscan.io/address/$wallet'),);
-                      },
-                      child: const Text('View on Chain'),);
-                }
-                return const CupertinoActivityIndicator();
-              },),
+            future: meFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return TextButton(
+                  style: TextButton.styleFrom(
+                    splashFactory: NoSplash.splashFactory,
+                    backgroundColor: Colors.transparent,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    textStyle: const TextStyle(
+                      color: TEXT_SECONDARY_ACCENT,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  onPressed: () {
+                    final wallet = snapshot.data!.user.wallet;
+                    launchUrl(
+                      Uri.parse('https://solscan.io/address/$wallet'),
+                    );
+                  },
+                  child: const Text('View on Chain'),
+                );
+              }
+              return const CupertinoActivityIndicator();
+            },
+          ),
           Flexible(
             child: DayGrid(
               date: widget.selectedDate,
