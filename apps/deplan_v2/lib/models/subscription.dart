@@ -1,3 +1,5 @@
+import 'package:deplan_core/utils/deplan_utils.dart';
+
 class Subscription {
   final String name;
   final double planPrice;
@@ -28,9 +30,9 @@ class Subscription {
       name: json['name'],
       description: json['description'],
       logo: json['logo'],
-      planPrice: json['planPrice'],
-      youPay: json['youPay'],
-      usage: json['usage'],
+      planPrice: intToDouble(json['planPrice']) ?? 0,
+      youPay: intToDouble(json['youPay']) ?? 0,
+      usage: intToDouble(json['usage']) ?? 0,
       usageCount: json['usageCount'],
     );
   }

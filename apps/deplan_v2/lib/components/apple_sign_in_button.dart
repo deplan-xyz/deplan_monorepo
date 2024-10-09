@@ -1,14 +1,17 @@
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:deplan/api/auth.dart';
+import 'package:deplan/api/base_api.dart';
 import 'dart:convert';
 import 'package:deplan/models/subscription_query_data.dart';
 import 'package:deplan/screens/confirm_subsciption.dart';
 import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'dart:html';
+import 'package:deplan_core/utils/deplan_utils.dart'
+    if (dart.library.js_interop) 'dart:html' show window;
 
 class AppleSignInButton extends StatelessWidget {
   final SubscriptionQueryData? subscriptionQueryData;
@@ -40,13 +43,16 @@ class AppleSignInButton extends StatelessWidget {
       onPressed: () async {
         String rawNonce = generateNonce();
         String hashSHA256String = createHashSHA256String(rawNonce);
+        final redirectUrl = kIsWeb
+            ? 'https://${window.location.host}'
+            : 'https://$baseUrl/auth/signin/apple/callback';
         final credential = await SignInWithApple.getAppleIDCredential(
           scopes: [
             AppleIDAuthorizationScopes.email,
           ],
           webAuthenticationOptions: WebAuthenticationOptions(
             clientId: 'com.deplan.dev',
-            redirectUri: Uri.parse('https://${window.location.host}'),
+            redirectUri: Uri.parse(redirectUrl),
           ),
           nonce: hashSHA256String,
           state: 'deplan-state',
