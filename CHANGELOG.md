@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`deplan_core` - `v0.0.3`](#deplan_core---v003)
+
+---
+
+#### `deplan_core` - `v0.0.3`
+
+ - **FEAT**: new fature.
+
+
+## 2024-10-09
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`deplan_core` - `v0.0.2`](#deplan_core---v002)
 
 ---

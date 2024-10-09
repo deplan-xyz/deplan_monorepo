@@ -48,7 +48,7 @@ dependencies:
   image_compression_flutter: ^1.0.3
   js: ^0.6.7
   sign_in_with_apple: ^6.1.2
-  deplan_core: 0.0.2
+  deplan_core: 0.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
