@@ -3,7 +3,7 @@ import 'package:deplan_v1/models/user_balance.dart';
 import 'package:deplan_v1/screens/app_iframe_screen.dart';
 import 'package:deplan_v1/theme/app_theme.dart';
 import 'package:deplan_v1/utils/datetime.dart';
-import 'package:deplan_v1/utils/numbers.dart';
+import 'package:deplan_core/utils/deplan_utils.dart';
 import 'package:deplan_v1/widgets/list/generic_list_tile.dart';
 import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';

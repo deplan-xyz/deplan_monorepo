@@ -1,4 +1,4 @@
-import 'package:deplan_v1/utils/numbers.dart';
+import 'package:deplan_core/utils/deplan_utils.dart';
 
 class TokenAmount {
   String? amount;
