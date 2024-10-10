@@ -19,7 +19,7 @@ class SignInBody extends StatelessWidget {
         const SizedBox(height: 20),
         Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400),
+            constraints: const BoxConstraints(maxWidth: 400, maxHeight: 37),
             child: Image.asset('assets/images/DePlan_Logo Blue.png'),
           ),
         ),

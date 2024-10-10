@@ -101,7 +101,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
                       Uri.parse('https://solscan.io/address/$wallet'),
                     );
                   },
-                  child: const Text('View on Chain'),
+                  child: const Text('Check usage on blockchain'),
                 );
               }
               return const CupertinoActivityIndicator();
