@@ -36,7 +36,6 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
     paymentInfoFuture = api.getPaymentInfo(
       date.millisecondsSinceEpoch,
     );
-    _getPaymentLink();
   }
 
   _getPaymentLink() async {

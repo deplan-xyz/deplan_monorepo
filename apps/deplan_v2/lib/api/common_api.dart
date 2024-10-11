@@ -4,6 +4,7 @@ import 'package:deplan/models/organization.dart';
 import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
 import 'package:deplan/models/subscription_details.dart';
+import 'package:dio/dio.dart';
 
 class API extends BaseApi {
   API() : super();
@@ -52,6 +53,10 @@ class API extends BaseApi {
   Future<UserResponse> getMe() async {
     final response = await getRequest('/auth/me');
     return UserResponse.fromJson(response.data);
+  }
+
+  Future<Response> refundSubscription() async {
+    return postRequest('/events/refund');
   }
 }
 

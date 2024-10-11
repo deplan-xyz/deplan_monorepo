@@ -35,17 +35,16 @@ class BaseApi {
   }
 
   @protected
-  postRequest(String path, {Map<String, dynamic> body = const {}}) async {
+  Future<Response> postRequest(
+    String path, {
+    Map<String, dynamic> body = const {},
+  }) {
     final headers = this.headers;
-    try {
-      return await client.post(
-        path,
-        data: body,
-        options: Options(headers: headers),
-      );
-    } on DioException catch (e) {
-      return e.response;
-    }
+    return client.post(
+      path,
+      data: body,
+      options: Options(headers: headers),
+    );
   }
 
   Map<String, String> get headers {
