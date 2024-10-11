@@ -9,7 +9,6 @@ import 'package:deplan/screens/subscription_details.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SubsciptionsHome extends StatefulWidget {
   const SubsciptionsHome({super.key});
@@ -69,7 +68,8 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
               children: [
                 Center(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 400, maxHeight: 37),
+                    constraints:
+                        const BoxConstraints(maxWidth: 400, maxHeight: 37),
                     child: Image.asset('assets/images/DePlan_Logo Black.png'),
                   ),
                 ),
@@ -237,13 +237,11 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                         return const Text('');
                       }
 
-                      return snapshot.data!.paymentInfo.youPay > 0.5
-                          ? buildBottomSheet(
-                              context,
-                              snapshot.data!.paymentInfo,
-                              paymentLink,
-                            )
-                          : Container();
+                      return buildBottomSheet(
+                        context,
+                        snapshot.data!.paymentInfo,
+                        paymentLink,
+                      );
                     },
                   ),
                 ],
@@ -286,63 +284,63 @@ Widget buildBottomSheet(
               color: Colors.purple,
             ),
           ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              backgroundColor: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-            ),
-            onPressed: () async {
-              await launchUrl(Uri.parse(paymentLink));
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Pay ',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '\$${paymentInfo.fullPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '\$${paymentWithoutComission.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
+          // const SizedBox(height: 16),
+          // ElevatedButton(
+          //   style: ElevatedButton.styleFrom(
+          //     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          //     backgroundColor: Colors.black,
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(25.0),
+          //     ),
+          //   ),
+          //   onPressed: () async {
+          //     await launchUrl(Uri.parse(paymentLink));
+          //   },
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.max,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       const Text(
+          //         'Pay ',
+          //         style: TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //       Text(
+          //         '\$${paymentInfo.fullPrice.toStringAsFixed(2)}',
+          //         style: const TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.grey,
+          //           decoration: TextDecoration.lineThrough,
+          //         ),
+          //       ),
+          //       const SizedBox(width: 8),
+          //       Text(
+          //         '\$${paymentWithoutComission.toStringAsFixed(2)}',
+          //         style: const TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // const SizedBox(height: 16),
+          // Center(
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          //     child: Text(
+          //       '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
+          //       style: const TextStyle(
+          //         color: Colors.grey,
+          //         fontSize: 16,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     ),

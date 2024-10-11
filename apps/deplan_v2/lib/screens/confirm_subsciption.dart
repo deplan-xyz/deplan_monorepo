@@ -2,7 +2,6 @@ import 'package:deplan/api/auth.dart';
 import 'package:deplan/api/common_api.dart';
 import 'package:deplan/components/organization_item_vertical.dart';
 import 'package:deplan/components/screen_wrapper.dart';
-import 'package:deplan/constants/routes.dart';
 import 'package:deplan/models/organization.dart';
 import 'package:deplan/models/subscription_query_data.dart';
 import 'package:deplan/theme/app_theme.dart';
@@ -43,18 +42,10 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
     }
   }
 
-  Future<void> _launchCallbackUrl(String url) async {
+  Future<void> _launchPaymentUrl(String url) async {
     if (kIsWeb) {
-      await launchUrl(Uri.parse(url));
+      await launchUrl(Uri.parse(url), webOnlyWindowName: '_self');
     }
-  }
-
-  _navigateToSubscriptionsHome() {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      Routes.subscriptionsHome,
-      (route) => false,
-    );
   }
 
   @override
@@ -161,14 +152,11 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                           height: 52,
                           child: ElevatedButton(
                             onPressed: () async {
-                              _launchCallbackUrl(
-                                widget.subscriptionQueryData.redirectUrl,
-                              );
-                              await api.confirmSubscription(
+                              final paymentUrl = await api.confirmSubscription(
                                 widget.subscriptionQueryData.orgId,
                                 widget.subscriptionQueryData.data,
                               );
-                              _navigateToSubscriptionsHome();
+                              _launchPaymentUrl(paymentUrl);
                             },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(

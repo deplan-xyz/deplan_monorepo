@@ -4,16 +4,16 @@ import 'package:deplan/models/organization.dart';
 import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
 import 'package:deplan/models/subscription_details.dart';
-import 'package:dio/dio.dart';
 
 class API extends BaseApi {
   API() : super();
 
-  Future<Response> confirmSubscription(String orgId, String data) async {
-    return await postRequest(
+  Future<String> confirmSubscription(String orgId, String data) async {
+    final response = await postRequest(
       '/events/subscription',
       body: {'orgId': orgId, 'data': data},
     );
+    return response.data['paymentUrl'];
   }
 
   Future<Organization> getOrganizationById(String id) async {
