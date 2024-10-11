@@ -57,48 +57,45 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   @override
   Widget build(BuildContext context) {
     return ScreenWrapper(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      showAppBar: true,
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // Header with logo and icons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Center(
-                  child: ConstrainedBox(
-                    constraints:
-                        const BoxConstraints(maxWidth: 400, maxHeight: 37),
-                    child: Image.asset('assets/images/DePlan_Logo Black.png'),
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        if (mounted) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingsScreen(),
-                            ),
-                          );
-                        }
-                      },
-                      icon: SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: Image.asset('assets/icons/gear_icon.png'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400, maxHeight: 37),
+              child: Image.asset('assets/images/DePlan_Logo Black.png'),
             ),
-            const SizedBox(height: 16),
-            // Time period selector
-            SizedBox(
+          ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (mounted) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              }
+            },
+            icon: SizedBox(
+              width: 25,
+              height: 25,
+              child: Image.asset('assets/icons/gear_icon.png'),
+            ),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          // Time period selector
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
               height: 40,
               width: double.infinity,
               child: MonthSelector(
@@ -117,9 +114,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                 },
               ),
             ),
-            const SizedBox(height: 24),
-            // Title
-            const Text(
+          ),
+          const SizedBox(height: 24),
+          // Title
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
               'Usage of your subscriptions',
               style: TextStyle(
                 fontSize: 24,
@@ -128,9 +128,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                 color: TEXT_MAIN,
               ),
             ),
-            // scrolled list with SubscriptionCard elements
-            const SizedBox(height: 16),
-            Expanded(
+          ),
+          // scrolled list with SubscriptionCard elements
+          const SizedBox(height: 16),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Expanded(
@@ -226,29 +229,29 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                       },
                     ),
                   ),
-                  FutureBuilder(
-                    future: paymentInfoFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text('');
-                      }
-
-                      if (snapshot.hasError) {
-                        return const Text('');
-                      }
-
-                      return buildBottomSheet(
-                        context,
-                        snapshot.data!.paymentInfo,
-                        paymentLink,
-                      );
-                    },
-                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          FutureBuilder(
+            future: paymentInfoFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('');
+              }
+
+              if (snapshot.hasError) {
+                return const Text('');
+              }
+
+              return buildBottomSheet(
+                context,
+                snapshot.data!.paymentInfo,
+                paymentLink,
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -259,15 +262,25 @@ Widget buildBottomSheet(
   PaymentInfo paymentInfo,
   String? paymentLink,
 ) {
-  if (paymentLink == null) {
-    return Container();
+  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
+  final savings =
+      ((paymentInfo.fullPrice + paymentInfo.comission) - paymentInfo.youPay)
+          .toStringAsFixed(2);
+
+  if (savings == '0.00') {
+    return const SizedBox();
   }
 
-  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
-
   return Container(
-    decoration: const BoxDecoration(
-      color: Color(0xffffffff),
+    decoration: BoxDecoration(
+      color: const Color(0xffffffff),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          blurRadius: 10,
+          offset: const Offset(0, -5),
+        ),
+      ],
     ),
     child: Container(
       padding: const EdgeInsets.all(16.0),
@@ -277,7 +290,7 @@ Widget buildBottomSheet(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'You save \$${((paymentInfo.fullPrice + paymentInfo.comission) - paymentInfo.youPay).toStringAsFixed(2)} this month',
+            'You save \$$savings this month',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

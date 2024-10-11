@@ -81,55 +81,59 @@ class ChangePassword extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Change Password'),
       ),
-      child: Column(
-        children: [
-          TextField(
-            controller: currentPasswordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: MAIN_COLOR),
-              ),
-              hintText: 'Current Password',
-            ),
-          ),
-          const SizedBox(height: 30),
-          TextField(
-            controller: newPasswordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: MAIN_COLOR),
-              ),
-              hintText: 'New Password',
-            ),
-          ),
-          const SizedBox(height: 30),
-          TextField(
-            controller: confirmNewPasswordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: 'Confirm Password',
-            ),
-          ),
-          const SizedBox(height: 50),
-          ElevatedButton.icon(
-            onPressed: () async {
-              await onPasswordChanged(context);
-            },
-            label: const Text(
-              'Change Password',
-              style: TextStyle(color: COLOR_WHITE),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: MAIN_COLOR,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            TextField(
+              controller: currentPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: MAIN_COLOR),
+                ),
+                hintText: 'Current Password',
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 30),
+            TextField(
+              controller: newPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: MAIN_COLOR),
+                ),
+                hintText: 'New Password',
+              ),
+            ),
+            const SizedBox(height: 30),
+            TextField(
+              controller: confirmNewPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: 'Confirm Password',
+              ),
+            ),
+            const SizedBox(height: 50),
+            ElevatedButton.icon(
+              onPressed: () async {
+                await onPasswordChanged(context);
+              },
+              label: const Text(
+                'Change Password',
+                style: TextStyle(color: COLOR_WHITE),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MAIN_COLOR,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

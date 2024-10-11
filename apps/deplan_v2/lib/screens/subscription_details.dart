@@ -61,59 +61,62 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
           ],
         ),
       ),
-      child: Column(
-        children: [
-          SubscriptionCard(
-            // month and year in format: January 2022
-            title: DateFormat.yMMMM().format(widget.selectedDate),
-            backgroundColor: const Color(0xffffffff),
-            titleStyle: const TextStyle(
-              fontSize: 30,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w700,
-              color: TEXT_MAIN,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            SubscriptionCard(
+              // month and year in format: January 2022
+              title: DateFormat.yMMMM().format(widget.selectedDate),
+              backgroundColor: const Color(0xffffffff),
+              titleStyle: const TextStyle(
+                fontSize: 30,
+                fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w700,
+                color: TEXT_MAIN,
+              ),
+              planPrice: widget.subscriptionData.planPrice,
+              userPays: widget.subscriptionData.youPay,
+              orgId: widget.subscriptionData.orgId,
+              usagePercentage: widget.subscriptionData.usage,
             ),
-            planPrice: widget.subscriptionData.planPrice,
-            userPays: widget.subscriptionData.youPay,
-            orgId: widget.subscriptionData.orgId,
-            usagePercentage: widget.subscriptionData.usage,
-          ),
-          FutureBuilder(
-            future: meFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return TextButton(
-                  style: TextButton.styleFrom(
-                    splashFactory: NoSplash.splashFactory,
-                    backgroundColor: Colors.transparent,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+            FutureBuilder(
+              future: meFuture,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      splashFactory: NoSplash.splashFactory,
+                      backgroundColor: Colors.transparent,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      textStyle: const TextStyle(
+                        color: TEXT_SECONDARY_ACCENT,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
-                    textStyle: const TextStyle(
-                      color: TEXT_SECONDARY_ACCENT,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  onPressed: () {
-                    final wallet = snapshot.data!.user.wallet;
-                    launchUrl(
-                      Uri.parse('https://solscan.io/address/$wallet'),
-                    );
-                  },
-                  child: const Text('Check usage on blockchain'),
-                );
-              }
-              return const CupertinoActivityIndicator();
-            },
-          ),
-          Flexible(
-            child: DayGrid(
-              date: widget.selectedDate,
-              subscriptionData: widget.subscriptionData,
+                    onPressed: () {
+                      final wallet = snapshot.data!.user.wallet;
+                      launchUrl(
+                        Uri.parse('https://solscan.io/address/$wallet'),
+                      );
+                    },
+                    child: const Text('Check usage on blockchain'),
+                  );
+                }
+                return const CupertinoActivityIndicator();
+              },
             ),
-          ),
-        ],
+            Flexible(
+              child: DayGrid(
+                date: widget.selectedDate,
+                subscriptionData: widget.subscriptionData,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
