@@ -263,7 +263,7 @@ Widget buildBottomSheet(
 ) {
   final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
   final savings =
-      ((paymentInfo.fullPrice + paymentInfo.comission) - paymentInfo.youPay)
+      (paymentInfo.fullPrice - paymentInfo.youPay)
           .toStringAsFixed(2);
 
   if (savings == '0.00') {
@@ -340,19 +340,19 @@ Widget buildBottomSheet(
           //     ],
           //   ),
           // ),
-          // const SizedBox(height: 16),
-          // Center(
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          //     child: Text(
-          //       '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
-          //       style: const TextStyle(
-          //         color: Colors.grey,
-          //         fontSize: 16,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          const SizedBox(height: 16),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                '- Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     ),
