@@ -2,9 +2,11 @@ import 'package:deplan/api/auth.dart';
 import 'package:deplan/api/common_api.dart';
 import 'package:deplan/components/organization_item_vertical.dart';
 import 'package:deplan/components/screen_wrapper.dart';
+import 'package:deplan/components/ui_notifications.dart';
 import 'package:deplan/models/organization.dart';
 import 'package:deplan/models/subscription_query_data.dart';
 import 'package:deplan/theme/app_theme.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,6 +39,25 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
       final organization =
           await api.getOrganizationById(widget.subscriptionQueryData.orgId);
       return organization;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> _confirmSubscription() async {
+    try {
+      final paymentUrl = await api.confirmSubscription(
+        widget.subscriptionQueryData.orgId,
+        widget.subscriptionQueryData.data,
+      );
+      await _launchPaymentUrl(paymentUrl);
+    } on DioException catch (e) {
+      if (mounted) {
+        showSnackBar(
+          context,
+          e.response?.data['message'] ?? 'Error confirming subscription',
+        );
+      }
     } catch (e) {
       rethrow;
     }
@@ -154,14 +175,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: 52,
                             child: ElevatedButton(
-                              onPressed: () async {
-                                final paymentUrl =
-                                    await api.confirmSubscription(
-                                  widget.subscriptionQueryData.orgId,
-                                  widget.subscriptionQueryData.data,
-                                );
-                                _launchPaymentUrl(paymentUrl);
-                              },
+                              onPressed: _confirmSubscription,
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 20,
