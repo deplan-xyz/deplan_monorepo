@@ -58,6 +58,14 @@ class API extends BaseApi {
   Future<Response> refundSubscription() async {
     return postRequest('/events/refund');
   }
+
+  Future<Response> getOrgEvents(String orgId) {
+    return getRequest('/events/orgs/$orgId/types');
+  }
+
+  Future<Response> getEventsDemo(String orgId, Map<String, dynamic> data) {
+    return postRequest('/events/orgs/$orgId/demo', body: data);
+  }
 }
 
 final API api = API();
