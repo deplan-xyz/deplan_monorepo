@@ -292,7 +292,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                   Text(
                     '${(eventsDemo?['usage'] as double).toStringAsFixed(1)}%',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontFamily: 'SF Pro Display',
                       fontWeight: FontWeight.w800,
                       color: Color(0xff874AB6),
@@ -476,10 +476,9 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 0,
+                      color: Colors.black.withOpacity(0.2),
                       blurRadius: 10,
-                      offset: const Offset(0, 4),
+                      offset: const Offset(0, -5),
                     ),
                   ],
                 ),
@@ -520,6 +519,11 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                         ),
                         child: const Text('Confirm and Subscribe'),
                       ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'You will never pay more than \$${organization.settings.pricePerMonth}',
+                      style: bodyTextStyle,
                     ),
                   ],
                 ),
