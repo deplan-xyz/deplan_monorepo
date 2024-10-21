@@ -136,7 +136,7 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
               print(e);
             }
           },
-          child: const Text('Continue with DePlan'),
+          child: const Text('Subscribe with DePlan'),
         ),
       ],
     );

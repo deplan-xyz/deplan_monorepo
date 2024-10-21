@@ -517,7 +517,9 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                           ),
                           textStyle: const TextStyle(fontSize: 18),
                         ),
-                        child: const Text('Confirm and Subscribe'),
+                        child: Text(
+                          'Deposit \$${organization.settings.pricePerMonth} to Subscribe',
+                        ),
                       ),
                     ),
                     const SizedBox(height: 20),
