@@ -3,6 +3,7 @@ import 'package:deplan/api/auth.dart';
 import 'package:deplan/api/common_api.dart';
 import 'package:deplan/components/screen_wrapper.dart';
 import 'package:deplan/components/ui_notifications.dart';
+import 'package:deplan/models/events_demo.dart';
 import 'package:deplan/models/organization.dart';
 import 'package:deplan/models/subscription_query_data.dart';
 import 'package:deplan/theme/app_theme.dart';
@@ -29,7 +30,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
   late Future<List<String>?> futureOrgEvents;
   late Map<String, TextEditingController> _eventControllers;
 
-  Map<String, dynamic>? eventsDemo;
+  EventsDemo? eventsDemo;
 
   final ValueNotifier<double> _valueNotifier = ValueNotifier(37.0);
 
@@ -41,7 +42,8 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
     futureOrgEvents = getOrgEvents();
   }
 
-  double get refund => eventsDemo?['planPrice'] - eventsDemo?['youPay'];
+  double get refund =>
+      (eventsDemo?.planPrice ?? 0.0) - (eventsDemo?.youPay ?? 0.0);
 
   Future<Organization> getOrganizationById() async {
     try {
@@ -92,7 +94,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
         data,
       );
       setState(() {
-        eventsDemo = response.data['result'];
+        eventsDemo = EventsDemo.fromJson(response.data['result']);
       });
     } on DioException catch (e) {
       final message = e.response?.data['message'];
@@ -200,6 +202,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
   }
 
   Widget buildEstimatedUsage(Organization organization) {
+    final usage = (eventsDemo?.usage ?? 0.0).ceil();
     const titleStyle = TextStyle(
       fontSize: 22,
       fontFamily: 'SF Pro Display',
@@ -251,7 +254,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                       ),
                     ),
                     Text(
-                      '\$${eventsDemo?['youPay']}',
+                      '\$${eventsDemo?.youPay}',
                       style: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'SF Pro Display',
@@ -272,8 +275,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
           child: DashedCircularProgressBar.aspectRatio(
             aspectRatio: 1, // width ÷ height
             valueNotifier: _valueNotifier,
-            progress:
-                double.parse(eventsDemo?['usage']?.toStringAsFixed(1) ?? '0.0'),
+            progress: usage.toDouble(),
             startAngle: 240,
             sweepAngle: 240,
             foregroundColor: const Color(0xff00ADED),
@@ -290,9 +292,9 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                 children: [
                   const Text(''),
                   Text(
-                    '${(eventsDemo?['usage'] as double).toStringAsFixed(1)}%',
+                    '$usage%',
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontFamily: 'SF Pro Display',
                       fontWeight: FontWeight.w800,
                       color: Color(0xff874AB6),
