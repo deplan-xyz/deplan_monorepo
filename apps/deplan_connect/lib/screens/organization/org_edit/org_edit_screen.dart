@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +31,7 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
   final nameController = TextEditingController(text: '');
   final descriptionController = TextEditingController(text: '');
   final websiteLinkController = TextEditingController(text: '');
+  final appUrlController = TextEditingController(text: '');
   final pricePerMonthController = TextEditingController(text: '');
 
   @override
@@ -44,14 +43,18 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
         TextEditingValue(text: organization.description ?? '');
     websiteLinkController.value =
         TextEditingValue(text: organization.link ?? '');
+    appUrlController.value =
+        TextEditingValue(text: organization.settings?.appUrl ?? '');
     pricePerMonthController.value = TextEditingValue(
-        text: organization.settings?.pricePerMonth?.toString() ?? '');
+      text: organization.settings?.pricePerMonth?.toString() ?? '',
+    );
   }
 
   updateOrg() async {
     if (organization.settings?.isApp ?? false) {
       organization.settings?.pricePerMonth =
           double.tryParse(pricePerMonthController.text);
+      organization.settings?.appUrl = appUrlController.text;
     }
     await orgsApi.updateOrg(
       organization.id!,
@@ -221,6 +224,18 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
             if (organization.settings?.isApp ?? false)
               Column(
                 children: [
+                  const SizedBox(height: 20),
+                  AppTextFormField(
+                    controller: appUrlController,
+                    labelText: 'App URL',
+                    textInputAction: TextInputAction.next,
+                    inputType: TextInputType.url,
+                    validator: (organization.settings?.isApp ?? false)
+                        ? multiValidate([
+                            requiredField('App URL'),
+                          ])
+                        : (_) => null,
+                  ),
                   const SizedBox(height: 20),
                   AppTextFormField(
                     controller: pricePerMonthController,

@@ -12,9 +12,6 @@ class BaseApi {
     _dioClient = Dio(
       BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: TIMEOUT,
-        sendTimeout: TIMEOUT,
-        receiveTimeout: TIMEOUT,
         followRedirects: true,
       ),
     );
