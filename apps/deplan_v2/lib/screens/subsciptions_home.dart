@@ -224,6 +224,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                 usagePercentage: subscription.usage,
                                 avatar: subscription.logo,
                                 orgId: subscription.orgId,
+                                link: subscription.link,
                                 onTap: (subscription) {
                                   Navigator.push(
                                     context,

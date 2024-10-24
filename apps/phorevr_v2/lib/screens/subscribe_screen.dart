@@ -29,7 +29,7 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
     },
     {
       'name': PaymentMethod.DePlan,
-      'title': 'Pay with DePlan based on usage',
+      'title': 'Pay based on usage',
       'image': 'assets/images/deplan.webp',
     },
     {

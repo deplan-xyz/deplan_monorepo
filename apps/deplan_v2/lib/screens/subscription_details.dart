@@ -44,6 +44,8 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
       showAppBar: true,
       appBar: AppBar(
         title: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 28,
@@ -54,7 +56,7 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
               ),
             ),
             const SizedBox(width: 10),
-            Expanded(
+            Flexible(
               child: Text(
                 widget.subscriptionData.name,
                 style: const TextStyle(

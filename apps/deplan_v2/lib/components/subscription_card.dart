@@ -14,7 +14,7 @@ class SubscriptionCard extends StatelessWidget {
   final String? avatar;
   final Color? backgroundColor;
   final Function(Subscription subscription)? onTap;
-
+  final String? link;
   SubscriptionCard({
     super.key,
     required this.title,
@@ -32,6 +32,7 @@ class SubscriptionCard extends StatelessWidget {
     ),
     this.backgroundColor,
     this.onTap,
+    this.link,
   });
 
   final ValueNotifier<double> _valueNotifier = ValueNotifier(37.0);
@@ -50,6 +51,7 @@ class SubscriptionCard extends StatelessWidget {
             planPrice: planPrice,
             usage: usagePercentage,
             logo: avatar,
+            link: link,
           );
           onTap!(card);
         }
