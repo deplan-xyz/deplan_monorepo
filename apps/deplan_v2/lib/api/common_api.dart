@@ -63,6 +63,13 @@ class API extends BaseApi {
     return getRequest('/events/orgs/$orgId/types');
   }
 
+  Future<List<Organization>> getApps(String type) async {
+    final response = await getRequest('/apps?type=$type');
+    return (response.data['apps'] as List<dynamic>)
+        .map((item) => Organization.fromJson(item))
+        .toList();
+  }
+
   Future<Response> getEventsDemo(String orgId, Map<String, dynamic> data) {
     return postRequest('/events/orgs/$orgId/demo', body: data);
   }

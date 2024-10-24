@@ -19,12 +19,12 @@ class Organization {
 
   factory Organization.fromJson(Map<String, dynamic> json) {
     return Organization(
-      id: json['_id'],
-      username: json['username'],
-      name: json['name'],
-      description: json['description'],
-      link: json['link'],
-      logo: json['logo'],
+      id: json['_id'] ?? '',
+      username: json['username'] ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      link: json['link'] ?? '',
+      logo: json['logo'] ?? '',
       settings: OrganizationSettings.fromJson(json['settings']),
     );
   }
@@ -45,10 +45,10 @@ class OrganizationSettings {
 
   factory OrganizationSettings.fromJson(Map<String, dynamic> json) {
     return OrganizationSettings(
-      treasury: json['treasury'],
-      isContent: json['isContent'],
-      isApp: json['isApp'],
-      pricePerMonth: json['pricePerMonth'],
+      treasury: json['treasury'] ?? 0,
+      isContent: json['isContent'] ?? false,
+      isApp: json['isApp'] ?? false,
+      pricePerMonth: json['pricePerMonth'] ?? 0,
     );
   }
 }

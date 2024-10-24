@@ -49,13 +49,15 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
               ),
             ),
             const SizedBox(width: 10),
-            Text(
-              widget.subscriptionData.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Colors.black,
+            Expanded(
+              child: Text(
+                widget.subscriptionData.name,
+                style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
               ),
             ),
           ],

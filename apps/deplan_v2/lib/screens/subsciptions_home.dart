@@ -5,6 +5,7 @@ import 'package:deplan/components/subscription_card.dart';
 import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
 import 'package:deplan/screens/settings_screen.dart';
+import 'package:deplan/screens/store_screen.dart';
 import 'package:deplan/screens/subscription_details.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:dio/dio.dart';
@@ -70,14 +71,27 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
         actions: [
           IconButton(
             onPressed: () {
-              if (mounted) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsScreen(),
-                  ),
-                );
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StoreScreen(),
+                ),
+              );
+            },
+            icon: SizedBox(
+              width: 25,
+              height: 25,
+              child: Image.asset('assets/icons/apps_icon.png'),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
             },
             icon: SizedBox(
               width: 25,
@@ -263,8 +277,7 @@ Widget buildBottomSheet(
 ) {
   final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
   final savings =
-      (paymentInfo.fullPrice - paymentInfo.youPay)
-          .toStringAsFixed(2);
+      (paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2);
 
   if (savings == '0.00') {
     return const SizedBox();
