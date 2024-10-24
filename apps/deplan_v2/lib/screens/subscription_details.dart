@@ -79,8 +79,8 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
               fontSize: 14,
               visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
               onPressed: () {
-                if (widget.subscriptionData.link != null) {
-                  openUrl(widget.subscriptionData.link!);
+                if (widget.subscriptionData.appUrl != null) {
+                  openUrl(widget.subscriptionData.appUrl!);
                 }
               },
             ),

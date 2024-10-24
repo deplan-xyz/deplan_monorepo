@@ -99,21 +99,40 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
         ),
         const SizedBox(height: 25),
-        ElevatedButton(
-          onPressed: () {
-            openUrl(app.link);
-          },
-          style: ElevatedButton.styleFrom(
-            visualDensity: VisualDensity.comfortable,
-            backgroundColor: const Color(0xffE2E2E8),
-            foregroundColor: const Color(0xff11243E),
-            textStyle: const TextStyle(
-              fontSize: 14,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w600,
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                openUrl(app.settings.appUrl);
+              },
+              style: ElevatedButton.styleFrom(
+                visualDensity: VisualDensity.comfortable,
+                backgroundColor: const Color(0xffE2E2E8),
+                foregroundColor: const Color(0xff11243E),
+                textStyle: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'SF Pro Display',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              child: const Text('Open App'),
             ),
-          ),
-          child: const Text('Open App'),
+            const SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                openUrl(app.link);
+              },
+              style: ElevatedButton.styleFrom(
+                visualDensity: VisualDensity.comfortable,
+                textStyle: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'SF Pro Display',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              child: const Text('Subscribe with DePlan'),
+            ),
+          ],
         ),
       ],
     );

@@ -35,12 +35,14 @@ class OrganizationSettings {
   final bool isContent;
   final bool isApp;
   final double pricePerMonth;
+  final String appUrl;
 
   OrganizationSettings({
     required this.treasury,
     required this.isContent,
     required this.isApp,
     required this.pricePerMonth,
+    required this.appUrl,
   });
 
   factory OrganizationSettings.fromJson(Map<String, dynamic> json) {
@@ -49,6 +51,7 @@ class OrganizationSettings {
       isContent: json['isContent'] ?? false,
       isApp: json['isApp'] ?? false,
       pricePerMonth: json['pricePerMonth'] ?? 0,
+      appUrl: json['appUrl'] ?? '',
     );
   }
 }

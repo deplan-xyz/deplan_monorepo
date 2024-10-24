@@ -4,23 +4,27 @@ class OrgSettingsToUpdate {
   num? treasury;
   bool? isApp;
   double? pricePerMonth;
+  String? appUrl;
 
   OrgSettingsToUpdate({
     this.treasury,
     this.isApp,
     this.pricePerMonth,
+    this.appUrl,
   });
 
   OrgSettingsToUpdate.fromOrgSettings(OrganizationSettings? settings)
       : treasury = settings?.treasury,
         isApp = settings?.isApp,
-        pricePerMonth = settings?.pricePerMonth;
+        pricePerMonth = settings?.pricePerMonth,
+        appUrl = settings?.appUrl;
 
   Map<String, dynamic> toMap() {
     return {
       'treasury': treasury,
       'isApp': isApp,
       'pricePerMonth': pricePerMonth,
+      'appUrl': appUrl,
     };
   }
 }
