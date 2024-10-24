@@ -40,6 +40,7 @@ class AppleSignInButton extends StatelessWidget {
     }
 
     return SignInWithAppleButton(
+      borderRadius: BorderRadius.circular(20),
       onPressed: () async {
         String rawNonce = generateNonce();
         String hashSHA256String = createHashSHA256String(rawNonce);

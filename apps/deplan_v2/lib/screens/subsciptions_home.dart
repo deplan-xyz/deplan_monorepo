@@ -195,6 +195,36 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                   color: Colors.grey,
                                 ),
                               ),
+                              const SizedBox(height: 50),
+                              const Text(
+                                'Go to DePlan Store to find products you need',
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 10,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                icon: Image.asset(
+                                  'assets/icons/apps_icon.png',
+                                  width: 24,
+                                  colorBlendMode: BlendMode.srcIn,
+                                  color: Colors.white,
+                                ),
+                                label: const Text('DePlan Store'),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const StoreScreen(),
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                           );
                         }
