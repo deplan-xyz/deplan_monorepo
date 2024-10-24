@@ -10,6 +10,7 @@ class Subscription {
   final String? description;
   final String? logo;
   final int? usageCount;
+  final String? link;
 
   Subscription({
     required this.name,
@@ -21,6 +22,7 @@ class Subscription {
     this.description,
     this.usageCount,
     this.logo,
+    this.link,
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Subscription {
       youPay: intToDouble(json['youPay']) ?? 0,
       usage: intToDouble(json['usage']) ?? 0,
       usageCount: json['usageCount'],
+      link: json['link'],
     );
   }
 }

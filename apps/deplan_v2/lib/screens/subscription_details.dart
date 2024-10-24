@@ -1,4 +1,5 @@
 import 'package:deplan/api/common_api.dart';
+import 'package:deplan/components/custom_button.dart';
 import 'package:deplan/components/day_grid.dart';
 import 'package:deplan/components/screen_wrapper.dart';
 import 'package:deplan/components/subscription_card.dart';
@@ -31,6 +32,10 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
   void initState() {
     super.initState();
     meFuture = api.getMe();
+  }
+
+  void openUrl(String url) {
+    launchUrl(Uri.parse(url));
   }
 
   @override
@@ -67,6 +72,16 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
+            CustomButton(
+              label: 'Open App >',
+              fontSize: 14,
+              visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
+              onPressed: () {
+                if (widget.subscriptionData.link != null) {
+                  openUrl(widget.subscriptionData.link!);
+                }
+              },
+            ),
             SubscriptionCard(
               // month and year in format: January 2022
               title: DateFormat.yMMMM().format(widget.selectedDate),
