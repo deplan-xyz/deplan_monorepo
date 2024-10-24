@@ -72,24 +72,34 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(Icons.check),
             SizedBox(width: 10),
-            Text('Deposit monthly fee into smart-contract escrow'),
+            Flexible(
+              child: Text('Deposit monthly fee into smart-contract escrow'),
+            ),
           ],
         ),
         const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(Icons.check),
             SizedBox(width: 10),
-            Text('Use the product and control usage'),
+            Flexible(
+              child: Text('Use the product and control usage'),
+            ),
           ],
         ),
         const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(Icons.check),
             SizedBox(width: 10),
-            Text('Get refunded at the end of the month depending on usage'),
+            Flexible(
+              child: Text(
+                  'Get refunded at the end of the month depending on usage'),
+            ),
           ],
         ),
         const Divider(),
