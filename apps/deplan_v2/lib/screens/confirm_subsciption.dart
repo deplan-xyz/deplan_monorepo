@@ -30,9 +30,11 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
   late Future<List<String>?> futureOrgEvents;
   late Map<String, TextEditingController> _eventControllers;
 
-  EventsDemo? eventsDemo;
+  Future<EventsDemo?>? futureEventsDemo;
+  bool shouldShowScrollTip = false;
 
   final ValueNotifier<double> _valueNotifier = ValueNotifier(37.0);
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -40,10 +42,30 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
 
     futureOrganization = getOrganizationById();
     futureOrgEvents = getOrgEvents();
+
+    afterLayout(() {
+      if (_scrollController.position.maxScrollExtent > 70) {
+        setState(() {
+          shouldShowScrollTip = true;
+        });
+      }
+    });
   }
 
-  double get refund =>
-      (eventsDemo?.planPrice ?? 0.0) - (eventsDemo?.youPay ?? 0.0);
+  afterLayout(VoidCallback callback) async {
+    await Future.wait([futureOrganization, futureOrgEvents]);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await futureEventsDemo;
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        callback();
+      });
+    });
+  }
+
+  double calculateRefund(EventsDemo eventsDemo) {
+    return eventsDemo.planPrice - eventsDemo.youPay;
+  }
 
   Future<Organization> getOrganizationById() async {
     try {
@@ -64,7 +86,9 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
         eventTypes
             .map((type) => MapEntry(type, TextEditingController(text: '0'))),
       );
-      fetchEventsDemo(eventTypes);
+      setState(() {
+        futureEventsDemo = fetchEventsDemo(eventTypes);
+      });
       return eventTypes;
     } on DioException catch (e) {
       final message = e.response?.data['message'];
@@ -77,7 +101,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
     return null;
   }
 
-  Future fetchEventsDemo(List<String> eventTypes) async {
+  Future<EventsDemo?> fetchEventsDemo(List<String> eventTypes) async {
     try {
       final data = {
         'events': eventTypes
@@ -93,9 +117,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
         widget.subscriptionQueryData.orgId,
         data,
       );
-      setState(() {
-        eventsDemo = EventsDemo.fromJson(response.data['result']);
-      });
+      return EventsDemo.fromJson(response.data['result']);
     } on DioException catch (e) {
       final message = e.response?.data['message'];
       if (mounted) {
@@ -104,6 +126,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<void> _confirmSubscription() async {
@@ -201,8 +224,8 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
     );
   }
 
-  Widget buildEstimatedUsage(Organization organization) {
-    final usage = (eventsDemo?.usage ?? 0.0).ceil();
+  Widget buildEstimatedUsage(Organization organization, EventsDemo eventsDemo) {
+    final usage = eventsDemo.usage.ceil();
     const titleStyle = TextStyle(
       fontSize: 22,
       fontFamily: 'SF Pro Display',
@@ -320,6 +343,36 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
     );
   }
 
+  Widget buildButton(String label, String iconPath, VoidCallback onPressed) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: 52,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 10,
+          ),
+          textStyle: const TextStyle(fontSize: 18),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              iconPath,
+              width: 24,
+              height: 24,
+            ),
+            const Expanded(child: SizedBox()),
+            Text(label),
+            const Expanded(child: SizedBox()),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Auth.currentUser;
@@ -350,188 +403,238 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            clipBehavior: Clip.antiAlias,
-                            child: FittedBox(
-                              fit: BoxFit.cover,
-                              child: Image.asset(
-                                'assets/images/DePlan_Logo_square.png',
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (n) {
+                    if (n is ScrollUpdateNotification) {
+                      if (shouldShowScrollTip) {
+                        final leftToBottom =
+                            n.metrics.maxScrollExtent - n.metrics.pixels;
+                        if (leftToBottom < 200) {
+                          setState(() {
+                            shouldShowScrollTip = false;
+                          });
+                        }
+                      }
+                    }
+                    return false;
+                  },
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            ),
-                          ),
-                          ...List.generate(
-                            5,
-                            (_) => SizedBox(
-                              width: 9,
-                              child: Container(
-                                width: 4,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade700,
-                                  shape: BoxShape.circle,
+                              clipBehavior: Clip.antiAlias,
+                              child: FittedBox(
+                                fit: BoxFit.cover,
+                                child: Image.asset(
+                                  'assets/images/DePlan_Logo_square.png',
                                 ),
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey.shade400,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            clipBehavior: Clip.antiAlias,
-                            child: FittedBox(
-                              fit: BoxFit.cover,
-                              child: FadeInImage(
-                                placeholder: MemoryImage(kTransparentImage),
-                                image: NetworkImage(organization.logo),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 35),
-                      Center(
-                        child: Text(
-                          'Subscribe with DePlan to\npay for how much you actually use\n${organization.name}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            color: TEXT_MAIN,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 35),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          'Check how intensity of the usage is calculated',
-                          style: bodyTextStyle,
-                        ),
-                      ),
-                      const SizedBox(height: 35),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
                             ...List.generate(
-                              eventTypes.length,
-                              (index) => Column(
-                                children: [
-                                  buildEventType(
-                                    eventTypes,
-                                    index,
-                                    bodyTextStyle,
+                              5,
+                              (_) => SizedBox(
+                                width: 9,
+                                child: Container(
+                                  width: 4,
+                                  height: 4,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade700,
+                                    shape: BoxShape.circle,
                                   ),
-                                  const SizedBox(height: 15),
-                                ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey.shade400,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              clipBehavior: Clip.antiAlias,
+                              child: FittedBox(
+                                fit: BoxFit.cover,
+                                child: FadeInImage(
+                                  placeholder: MemoryImage(kTransparentImage),
+                                  image: NetworkImage(organization.logo),
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 35),
-                      if (eventsDemo != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: buildEstimatedUsage(organization),
-                        ),
-                      if (eventsDemo == null)
-                        const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      const SizedBox(height: 35),
-                      if (eventsDemo != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        const SizedBox(height: 35),
+                        Center(
                           child: Text(
-                            'Based on such usage you will get \$${refund.toStringAsFixed(2)} refund to your card at the end of the month',
+                            'Subscribe with DePlan to\npay for how much you actually use\n${organization.name}',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              color: TEXT_MAIN,
+                              fontFamily: 'SF Pro Display',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 35),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Check how intensity of the usage is calculated',
                             style: bodyTextStyle,
                           ),
                         ),
-                      const SizedBox(height: 35),
-                    ],
+                        const SizedBox(height: 35),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: [
+                              ...List.generate(
+                                eventTypes.length,
+                                (index) => Column(
+                                  children: [
+                                    buildEventType(
+                                      eventTypes,
+                                      index,
+                                      bodyTextStyle,
+                                    ),
+                                    const SizedBox(height: 15),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 35),
+                        FutureBuilder(
+                          future: futureEventsDemo,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Text('Error fetching events demo');
+                            }
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            final eventsDemo = snapshot.data!;
+                            final refund = calculateRefund(eventsDemo);
+
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                children: [
+                                  buildEstimatedUsage(organization, eventsDemo),
+                                  const SizedBox(height: 35),
+                                  Text(
+                                    'Based on such usage you will get \$${refund.toStringAsFixed(2)} refund to your card at the end of the month',
+                                    style: bodyTextStyle,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 35),
+                        Center(
+                          child: Column(
+                            children: [
+                              const Text(
+                                'Your DePlan account',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'SF Pro Display',
+                                  color: TEXT_SECONDARY,
+                                ),
+                              ),
+                              Text(
+                                user?.email ?? '',
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'SF Pro Display',
+                                  color: COLOR_BLACK,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              buildButton(
+                                'Deposit \$${organization.settings.pricePerMonth} with card',
+                                'assets/icons/card_payment.png',
+                                _confirmSubscription,
+                              ),
+                              const SizedBox(height: 10),
+                              buildButton(
+                                'Deposit \$${organization.settings.pricePerMonth} with crypto',
+                                'assets/icons/crypto_icon.png',
+                                () {},
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                'You will never pay more than \$${organization.settings.pricePerMonth}',
+                                style: bodyTextStyle,
+                              ),
+                              const SizedBox(height: 20),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: const Offset(0, -5),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Your DePlan account',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'SF Pro Display',
-                        color: TEXT_SECONDARY,
+              if (shouldShowScrollTip)
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: const Offset(0, -5),
                       ),
-                    ),
-                    Text(
-                      user?.email ?? '',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'SF Pro Display',
-                        color: COLOR_BLACK,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: 52,
-                      child: ElevatedButton(
-                        onPressed: _confirmSubscription,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
+                    ],
+                  ),
+                  child: const Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Scroll down to subscribe',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'SF Pro Display',
+                              color: TEXT_SECONDARY,
+                            ),
                           ),
-                          textStyle: const TextStyle(fontSize: 18),
-                        ),
-                        child: Text(
-                          'Deposit \$${organization.settings.pricePerMonth} to Subscribe',
-                        ),
+                          Icon(
+                            Icons.arrow_downward,
+                            color: TEXT_SECONDARY,
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'You will never pay more than \$${organization.settings.pricePerMonth}',
-                      style: bodyTextStyle,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
             ],
           );
         },
