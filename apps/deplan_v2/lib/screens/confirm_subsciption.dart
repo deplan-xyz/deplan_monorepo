@@ -178,7 +178,9 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                 final currentValue = int.parse(controller.text);
                 if (currentValue > 0) {
                   controller.text = (currentValue - 1).toString();
-                  fetchEventsDemo(eventTypes);
+                  setState(() {
+                    futureEventsDemo = fetchEventsDemo(eventTypes);
+                  });
                 }
               },
               icon: const Icon(Icons.remove),
@@ -214,7 +216,9 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
               ),
               onPressed: () {
                 controller.text = (int.parse(controller.text) + 1).toString();
-                fetchEventsDemo(eventTypes);
+                setState(() {
+                  futureEventsDemo = fetchEventsDemo(eventTypes);
+                });
               },
               icon: const Icon(Icons.add),
             ),
@@ -277,7 +281,7 @@ class _ConfirmSubsciptionState extends State<ConfirmSubsciption> {
                       ),
                     ),
                     Text(
-                      '\$${eventsDemo?.youPay}',
+                      '\$${eventsDemo.youPay}',
                       style: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'SF Pro Display',
