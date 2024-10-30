@@ -29,13 +29,11 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   void initState() {
     super.initState();
 
-    final date =
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     subscriptionsFuture = api.listSubscriptions(
-      date.millisecondsSinceEpoch,
+      selectedDate.millisecondsSinceEpoch,
     );
     paymentInfoFuture = api.getPaymentInfo(
-      date.millisecondsSinceEpoch,
+      selectedDate.millisecondsSinceEpoch,
     );
   }
 
@@ -117,11 +115,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                   setState(() {
                     selectedDate = date!;
                     subscriptionsFuture = api.listSubscriptions(
-                      DateTime(
-                        selectedDate.year,
-                        selectedDate.month,
-                        selectedDate.day,
-                      ).millisecondsSinceEpoch,
+                      selectedDate.millisecondsSinceEpoch,
                     );
                   });
                 },
@@ -211,10 +205,8 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                   ),
                                 ),
                                 icon: Image.asset(
-                                  'assets/icons/apps_icon.png',
+                                  'assets/icons/apps_icon_white.png',
                                   width: 24,
-                                  colorBlendMode: BlendMode.srcIn,
-                                  color: Colors.white,
                                 ),
                                 label: const Text('DePlan Store'),
                                 onPressed: () {

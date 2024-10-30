@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 String formatMonthYear(DateTime date) {
   String formattedDate = DateFormat('MMM yy').format(date);
@@ -14,10 +15,9 @@ class SelectedDate {
 
 List<SelectedDate> getSurroundingMonths(DateTime selectedDate) {
   List<SelectedDate> surroundingMonths = [];
-  DateTime currentDate = selectedDate;
   for (int i = -2; i <= 1; i++) {
     DateTime newDate =
-        DateTime(currentDate.year, currentDate.month + i, currentDate.day + 1);
+        Jiffy.parseFromDateTime(selectedDate).add(months: i).dateTime;
     surroundingMonths.add(SelectedDate(formatMonthYear(newDate), newDate));
   }
 
