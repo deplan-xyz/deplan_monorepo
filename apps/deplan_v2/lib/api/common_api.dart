@@ -9,11 +9,12 @@ import 'package:dio/dio.dart';
 class API extends BaseApi {
   API() : super();
 
-  Future<Response> confirmSubscription(String orgId, String data) async {
-    return await postRequest(
+  Future<String> confirmSubscription(String orgId, String data) async {
+    final response = await postRequest(
       '/events/subscription',
       body: {'orgId': orgId, 'data': data},
     );
+    return response.data['paymentUrl'];
   }
 
   Future<Organization> getOrganizationById(String id) async {
@@ -52,6 +53,25 @@ class API extends BaseApi {
   Future<UserResponse> getMe() async {
     final response = await getRequest('/auth/me');
     return UserResponse.fromJson(response.data);
+  }
+
+  Future<Response> refundSubscription() async {
+    return postRequest('/events/refund');
+  }
+
+  Future<Response> getOrgEvents(String orgId) {
+    return getRequest('/events/orgs/$orgId/types');
+  }
+
+  Future<List<Organization>> getApps(String type) async {
+    final response = await getRequest('/apps?type=$type');
+    return (response.data['apps'] as List<dynamic>)
+        .map((item) => Organization.fromJson(item))
+        .toList();
+  }
+
+  Future<Response> getEventsDemo(String orgId, Map<String, dynamic> data) {
+    return postRequest('/events/orgs/$orgId/demo', body: data);
   }
 }
 

@@ -4,7 +4,8 @@ import 'package:deplan/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:deplan_core/utils/deplan_utils.dart'
+    if (dart.library.js_interop) 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'firebase_options.dart';
 
 void main() async {

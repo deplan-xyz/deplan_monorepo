@@ -113,6 +113,7 @@ class OrganizationSettings {
   bool? isContent;
   bool? isApp;
   double? pricePerMonth;
+  String? appUrl;
 
   OrganizationSettings({
     this.treasury = 0,
@@ -127,6 +128,7 @@ class OrganizationSettings {
     isContent = json['isContent'];
     isApp = json['isApp'];
     pricePerMonth = json['pricePerMonth'];
+    appUrl = json['appUrl'];
   }
 
   OrganizationSettings.fromOrgSettings(OrganizationSettings settings)
@@ -135,7 +137,8 @@ class OrganizationSettings {
         cancelUrl = settings.cancelUrl,
         isContent = settings.isContent,
         isApp = settings.isApp,
-        pricePerMonth = settings.pricePerMonth;
+        pricePerMonth = settings.pricePerMonth,
+        appUrl = settings.appUrl;
 
   @override
   String toString() {

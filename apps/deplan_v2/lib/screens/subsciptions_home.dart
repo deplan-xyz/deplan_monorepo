@@ -5,11 +5,11 @@ import 'package:deplan/components/subscription_card.dart';
 import 'package:deplan/models/payment_info.dart';
 import 'package:deplan/models/subscription.dart';
 import 'package:deplan/screens/settings_screen.dart';
+import 'package:deplan/screens/store_screen.dart';
 import 'package:deplan/screens/subscription_details.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SubsciptionsHome extends StatefulWidget {
   const SubsciptionsHome({super.key});
@@ -29,15 +29,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   void initState() {
     super.initState();
 
-    final date =
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
     subscriptionsFuture = api.listSubscriptions(
-      date.millisecondsSinceEpoch,
+      selectedDate.millisecondsSinceEpoch,
     );
     paymentInfoFuture = api.getPaymentInfo(
-      date.millisecondsSinceEpoch,
+      selectedDate.millisecondsSinceEpoch,
     );
-    _getPaymentLink();
   }
 
   _getPaymentLink() async {
@@ -58,47 +55,58 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
   @override
   Widget build(BuildContext context) {
     return ScreenWrapper(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      showAppBar: true,
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // Header with logo and icons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: Image.asset('assets/images/DePlan_Logo Black.png'),
-                  ),
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        if (mounted) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingsScreen(),
-                            ),
-                          );
-                        }
-                      },
-                      icon: SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: Image.asset('assets/icons/gear_icon.png'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400, maxHeight: 37),
+              child: Image.asset('assets/images/DePlan_Logo Black.png'),
             ),
-            const SizedBox(height: 16),
-            // Time period selector
-            SizedBox(
+          ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StoreScreen(),
+                ),
+              );
+            },
+            icon: SizedBox(
+              width: 25,
+              height: 25,
+              child: Image.asset('assets/icons/apps_icon.png'),
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
+            },
+            icon: SizedBox(
+              width: 25,
+              height: 25,
+              child: Image.asset('assets/icons/gear_icon.png'),
+            ),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          // Time period selector
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
               height: 40,
               width: double.infinity,
               child: MonthSelector(
@@ -107,19 +115,18 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                   setState(() {
                     selectedDate = date!;
                     subscriptionsFuture = api.listSubscriptions(
-                      DateTime(
-                        selectedDate.year,
-                        selectedDate.month,
-                        selectedDate.day,
-                      ).millisecondsSinceEpoch,
+                      selectedDate.millisecondsSinceEpoch,
                     );
                   });
                 },
               ),
             ),
-            const SizedBox(height: 24),
-            // Title
-            const Text(
+          ),
+          const SizedBox(height: 24),
+          // Title
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
               'Usage of your subscriptions',
               style: TextStyle(
                 fontSize: 24,
@@ -128,9 +135,12 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                 color: TEXT_MAIN,
               ),
             ),
-            // scrolled list with SubscriptionCard elements
-            const SizedBox(height: 16),
-            Expanded(
+          ),
+          // scrolled list with SubscriptionCard elements
+          const SizedBox(height: 16),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Expanded(
@@ -179,6 +189,34 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                   color: Colors.grey,
                                 ),
                               ),
+                              const SizedBox(height: 50),
+                              const Text(
+                                'Go to DePlan Store to find products you need',
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 10,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                icon: Image.asset(
+                                  'assets/icons/apps_icon_white.png',
+                                  width: 24,
+                                ),
+                                label: const Text('DePlan Store'),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => const StoreScreen(),
+                                    ),
+                                  );
+                                },
+                              ),
                             ],
                           );
                         }
@@ -208,6 +246,7 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                                 usagePercentage: subscription.usage,
                                 avatar: subscription.logo,
                                 orgId: subscription.orgId,
+                                appUrl: subscription.appUrl,
                                 onTap: (subscription) {
                                   Navigator.push(
                                     context,
@@ -226,31 +265,29 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                       },
                     ),
                   ),
-                  FutureBuilder(
-                    future: paymentInfoFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text('');
-                      }
-
-                      if (snapshot.hasError) {
-                        return const Text('');
-                      }
-
-                      return snapshot.data!.paymentInfo.youPay > 0.5
-                          ? buildBottomSheet(
-                              context,
-                              snapshot.data!.paymentInfo,
-                              paymentLink,
-                            )
-                          : Container();
-                    },
-                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          FutureBuilder(
+            future: paymentInfoFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('');
+              }
+
+              if (snapshot.hasError) {
+                return const Text('');
+              }
+
+              return buildBottomSheet(
+                context,
+                snapshot.data!.paymentInfo,
+                paymentLink,
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -261,15 +298,24 @@ Widget buildBottomSheet(
   PaymentInfo paymentInfo,
   String? paymentLink,
 ) {
-  if (paymentLink == null) {
-    return Container();
+  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
+  final savings =
+      (paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2);
+
+  if (savings == '0.00') {
+    return const SizedBox();
   }
 
-  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
-
   return Container(
-    decoration: const BoxDecoration(
-      color: Color(0xffffffff),
+    decoration: BoxDecoration(
+      color: const Color(0xffffffff),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          blurRadius: 10,
+          offset: const Offset(0, -5),
+        ),
+      ],
     ),
     child: Container(
       padding: const EdgeInsets.all(16.0),
@@ -279,63 +325,63 @@ Widget buildBottomSheet(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'You save \$${((paymentInfo.fullPrice + paymentInfo.comission) - paymentInfo.youPay).toStringAsFixed(2)} this month',
+            'You save \$$savings this month',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.purple,
             ),
           ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              backgroundColor: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-            ),
-            onPressed: () async {
-              await launchUrl(Uri.parse(paymentLink));
-            },
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Pay ',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  '\$${paymentInfo.fullPrice.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '\$${paymentWithoutComission.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // const SizedBox(height: 16),
+          // ElevatedButton(
+          //   style: ElevatedButton.styleFrom(
+          //     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          //     backgroundColor: Colors.black,
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(25.0),
+          //     ),
+          //   ),
+          //   onPressed: () async {
+          //     await launchUrl(Uri.parse(paymentLink));
+          //   },
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.max,
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       const Text(
+          //         'Pay ',
+          //         style: TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //       Text(
+          //         '\$${paymentInfo.fullPrice.toStringAsFixed(2)}',
+          //         style: const TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.grey,
+          //           decoration: TextDecoration.lineThrough,
+          //         ),
+          //       ),
+          //       const SizedBox(width: 8),
+          //       Text(
+          //         '\$${paymentWithoutComission.toStringAsFixed(2)}',
+          //         style: const TextStyle(
+          //           fontSize: 18,
+          //           color: Colors.white,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           const SizedBox(height: 16),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                '+ Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
+                '- Platform fee \$${paymentInfo.comission.toStringAsFixed(2)}',
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 16,

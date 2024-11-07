@@ -1,5 +1,5 @@
+import 'package:deplan_core/utils/deplan_utils.dart';
 import 'package:deplan_v1/models/token_amount.dart';
-import 'package:deplan_v1/utils/numbers.dart';
 
 class UserBalance {
   TokenAmount? nativeTokenBalance;

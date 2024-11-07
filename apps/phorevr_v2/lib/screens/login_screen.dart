@@ -10,7 +10,7 @@ import 'package:phorevr/screens/login/login_email_screen.dart';
 import 'package:phorevr/theme/app_theme.dart';
 import 'package:phorevr/widgets/view/app_padding.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:phorevr/utils/html_shim.dart'
+import 'package:deplan_core/deplan_core.dart'
     if (dart.library.js_interop) 'dart:html' show window;
 
 class LoginScreen extends StatefulWidget {
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            if (Platform.isIOS || Platform.isMacOS)
+                            if (kIsWeb || Platform.isIOS || Platform.isMacOS)
                               ElevatedButton(
                                 onPressed: isLoading
                                     ? null
@@ -163,14 +163,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 );
                               },
-                              style: Platform.isIOS || Platform.isMacOS
-                                  ? ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      side: const BorderSide(
-                                          color: COLOR_ALMOST_BLACK),
-                                      foregroundColor: COLOR_ALMOST_BLACK,
-                                    )
-                                  : null,
+                              style:
+                                  kIsWeb || Platform.isIOS || Platform.isMacOS
+                                      ? ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.transparent,
+                                          side: const BorderSide(
+                                            color: COLOR_ALMOST_BLACK,
+                                          ),
+                                          foregroundColor: COLOR_ALMOST_BLACK,
+                                        )
+                                      : null,
                               child: const Text('Continue with Email'),
                             ),
                           ],

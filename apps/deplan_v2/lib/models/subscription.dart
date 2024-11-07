@@ -1,3 +1,5 @@
+import 'package:deplan_core/utils/deplan_utils.dart';
+
 class Subscription {
   final String name;
   final double planPrice;
@@ -8,6 +10,7 @@ class Subscription {
   final String? description;
   final String? logo;
   final int? usageCount;
+  final String? appUrl;
 
   Subscription({
     required this.name,
@@ -19,6 +22,7 @@ class Subscription {
     this.description,
     this.usageCount,
     this.logo,
+    this.appUrl,
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) {
@@ -28,10 +32,11 @@ class Subscription {
       name: json['name'],
       description: json['description'],
       logo: json['logo'],
-      planPrice: json['planPrice'],
-      youPay: json['youPay'],
-      usage: json['usage'],
+      planPrice: intToDouble(json['planPrice']) ?? 0,
+      youPay: intToDouble(json['youPay']) ?? 0,
+      usage: intToDouble(json['usage']) ?? 0,
       usageCount: json['usageCount'],
+      appUrl: json['appUrl'],
     );
   }
 }

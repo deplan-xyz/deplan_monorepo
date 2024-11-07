@@ -1,4 +1,3 @@
-import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:deplan_core/deplan_core.dart';
 import 'package:deplan_v1/app_home.dart';

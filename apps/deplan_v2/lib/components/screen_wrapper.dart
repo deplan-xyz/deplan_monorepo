@@ -22,7 +22,8 @@ class ScreenWrapper extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: showAppBar ? appBar as PreferredSizeWidget? : null,
       body: SafeArea(
-          minimum: const EdgeInsets.fromLTRB(20, 20, 20, 20), child: child,),
+        child: child,
+      ),
     );
   }
 }

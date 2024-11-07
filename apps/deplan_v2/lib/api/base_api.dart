@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 const baseUrl = 'https://deplan-560eb4c67350.herokuapp.com';
 
 class BaseApi {
-  // final baseUrl = 'http://localhost:9898';
   late final Dio _dioClient;
   BaseApi() {
     _dioClient = Dio(
@@ -35,17 +34,16 @@ class BaseApi {
   }
 
   @protected
-  postRequest(String path, {Map<String, dynamic> body = const {}}) async {
+  Future<Response> postRequest(
+    String path, {
+    Map<String, dynamic> body = const {},
+  }) {
     final headers = this.headers;
-    try {
-      return await client.post(
-        path,
-        data: body,
-        options: Options(headers: headers),
-      );
-    } on DioException catch (e) {
-      return e.response;
-    }
+    return client.post(
+      path,
+      data: body,
+      options: Options(headers: headers),
+    );
   }
 
   Map<String, String> get headers {

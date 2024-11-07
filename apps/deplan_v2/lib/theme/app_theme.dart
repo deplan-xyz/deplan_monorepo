@@ -53,7 +53,7 @@ ThemeData getAppTheme() {
     ),
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
-        fontSize: 32,
+        fontSize: 36,
         fontWeight: FontWeight.bold,
         color: TEXT_MAIN,
         fontFamily: 'SF Pro Display',
@@ -131,6 +131,9 @@ ThemeData getAppTheme() {
         ),
         side: BorderSide(color: Colors.red),
       ),
+    ),
+    dividerTheme: const DividerThemeData(
+      color: Color(0xffE9E9EE),
     ),
   );
 }

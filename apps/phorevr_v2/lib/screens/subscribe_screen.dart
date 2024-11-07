@@ -29,7 +29,7 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
     },
     {
       'name': PaymentMethod.DePlan,
-      'title': 'Pay later with DePlan',
+      'title': 'Pay based on usage',
       'image': 'assets/images/deplan.webp',
     },
     {
@@ -72,24 +72,34 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(Icons.check),
             SizedBox(width: 10),
-            Text('Pay for how intensely you will use the app.'),
+            Flexible(
+              child: Text('Deposit monthly fee into smart-contract escrow'),
+            ),
           ],
         ),
         const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(Icons.check),
             SizedBox(width: 10),
-            Text('Pay after a month based on usage.'),
+            Flexible(
+              child: Text('Use the product and control usage'),
+            ),
           ],
         ),
         const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(Icons.check),
             SizedBox(width: 10),
-            Text('No card. No commitments. No surprises.'),
+            Flexible(
+              child: Text(
+                  'Get refunded at the end of the month depending on usage'),
+            ),
           ],
         ),
         const Divider(),
@@ -136,7 +146,7 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
               print(e);
             }
           },
-          child: const Text('Continue with DePlan'),
+          child: const Text('Subscribe with DePlan'),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:deplan/api/common_api.dart';
+import 'package:deplan/components/custom_button.dart';
 import 'package:deplan/components/day_grid.dart';
 import 'package:deplan/components/screen_wrapper.dart';
 import 'package:deplan/components/subscription_card.dart';
@@ -14,8 +15,11 @@ class SubscriptionDetails extends StatefulWidget {
   final Subscription subscriptionData;
   final DateTime selectedDate;
 
-  const SubscriptionDetails(
-      {super.key, required this.subscriptionData, required this.selectedDate,});
+  const SubscriptionDetails({
+    super.key,
+    required this.subscriptionData,
+    required this.selectedDate,
+  });
 
   @override
   State<SubscriptionDetails> createState() => _SubscriptionDetailsState();
@@ -30,15 +34,18 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
     meFuture = api.getMe();
   }
 
+  void openUrl(String url) {
+    launchUrl(Uri.parse(url));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenWrapper(
       showAppBar: true,
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Removes the default back button
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(
               width: 28,
@@ -49,74 +56,86 @@ class _SubscriptionDetailsState extends State<SubscriptionDetails> {
               ),
             ),
             const SizedBox(width: 10),
-            Text(
-              widget.subscriptionData.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: Colors.black,
+            Flexible(
+              child: Text(
+                widget.subscriptionData.name,
+                style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
               ),
             ),
           ],
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
-      child: Column(
-        children: [
-          SubscriptionCard(
-            // month and year in format: January 2022
-            title: DateFormat.yMMMM().format(widget.selectedDate),
-            backgroundColor: const Color(0xffffffff),
-            titleStyle: const TextStyle(
-              fontSize: 30,
-              fontFamily: 'SF Pro Display',
-              fontWeight: FontWeight.w700,
-              color: TEXT_MAIN,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            CustomButton(
+              label: 'Open App >',
+              fontSize: 14,
+              visualDensity: const VisualDensity(horizontal: -2, vertical: -2),
+              onPressed: () {
+                if (widget.subscriptionData.appUrl != null) {
+                  openUrl(widget.subscriptionData.appUrl!);
+                }
+              },
             ),
-            planPrice: widget.subscriptionData.planPrice,
-            userPays: widget.subscriptionData.youPay,
-            orgId: widget.subscriptionData.orgId,
-            usagePercentage: widget.subscriptionData.usage,
-          ),
-          FutureBuilder(
+            SubscriptionCard(
+              // month and year in format: January 2022
+              title: DateFormat.yMMMM().format(widget.selectedDate),
+              backgroundColor: const Color(0xffffffff),
+              titleStyle: const TextStyle(
+                fontSize: 30,
+                fontFamily: 'SF Pro Display',
+                fontWeight: FontWeight.w700,
+                color: TEXT_MAIN,
+              ),
+              planPrice: widget.subscriptionData.planPrice,
+              userPays: widget.subscriptionData.youPay,
+              orgId: widget.subscriptionData.orgId,
+              usagePercentage: widget.subscriptionData.usage,
+            ),
+            FutureBuilder(
               future: meFuture,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return TextButton(
-                      style: TextButton.styleFrom(
-                        splashFactory: NoSplash.splashFactory,
-                        backgroundColor: Colors.transparent,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        textStyle: const TextStyle(
-                          color: TEXT_SECONDARY_ACCENT,
-                          decoration: TextDecoration.underline,
-                        ),
+                    style: TextButton.styleFrom(
+                      splashFactory: NoSplash.splashFactory,
+                      backgroundColor: Colors.transparent,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      onPressed: () {
-                        final wallet = snapshot.data!.user.wallet;
-                        launchUrl(
-                            Uri.parse('https://solscan.io/address/$wallet'),);
-                      },
-                      child: const Text('View on Chain'),);
+                      textStyle: const TextStyle(
+                        color: TEXT_SECONDARY_ACCENT,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onPressed: () {
+                      final wallet = snapshot.data!.user.wallet;
+                      launchUrl(
+                        Uri.parse('https://solscan.io/address/$wallet'),
+                      );
+                    },
+                    child: const Text('Check usage on blockchain'),
+                  );
                 }
                 return const CupertinoActivityIndicator();
-              },),
-          Flexible(
-            child: DayGrid(
-              date: widget.selectedDate,
-              subscriptionData: widget.subscriptionData,
+              },
             ),
-          ),
-        ],
+            Flexible(
+              child: DayGrid(
+                date: widget.selectedDate,
+                subscriptionData: widget.subscriptionData,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

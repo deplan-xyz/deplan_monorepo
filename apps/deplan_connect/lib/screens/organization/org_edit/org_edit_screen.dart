@@ -1,7 +1,6 @@
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iw_app/api/models/org_to_update.model.dart';
 import 'package:iw_app/api/orgs_api.dart';
 import 'package:iw_app/models/organization_model.dart';
@@ -32,6 +31,8 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
   final nameController = TextEditingController(text: '');
   final descriptionController = TextEditingController(text: '');
   final websiteLinkController = TextEditingController(text: '');
+  final appUrlController = TextEditingController(text: '');
+  final pricePerMonthController = TextEditingController(text: '');
 
   @override
   initState() {
@@ -42,9 +43,19 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
         TextEditingValue(text: organization.description ?? '');
     websiteLinkController.value =
         TextEditingValue(text: organization.link ?? '');
+    appUrlController.value =
+        TextEditingValue(text: organization.settings?.appUrl ?? '');
+    pricePerMonthController.value = TextEditingValue(
+      text: organization.settings?.pricePerMonth?.toString() ?? '',
+    );
   }
 
   updateOrg() async {
+    if (organization.settings?.isApp ?? false) {
+      organization.settings?.pricePerMonth =
+          double.tryParse(pricePerMonthController.text);
+      organization.settings?.appUrl = appUrlController.text;
+    }
     await orgsApi.updateOrg(
       organization.id!,
       OrgToUpdate.fromOrg(organization),
@@ -101,10 +112,10 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
 
   onSave() async {
     await removeImages();
-    setState(() {
-      saving = true;
-    });
     if (formKey.currentState!.validate()) {
+      setState(() {
+        saving = true;
+      });
       try {
         await updateOrg();
 
@@ -215,8 +226,19 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
                 children: [
                   const SizedBox(height: 20),
                   AppTextFormField(
-                    initialValue:
-                        organization.settings?.pricePerMonth?.toString() ?? '',
+                    controller: appUrlController,
+                    labelText: 'App URL',
+                    textInputAction: TextInputAction.next,
+                    inputType: TextInputType.url,
+                    validator: (organization.settings?.isApp ?? false)
+                        ? multiValidate([
+                            requiredField('App URL'),
+                          ])
+                        : (_) => null,
+                  ),
+                  const SizedBox(height: 20),
+                  AppTextFormField(
+                    controller: pricePerMonthController,
                     labelText: 'Price per month',
                     textInputAction: TextInputAction.done,
                     inputType:
@@ -229,12 +251,11 @@ class _OrgEditScreenState extends State<OrgEditScreen> {
                             numberField('Price per month'),
                           ])
                         : (_) => null,
-                    onChanged: (value) {
-                      setState(() {
-                        organization.settings?.pricePerMonth =
-                            double.tryParse(value);
-                      });
-                    },
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d*\.?\d{0,2}'),
+                      ),
+                    ],
                   ),
                 ],
               ),
