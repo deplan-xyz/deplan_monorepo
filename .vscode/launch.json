@@ -126,8 +126,8 @@
       "flutterMode": "release"
     },
     {
-      "name": "splinter",
-      "cwd": "${workspaceFolder}/apps/splinter",
+      "name": "subdoor",
+      "cwd": "${workspaceFolder}/apps/subdoor",
       "request": "launch",
       "type": "dart",
       "args": [
@@ -136,15 +136,15 @@
       ]
     },
     {
-      "name": "splinter (profile mode)",
-      "cwd": "${workspaceFolder}/apps/splinter",
+      "name": "subdoor (profile mode)",
+      "cwd": "${workspaceFolder}/apps/subdoor",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "splinter (release mode)",
-      "cwd": "${workspaceFolder}/apps/splinter",
+      "name": "subdoor (release mode)",
+      "cwd": "${workspaceFolder}/apps/subdoor",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

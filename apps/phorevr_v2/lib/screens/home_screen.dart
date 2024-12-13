@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  buildInitialCard({double balance = 0}) {
+  buildInitialCard() {
     return Card(
       margin: const EdgeInsets.all(0),
       color: COLOR_LIGHT_GRAY,
@@ -338,16 +338,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            FutureBuilder<List>(
-              future: Future.wait([futureFiles, futureBalance]),
+            FutureBuilder<List<FileInfo>?>(
+              future: futureFiles,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator()),
                   );
                 }
-                final balance = snapshot.data?[1];
-                final List<FileInfo> files = snapshot.data?[0] ?? [];
+                final files = snapshot.data ?? [];
                 if (files.isEmpty) {
                   return SliverToBoxAdapter(
                     child: Align(
@@ -355,7 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: AppPadding(
                         child: SizedBox(
                           width: 240,
-                          child: buildInitialCard(balance: balance),
+                          child: buildInitialCard(),
                         ),
                       ),
                     ),
