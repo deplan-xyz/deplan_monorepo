@@ -82,7 +82,7 @@ class _OrgCreationProgressScreenState extends State<OrgCreationProgressScreen> {
         await Future.delayed(const Duration(seconds: 5));
         startPolling();
       }
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       print(err);
       final message = err.response!.data['message'];
       if (message != null && mounted) {
@@ -112,7 +112,7 @@ class _OrgCreationProgressScreenState extends State<OrgCreationProgressScreen> {
         organization = Organization.fromJson(response.data);
       });
       startPolling();
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       print(err);
       if (err.response!.statusCode == HttpStatus.conflict) {
         navigateToHome();

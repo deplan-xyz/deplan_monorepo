@@ -5,7 +5,6 @@ import 'package:deplan/screens/app_init_controller.dart';
 import 'package:deplan/screens/settings_screen.dart';
 import 'package:deplan/screens/subsciptions_home.dart';
 import 'package:deplan/screens/subscription_details.dart';
-import 'package:deplan/utilities/uri.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ import 'package:deplan/screens/confirm_subsciption.dart';
 import 'package:deplan/screens/signin.dart';
 import 'package:deplan/theme/app_theme.dart';
 import 'package:deplan/constants/routes.dart';
-import 'package:uni_links/uni_links.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -37,29 +35,6 @@ class _AppState extends State<App> {
   void dispose() {
     _sub?.cancel();
     super.dispose();
-  }
-
-  void _navigateToConfirmSubscription(String orgId) {
-    _navigatorKey.currentState!.pushNamed(
-      Routes.confirmSubscription,
-      arguments: orgId,
-    );
-  }
-
-  void _handleIncomingLinks() async {
-    // Handle deep link when the app is already running (iOS only)
-    _sub = uriLinkStream.listen(
-      (Uri? uri) {
-        final orgId = getOrgIdFromUri(uri);
-        if (orgId != null) {
-          _navigateToConfirmSubscription(orgId);
-        }
-      },
-      onError: (err) {
-        // Handle error
-        print('Error: $err');
-      },
-    );
   }
 
   @override

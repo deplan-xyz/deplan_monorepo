@@ -58,7 +58,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       final response = await authApi.getMe();
       return Account.fromJson(response.data);
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       if (err.response?.statusCode == 401) {
         await appStorage.write('redirect_to', '/checkout/${widget.paymentId}');
         if (mounted) {
@@ -289,7 +289,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
         );
       }
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       handleError(err.response?.data['message'] ?? err.message);
     } catch (err) {
       handleError(err.toString());

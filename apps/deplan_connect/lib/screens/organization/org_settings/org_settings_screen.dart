@@ -102,7 +102,7 @@ class _OrgSettingsScreenState extends State<OrgSettingsScreen> {
           ),
         );
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       final message = e.response!.data['message'];
       if (message != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

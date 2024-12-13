@@ -47,7 +47,7 @@ class _OfferInvestorPreviewState extends State<OfferInvestorPreview> {
       if (mounted) {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
       }
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       final message = err.response!.data['message'];
       if (message != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

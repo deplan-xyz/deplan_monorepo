@@ -452,7 +452,7 @@ class _OfferPreviewScreenState extends State<OfferPreviewScreen> {
       setState(() {
         offer = Offer.fromJson(response.data);
       });
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       final equityError = err.response?.data['equityAllocation'];
       if (equityError != null && mounted) {
         Navigator.of(context).pop(equityError);

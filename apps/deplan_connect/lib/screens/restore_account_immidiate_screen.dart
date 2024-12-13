@@ -41,7 +41,7 @@ class _RestoreAccountImmidiateScreenState
         Navigator.of(context)
             .pushNamedAndRemoveUntil(AppHome.routeName, (route) => false);
       }
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       handleError(err.response?.data['message'] ?? err.message);
       rethrow;
     } catch (err) {

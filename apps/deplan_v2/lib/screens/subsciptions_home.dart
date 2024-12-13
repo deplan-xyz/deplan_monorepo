@@ -37,21 +37,6 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
     );
   }
 
-  _getPaymentLink() async {
-    try {
-      final date =
-          DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
-      final link = await api.getPaymentLink(
-        date.millisecondsSinceEpoch,
-      );
-      setState(() {
-        paymentLink = link;
-      });
-    } on DioException catch (e) {
-      print('Get payment link failed: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return ScreenWrapper(
@@ -155,8 +140,8 @@ class _SubsciptionsHomeState extends State<SubsciptionsHome> {
                           );
                         } else if (snapshot.hasError) {
                           if (snapshot.error is DioException) {
-                            final dioError = snapshot.error as DioException;
-                            if (dioError.type == DioExceptionType.unknown) {
+                            final error = snapshot.error as DioException;
+                            if (error.type == DioExceptionType.unknown) {
                               return const Center(
                                 child: Text(
                                   'Error: Please check your internet connection',
@@ -298,7 +283,6 @@ Widget buildBottomSheet(
   PaymentInfo paymentInfo,
   String? paymentLink,
 ) {
-  final paymentWithoutComission = paymentInfo.youPay - paymentInfo.comission;
   final savings =
       (paymentInfo.fullPrice - paymentInfo.youPay).toStringAsFixed(2);
 

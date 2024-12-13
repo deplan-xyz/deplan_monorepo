@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:html' as html;
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/pages/home_screen.dart';
 import 'package:subdoor/pages/login/login_basic_screen.dart';
@@ -9,6 +8,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:deplan_core/deplan_core.dart'
+    if (dart.library.js_interop) 'dart:html' show window;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
         isLoading = true;
       });
       final redirectUrl = kIsWeb
-          ? 'https://${html.window.location.host}'
+          ? 'https://${window.location.host}'
           : '${authApi.baseUrl}/subdoor/auth/signin/apple/callback';
       final credential = await SignInWithApple.getAppleIDCredential(
         scopes: [

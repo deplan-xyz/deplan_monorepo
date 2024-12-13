@@ -61,7 +61,7 @@ class _OfferScreenState extends State<OfferScreen> {
     try {
       final response = await authApi.getMe();
       return Account.fromJson(response.data);
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       if (err.response?.statusCode == 401) {
         await appStorage.write(
           'redirect_to',
@@ -529,7 +529,7 @@ class _OfferScreenState extends State<OfferScreen> {
       if (mounted) {
         Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
       }
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       final message = err.response!.data['message'];
       if (message != null && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

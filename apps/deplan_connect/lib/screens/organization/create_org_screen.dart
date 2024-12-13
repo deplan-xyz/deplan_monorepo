@@ -128,7 +128,7 @@ class _CreateOrgScreenState extends State<CreateOrgScreen> {
     try {
       await orgsApi.getOrgByUsername(username);
     } catch (err) {
-      if ((err as DioError).response?.statusCode == 404) {
+      if ((err as DioException).response?.statusCode == 404) {
         return false;
       }
       print(err);

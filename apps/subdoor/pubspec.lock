@@ -129,6 +129,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.3"
+  deplan_core:
+    dependency: "direct main"
+    description:
+      path: "../../packages/deplan_core"
+      relative: true
+    source: path
+    version: "0.0.3"
   device_frame:
     dependency: transitive
     description:

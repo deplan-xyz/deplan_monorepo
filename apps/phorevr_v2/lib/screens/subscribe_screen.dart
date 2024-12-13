@@ -98,7 +98,8 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
             SizedBox(width: 10),
             Flexible(
               child: Text(
-                  'Get refunded at the end of the month depending on usage'),
+                'Get refunded at the end of the month depending on usage',
+              ),
             ),
           ],
         ),

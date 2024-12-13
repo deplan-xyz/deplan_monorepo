@@ -53,7 +53,7 @@ class InfiniteScrollListWidgetState extends State<InfiniteScrollListWidget> {
     try {
       await widget.onRefresh();
     } catch (e) {
-      _showErrorMessage((e as DioError).message ?? 'Unknown error');
+      _showErrorMessage((e as DioException).message ?? 'Unknown error');
     } finally {
       setState(() {
         isRefreshing = false;
@@ -84,7 +84,7 @@ class InfiniteScrollListWidgetState extends State<InfiniteScrollListWidget> {
             (historyItems.last as TxnHistoryItem).transactionSignature;
       });
     } catch (e) {
-      _showErrorMessage((e as DioError).message ?? 'Unknown error');
+      _showErrorMessage((e as DioException).message ?? 'Unknown error');
     } finally {
       setState(() {
         isLoading = false;

@@ -87,7 +87,7 @@ class _SaleOfferScreenState extends State<SaleOfferScreen> {
     try {
       final response = await offersApi.getSaleOffer(widget.offerId);
       return SaleOffer.fromJson(response.data);
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       if (err.response?.statusCode == 401) {
         await appStorage.write(
           'redirect_to',

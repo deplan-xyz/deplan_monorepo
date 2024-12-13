@@ -1,5 +1,3 @@
-import 'dart:html' as html;
-
 import 'package:subdoor/components/bottom_sheet.dart';
 import 'package:subdoor/components/text_copy.dart';
 import 'package:subdoor/models/user.dart';
@@ -8,6 +6,8 @@ import 'package:subdoor/pages/wallet/add_bids_screen.dart';
 import 'package:subdoor/widgets/app_scaffold.dart';
 import 'package:subdoor/widgets/body_padding.dart';
 import 'package:flutter/material.dart';
+import 'package:deplan_core/deplan_core.dart'
+    if (dart.library.js_interop) 'dart:html' show window;
 
 class WalletScreen extends StatelessWidget {
   final User user;
@@ -220,7 +220,7 @@ class WalletScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              html.window.open(
+              window.open(
                 'https://solscan.io/address/${user.wallet}',
                 '_blank',
               );

@@ -30,8 +30,8 @@ class _AppHomeState extends State<AppHome> {
       ]),
       builder: (context, snapshot) {
         if (snapshot.hasError &&
-            snapshot.error is DioError &&
-            (snapshot.error as DioError).response!.statusCode == 401) {
+            snapshot.error is DioException &&
+            (snapshot.error as DioException).response!.statusCode == 401) {
           return const LoginScreen();
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
