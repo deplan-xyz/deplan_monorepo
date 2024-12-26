@@ -135,7 +135,7 @@ packages:
       path: "../../packages/deplan_core"
       relative: true
     source: path
-    version: "0.0.4"
+    version: "0.0.5"
   device_frame:
     dependency: transitive
     description:

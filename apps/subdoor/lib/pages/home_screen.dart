@@ -1,3 +1,4 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/api/user_api.dart';
 import 'package:subdoor/components/balance.dart';
@@ -57,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return User.fromJson(response.data['user']);
   }
 
-  void _onTabTapped(HomeTab tab) {
+  void _onTabTapped(int index) {
     setState(() {
-      _selectedTab = tab;
+      _selectedTab = HomeTab.values[index];
     });
   }
 
@@ -83,66 +84,6 @@ class _HomeScreenState extends State<HomeScreen> {
       default:
         return const CatalogScreen();
     }
-  }
-
-  BottomNavigationBarItem buildBottomNavigationBarItem(
-    String iconName,
-    double iconWidth,
-    double iconHeight,
-    String label,
-  ) {
-    Widget wrapIcon(Widget icon) {
-      return SizedBox(
-        width: 30,
-        height: 30,
-        child: Center(child: icon),
-      );
-    }
-
-    return BottomNavigationBarItem(
-      icon: wrapIcon(
-        Image.asset(
-          'assets/icons/$iconName.png',
-          width: iconWidth,
-          height: iconHeight,
-        ),
-      ),
-      activeIcon: wrapIcon(
-        Image.asset(
-          'assets/icons/${iconName}_active.png',
-          width: iconWidth,
-          height: iconHeight,
-        ),
-      ),
-      label: label,
-    );
-  }
-
-  buildBottomNavigationBar() {
-    return Container(
-      height: navBarHeight,
-      decoration: BoxDecoration(
-        color: Colors.red,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 30,
-            offset: const Offset(0, -10),
-          ),
-        ],
-      ),
-      child: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          buildBottomNavigationBarItem('search', 24, 24, 'Search'),
-          buildBottomNavigationBarItem('auctions', 24, 24, 'Auctions'),
-          buildBottomNavigationBarItem('subs', 30, 20, 'Subscriptions'),
-          buildBottomNavigationBarItem('wallet_grey', 24, 21, 'Wallet'),
-        ],
-        currentIndex: _selectedTab.index,
-        onTap: (index) => _onTabTapped(HomeTab.values[index]),
-      ),
-    );
   }
 
   buildHeaderTitle(UserBalance balance, User user) {
@@ -223,7 +164,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: buildBottomNavigationBar(),
+                child: BottomNavBar(
+                  height: navBarHeight,
+                  selectedIndex: _selectedTab.index,
+                  onTabTapped: _onTabTapped,
+                  items: const [
+                    BottomNavBarItem(
+                      iconPath: 'assets/icons/search.png',
+                      activeIconPath: 'assets/icons/search_active.png',
+                      iconWidth: 24,
+                      iconHeight: 24,
+                      label: 'Search',
+                    ),
+                    BottomNavBarItem(
+                      iconPath: 'assets/icons/auctions.png',
+                      activeIconPath: 'assets/icons/auctions_active.png',
+                      iconWidth: 24,
+                      iconHeight: 24,
+                      label: 'Auctions',
+                    ),
+                    BottomNavBarItem(
+                      iconPath: 'assets/icons/subs.png',
+                      activeIconPath: 'assets/icons/subs_active.png',
+                      iconWidth: 30,
+                      iconHeight: 20,
+                      label: 'Subscriptions',
+                    ),
+                    BottomNavBarItem(
+                      iconPath: 'assets/icons/wallet_grey.png',
+                      activeIconPath: 'assets/icons/wallet_grey_active.png',
+                      iconWidth: 24,
+                      iconHeight: 21,
+                      label: 'Wallet',
+                    ),
+                  ],
+                ),
               ),
             ],
           );

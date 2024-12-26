@@ -19,7 +19,7 @@ class BaseApi {
   late final Dio _dioClient;
 
   BaseApi() {
-    baseUrl = '${server['http']!}/subdoor';
+    baseUrl = '${server['http']!}/bidonsub';
     _dioClient = Dio(
       BaseOptions(
         baseUrl: baseUrl,
