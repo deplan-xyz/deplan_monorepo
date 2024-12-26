@@ -1,3 +1,7 @@
+## 0.0.4
+
+ - **FEAT**: add validation utils.
+
 ## 0.0.3
 
  - **FEAT**: new fature.
