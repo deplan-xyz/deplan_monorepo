@@ -1,3 +1,7 @@
+## 0.0.5
+
+ - **FEAT**(core): add bottom nav bar widget.
+
 ## 0.0.4
 
  - **FEAT**: add validation utils.

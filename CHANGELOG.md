@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`deplan_core` - `v0.0.5`](#deplan_core---v005)
+
+---
+
+#### `deplan_core` - `v0.0.5`
+
+ - **FEAT**(core): add bottom nav bar widget.
+
+
+## 2024-12-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`deplan_core` - `v0.0.4`](#deplan_core---v004)
 
 ---
