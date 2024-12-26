@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:deplan_core/deplan_core.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:phorevr_v1/api/auth_api.dart';
 import 'package:phorevr_v1/models/user.dart';
 import 'package:phorevr_v1/screens/home_screen.dart';
 import 'package:phorevr_v1/theme/app_theme.dart';
-import 'package:phorevr_v1/utils/validation.dart';
 import 'package:phorevr_v1/widgets/form/input_form.dart';
 import 'package:phorevr_v1/widgets/view/app_padding.dart';
 import 'package:phorevr_v1/widgets/view/screen_scaffold.dart';

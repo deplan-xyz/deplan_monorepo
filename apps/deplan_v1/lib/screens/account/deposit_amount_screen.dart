@@ -1,10 +1,10 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:deplan_v1/models/user.dart';
 import 'package:deplan_v1/screens/account/deposit_webview_screen.dart';
 import 'package:deplan_v1/screens/successful_deposit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:deplan_v1/api/balance_api.dart';
 import 'package:deplan_v1/utils/debounce.dart';
-import 'package:deplan_v1/utils/validation.dart';
 import 'package:deplan_v1/widgets/form/input_form.dart';
 import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
 import 'package:deplan_v1/widgets/view/app_padding.dart';

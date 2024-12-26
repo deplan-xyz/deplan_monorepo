@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:deplan_core/deplan_core.dart';
 import 'package:iw_app/screens/send_money/send_money_preview_screen.dart';
-import 'package:iw_app/utils/validation.dart';
 import 'package:iw_app/widgets/form/input_form.dart';
 import 'package:iw_app/widgets/list/keyboard_dismissable_list.dart';
 import 'package:iw_app/widgets/scaffold/screen_scaffold.dart';

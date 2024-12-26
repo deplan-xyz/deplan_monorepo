@@ -1,10 +1,10 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:iw_app/models/offer_model.dart';
 import 'package:iw_app/screens/offer/offer_investor_preview.dart';
 import 'package:iw_app/theme/app_theme.dart';
 import 'package:iw_app/utils/input_formatters.dart';
-import 'package:iw_app/utils/validation.dart';
 import 'package:iw_app/widgets/form/boarded_textfield_with_title.dart';
 import 'package:iw_app/widgets/scaffold/screen_scaffold.dart';
 

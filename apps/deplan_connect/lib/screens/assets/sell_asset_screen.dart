@@ -1,3 +1,4 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iw_app/api/offers_api.dart';
 import 'package:iw_app/api/orgs_api.dart';
@@ -8,7 +9,6 @@ import 'package:iw_app/models/sale_offer_model.dart';
 import 'package:iw_app/screens/offer/sale_offer_preview_screen.dart';
 import 'package:iw_app/theme/app_theme.dart';
 import 'package:iw_app/utils/debounce.dart';
-import 'package:iw_app/utils/validation.dart';
 import 'package:iw_app/widgets/form/input_form.dart';
 import 'package:iw_app/widgets/list/keyboard_dismissable_list.dart';
 import 'package:iw_app/widgets/scaffold/screen_scaffold.dart';

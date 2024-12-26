@@ -1,4 +1,4 @@
-import 'package:deplan_v1/utils/validation.dart';
+import 'package:deplan_core/deplan_core.dart';
 import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

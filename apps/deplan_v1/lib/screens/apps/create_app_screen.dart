@@ -1,7 +1,7 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:deplan_v1/api/apps_api.dart';
 import 'package:deplan_v1/models/app.dart';
 import 'package:deplan_v1/theme/app_theme.dart';
-import 'package:deplan_v1/utils/validation.dart';
 import 'package:deplan_v1/widgets/form/input_form.dart';
 import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
 import 'package:deplan_v1/widgets/view/app_padding.dart';

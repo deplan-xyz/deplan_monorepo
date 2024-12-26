@@ -223,7 +223,7 @@ packages:
       path: "../../packages/deplan_core"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.4"
   dio:
     dependency: "direct main"
     description:

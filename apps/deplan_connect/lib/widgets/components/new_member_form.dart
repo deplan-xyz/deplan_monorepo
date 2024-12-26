@@ -1,9 +1,9 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iw_app/l10n/generated/app_localizations.dart';
 import 'package:iw_app/models/organization_member_model.dart';
 import 'package:iw_app/theme/app_theme.dart';
-import 'package:iw_app/utils/validation.dart';
 import 'package:iw_app/widgets/components/bottom_sheet_info.dart';
 import 'package:iw_app/widgets/form/input_form.dart';
 
@@ -107,11 +107,13 @@ class _NewMemberFormState extends State<NewMemberForm> {
               ),
               IconButton(
                 onPressed: () {
-                  showBottomInfoSheet(context,
-                      title: AppLocalizations.of(context)!
-                          .createOrgMemberScreen_impactRatioLabel,
-                      description:
-                          'The Impact Ratio helps to account ‘the power of influence’ of members contributed the same amount of time to differentiate their impacts. \n\nMember’s dividends will be calculated based on their Equity. \n\nEvery member’s Equity is calculated based on Impact Shares. Impact Shares are earned multiplying member’s contribution time by their Impact Ratio.',);
+                  showBottomInfoSheet(
+                    context,
+                    title: AppLocalizations.of(context)!
+                        .createOrgMemberScreen_impactRatioLabel,
+                    description:
+                        'The Impact Ratio helps to account ‘the power of influence’ of members contributed the same amount of time to differentiate their impacts. \n\nMember’s dividends will be calculated based on their Equity. \n\nEvery member’s Equity is calculated based on Impact Shares. Impact Shares are earned multiplying member’s contribution time by their Impact Ratio.',
+                  );
                 },
                 icon: const Icon(Icons.info_outline_rounded),
                 iconSize: 16,
@@ -150,11 +152,13 @@ class _NewMemberFormState extends State<NewMemberForm> {
                   ),
                   IconButton(
                     onPressed: () {
-                      showBottomInfoSheet(context,
-                          title: AppLocalizations.of(context)!
-                              .createOrgSettingsScreen_treasuryLabel,
-                          description: AppLocalizations.of(context)!
-                              .treasury_description,);
+                      showBottomInfoSheet(
+                        context,
+                        title: AppLocalizations.of(context)!
+                            .createOrgSettingsScreen_treasuryLabel,
+                        description:
+                            AppLocalizations.of(context)!.treasury_description,
+                      );
                     },
                     icon: const Icon(Icons.info_outline_rounded),
                     iconSize: 16,
@@ -206,11 +210,13 @@ class _NewMemberFormState extends State<NewMemberForm> {
                   ),
                   IconButton(
                     onPressed: () {
-                      showBottomInfoSheet(context,
-                          title: AppLocalizations.of(context)!
-                              .createOrgMemberScreen_autoContributionLabel,
-                          description: AppLocalizations.of(context)!
-                              .autoContribution_description,);
+                      showBottomInfoSheet(
+                        context,
+                        title: AppLocalizations.of(context)!
+                            .createOrgMemberScreen_autoContributionLabel,
+                        description: AppLocalizations.of(context)!
+                            .autoContribution_description,
+                      );
                     },
                     icon: const Icon(Icons.info_outline_rounded),
                     iconSize: 16,
@@ -233,8 +239,10 @@ class _NewMemberFormState extends State<NewMemberForm> {
           AppTextFormFieldBordered(
             controller: hoursPerWeekCtrl,
             enabled: widget.member.isAutoContributing!,
-            suffix: Text(AppLocalizations.of(context)!
-                .createOrgMemberScreen_hoursPerWeekLabel,),
+            suffix: Text(
+              AppLocalizations.of(context)!
+                  .createOrgMemberScreen_hoursPerWeekLabel,
+            ),
             validator: widget.member.isAutoContributing!
                 ? multiValidate([
                     requiredField(

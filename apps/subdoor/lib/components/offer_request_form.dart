@@ -1,7 +1,7 @@
 import 'dart:collection';
 
+import 'package:deplan_core/utils/deplan_utils.dart';
 import 'package:subdoor/models/auction_item.dart';
-import 'package:subdoor/utils/validation.dart';
 import 'package:subdoor/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 

@@ -1,3 +1,4 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:flutter/material.dart';
 import 'package:iw_app/api/orgs_api.dart';
 import 'package:iw_app/constants/payment_type.dart';
@@ -7,7 +8,6 @@ import 'package:iw_app/models/payment_model.dart';
 import 'package:iw_app/screens/organization/receive_money_generate_link_screen.dart';
 import 'package:iw_app/widgets/form/input_form.dart';
 import 'package:iw_app/widgets/scaffold/screen_scaffold.dart';
-import 'package:iw_app/utils/validation.dart';
 
 class ReceiveMoneyScreen extends StatefulWidget {
   final Organization organization;

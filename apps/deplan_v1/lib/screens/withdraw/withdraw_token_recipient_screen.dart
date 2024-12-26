@@ -2,7 +2,6 @@ import 'package:deplan_v1/widgets/view/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:deplan_core/deplan_core.dart';
 import 'package:deplan_v1/screens/withdraw/withdraw_amount_screen.dart';
-import 'package:deplan_v1/utils/validation.dart';
 import 'package:deplan_v1/widgets/form/input_form.dart';
 import 'package:deplan_v1/widgets/list/keyboard_dismissable_list.dart';
 import 'package:deplan_v1/widgets/view/screen_scaffold.dart';
