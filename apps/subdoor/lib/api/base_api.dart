@@ -12,14 +12,14 @@ const servers = {
     'ws': 'https://deplan-560eb4c67350.herokuapp.com',
   },
 };
-final server = servers[kReleaseMode ? 'prod' : 'prod']!;
+final server = servers[kReleaseMode ? 'prod' : 'local']!;
 
 class BaseApi {
   late final String baseUrl;
   late final Dio _dioClient;
 
   BaseApi() {
-    baseUrl = '${server['http']!}/bidonsub';
+    baseUrl = '${server['http']!}/subdoor';
     _dioClient = Dio(
       BaseOptions(
         baseUrl: baseUrl,

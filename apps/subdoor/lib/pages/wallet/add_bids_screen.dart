@@ -33,7 +33,7 @@ class _AddBidsScreenState extends State<AddBidsScreen> {
       if (mounted) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(initialTab: 3),
+            builder: (context) => const HomeScreen(initialTab: HomeTab.wallet),
           ),
           (route) => false,
         );

@@ -55,5 +55,14 @@ ThemeData getAppTheme() {
         color: Color(0xff38536B),
       ),
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+      ),
+    ),
   );
 }

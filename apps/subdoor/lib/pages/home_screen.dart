@@ -1,6 +1,7 @@
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/api/user_api.dart';
 import 'package:subdoor/components/balance.dart';
+import 'package:subdoor/components/offer_request_form.dart';
 import 'package:subdoor/models/user.dart';
 import 'package:subdoor/models/user_balance.dart';
 import 'package:subdoor/pages/account_settings_screen.dart';
@@ -12,10 +13,17 @@ import 'package:subdoor/widgets/app_scaffold.dart';
 import 'package:subdoor/widgets/body_padding.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  final int initialTab;
+enum HomeTab {
+  catalog,
+  auctions,
+  subscriptions,
+  wallet,
+}
 
-  const HomeScreen({super.key, this.initialTab = 0});
+class HomeScreen extends StatefulWidget {
+  final HomeTab initialTab;
+
+  const HomeScreen({super.key, this.initialTab = HomeTab.catalog});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,9 +32,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<UserBalance> futureBalance;
   late Future<User> futureUser;
-  late int _selectedTab;
+  late HomeTab _selectedTab;
 
   final double navBarHeight = 80;
+
+  OfferRequestFormData? _offerRequestFormData;
 
   @override
   void initState() {
@@ -47,21 +57,28 @@ class _HomeScreenState extends State<HomeScreen> {
     return User.fromJson(response.data['user']);
   }
 
-  void _onTabTapped(int index) {
+  void _onTabTapped(HomeTab tab) {
     setState(() {
-      _selectedTab = index;
+      _selectedTab = tab;
     });
   }
 
   Widget buildBody(UserBalance balance, User user) {
     switch (_selectedTab) {
-      case 0:
-        return const CatalogScreen();
-      case 1:
+      case HomeTab.catalog:
+        return CatalogScreen(
+          offerRequestFormData: _offerRequestFormData,
+          onOfferRequestUpdate: (data) {
+            setState(() {
+              _offerRequestFormData = data;
+            });
+          },
+        );
+      case HomeTab.auctions:
         return AuctionsScreen(balance: balance, user: user);
-      case 2:
+      case HomeTab.subscriptions:
         return MySubscriptionsScreen(balance: balance, user: user);
-      case 3:
+      case HomeTab.wallet:
         return WalletScreen(user: user, userBalance: balance);
       default:
         return const CatalogScreen();
@@ -117,19 +134,19 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
-          buildBottomNavigationBarItem('catalog', 24, 24, 'Catalog'),
+          buildBottomNavigationBarItem('search', 24, 24, 'Search'),
           buildBottomNavigationBarItem('auctions', 24, 24, 'Auctions'),
           buildBottomNavigationBarItem('subs', 30, 20, 'Subscriptions'),
           buildBottomNavigationBarItem('wallet_grey', 24, 21, 'Wallet'),
         ],
-        currentIndex: _selectedTab,
-        onTap: _onTabTapped,
+        currentIndex: _selectedTab.index,
+        onTap: (index) => _onTabTapped(HomeTab.values[index]),
       ),
     );
   }
 
   buildHeaderTitle(UserBalance balance, User user) {
-    if (_selectedTab == 0 || _selectedTab == 1) {
+    if (_selectedTab == HomeTab.catalog || _selectedTab == HomeTab.auctions) {
       return Balance(
         balance: balance,
         user: user,

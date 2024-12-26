@@ -14,6 +14,7 @@ enum SubscriptionFrequency {
   weekly,
   monthly,
   yearly,
+  one_time,
 }
 
 enum OfferType {
@@ -24,8 +25,8 @@ enum OfferType {
 class AuctionItem {
   final String id;
   final String name;
-  final Uint8List logo;
-  final String logoMimeType;
+  final Uint8List? logo;
+  final String? logoMimeType;
   final double originalPrice;
   final double currentPrice;
   final SubscriptionFrequency subscriptionFrequency;
@@ -43,12 +44,12 @@ class AuctionItem {
     required this.name,
     required this.originalPrice,
     required this.currentPrice,
-    required this.logo,
-    required this.logoMimeType,
     required this.status,
     required this.subscriptionFrequency,
     required this.startsAt,
     required this.offerType,
+    this.logo,
+    this.logoMimeType,
     this.isPaid = false,
     this.lastBidBy,
     this.lastBidAt,
@@ -60,7 +61,7 @@ class AuctionItem {
     return AuctionItem(
       id: json['_id'],
       name: json['name'],
-      logo: base64Decode(json['logo']),
+      logo: json['logo'] != null ? base64Decode(json['logo']) : null,
       logoMimeType: json['logoMimeType'],
       originalPrice: json['originalPrice'],
       currentPrice: json['currentPrice'],
@@ -109,7 +110,7 @@ class AuctionItem {
     return {
       '_id': id,
       'name': name,
-      'logo': base64Encode(logo),
+      'logo': logo != null ? base64Encode(logo!) : null,
       'logoMimeType': logoMimeType,
       'originalPrice': originalPrice,
       'currentPrice': currentPrice,
@@ -124,14 +125,29 @@ class AuctionItem {
     };
   }
 
-  String get formattedFrequency {
-    switch (subscriptionFrequency) {
+  static String formatFrequencyShort(SubscriptionFrequency frequency) {
+    switch (frequency) {
       case SubscriptionFrequency.weekly:
         return 'w';
       case SubscriptionFrequency.monthly:
         return 'mo';
       case SubscriptionFrequency.yearly:
         return 'yr';
+      case SubscriptionFrequency.one_time:
+        return 'one-time';
+    }
+  }
+
+  static String formatFrequencyLong(SubscriptionFrequency frequency) {
+    switch (frequency) {
+      case SubscriptionFrequency.weekly:
+        return 'weekly';
+      case SubscriptionFrequency.monthly:
+        return 'monthly';
+      case SubscriptionFrequency.yearly:
+        return 'yearly';
+      case SubscriptionFrequency.one_time:
+        return 'one-time';
     }
   }
 

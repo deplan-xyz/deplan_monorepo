@@ -4,7 +4,7 @@ import 'package:subdoor/widgets/body_padding.dart';
 import 'package:flutter/material.dart';
 
 class PaymentConfirmation extends StatelessWidget {
-  final Uint8List logo;
+  final Uint8List? logo;
   final String label;
   final String title;
   final String description;
@@ -15,10 +15,10 @@ class PaymentConfirmation extends StatelessWidget {
     super.key,
     required this.onCancel,
     required this.onConfirm,
-    required this.logo,
     required this.label,
     required this.title,
     required this.description,
+    this.logo,
   });
 
   @override
@@ -44,18 +44,19 @@ class PaymentConfirmation extends StatelessWidget {
         BodyPadding(
           child: Column(
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+              if (logo != null)
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.memory(logo!),
+                  ),
                 ),
-                clipBehavior: Clip.antiAlias,
-                child: FittedBox(
-                  fit: BoxFit.cover,
-                  child: Image.memory(logo),
-                ),
-              ),
               const SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(

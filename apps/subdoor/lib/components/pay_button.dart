@@ -33,7 +33,8 @@ class _PayButtonState extends State<PayButton> {
       context,
       (context) => PaymentConfirmation(
         logo: widget.item.logo,
-        label: '\$$price USDC /${widget.item.formattedFrequency}',
+        label:
+            '\$$price USDC /${AuctionItem.formatFrequencyShort(widget.item.subscriptionFrequency)}',
         title: 'Get ${widget.item.name} subscription for \$$price USDC',
         description:
             '\$$price USDC will be charged from your Subdoor balance and you’ll get special card to subscribe to ${widget.item.name}',

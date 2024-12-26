@@ -8,21 +8,26 @@ Future<bool?> showAppBottomSheet(
   return showModalBottomSheet<bool>(
     context: context,
     backgroundColor: Colors.transparent,
-    enableDrag: false,
     isScrollControlled: true,
-    builder: (context) => Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
+    builder: (context) => Scaffold(
+      backgroundColor: Colors.transparent,
+      body: GestureDetector(
+        onTap: () => Navigator.pop(context),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: Wrap(
-        children: [
-          builder(context),
-        ],
+      bottomSheet: Container(
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Wrap(
+          children: [
+            builder(context),
+          ],
+        ),
       ),
     ),
   );

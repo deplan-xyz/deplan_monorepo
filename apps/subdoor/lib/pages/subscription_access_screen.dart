@@ -69,12 +69,13 @@ class _SubscriptionAccessScreenState extends State<SubscriptionAccessScreen> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.memory(
-              widget.item.logo,
-              width: 30,
-              height: 30,
-              alignment: Alignment.center,
-            ),
+            if (widget.item.logo != null)
+              Image.memory(
+                widget.item.logo!,
+                width: 30,
+                height: 30,
+                alignment: Alignment.center,
+              ),
             const SizedBox(
               width: 5,
             ),

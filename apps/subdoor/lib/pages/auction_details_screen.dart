@@ -287,12 +287,13 @@ class _AuctionDetailsScreenState extends State<AuctionDetailsScreen> {
             title: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.memory(
-                  widget.item.logo,
-                  width: 30,
-                  height: 30,
-                  alignment: Alignment.center,
-                ),
+                if (auctionItem.logo != null)
+                  Image.memory(
+                    auctionItem.logo!,
+                    width: 30,
+                    height: 30,
+                    alignment: Alignment.center,
+                  ),
                 const SizedBox(
                   width: 5,
                 ),
@@ -320,7 +321,7 @@ class _AuctionDetailsScreenState extends State<AuctionDetailsScreen> {
                           ),
                         ),
                         Text(
-                          '\$${auctionItem.originalPrice.toStringAsFixed(2)} / ${auctionItem.formattedFrequency}',
+                          '\$${auctionItem.originalPrice.toStringAsFixed(2)} / ${AuctionItem.formatFrequencyShort(auctionItem.subscriptionFrequency)}',
                           style: const TextStyle(
                             decoration: TextDecoration.lineThrough,
                             decorationColor: Color(0x8011243E),

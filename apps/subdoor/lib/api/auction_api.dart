@@ -20,6 +20,25 @@ class _AuctionApi extends BaseApi {
     return await client.post('/auctions/$auctionId/bid');
   }
 
+  Future<Response> request(
+    String productName,
+    String link,
+    String plan,
+    double price,
+    String frequency,
+  ) async {
+    return await client.post(
+      '/auctions/requests',
+      data: {
+        'productName': productName,
+        'link': link,
+        'plan': plan,
+        'price': price,
+        'frequency': frequency,
+      },
+    );
+  }
+
   Future<Response> getBidHistory(String auctionId) async {
     return await client.get('/auctions/$auctionId/bid-history');
   }

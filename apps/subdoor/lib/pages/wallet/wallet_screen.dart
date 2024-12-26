@@ -1,3 +1,4 @@
+import 'package:subdoor/api/user_api.dart';
 import 'package:subdoor/components/bottom_sheet.dart';
 import 'package:subdoor/components/text_copy.dart';
 import 'package:subdoor/models/user.dart';
@@ -5,11 +6,12 @@ import 'package:subdoor/models/user_balance.dart';
 import 'package:subdoor/pages/wallet/add_bids_screen.dart';
 import 'package:subdoor/widgets/app_scaffold.dart';
 import 'package:subdoor/widgets/body_padding.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:deplan_core/deplan_core.dart'
+import 'package:deplan_core/utils/deplan_utils.dart'
     if (dart.library.js_interop) 'dart:html' show window;
 
-class WalletScreen extends StatelessWidget {
+class WalletScreen extends StatefulWidget {
   final User user;
   final UserBalance userBalance;
 
@@ -18,6 +20,27 @@ class WalletScreen extends StatelessWidget {
     required this.user,
     required this.userBalance,
   });
+
+  @override
+  State<WalletScreen> createState() => _WalletScreenState();
+}
+
+class _WalletScreenState extends State<WalletScreen> {
+  late UserBalance userBalance;
+
+  @override
+  void initState() {
+    super.initState();
+    userBalance = widget.userBalance;
+  }
+
+  Future<void> refreshBalance() async {
+    final response = await userApi.getBalance();
+    final balance = UserBalance.fromJson(response.data['balance']);
+    setState(() {
+      userBalance = balance;
+    });
+  }
 
   void showReceiveInfo(
     BuildContext context,
@@ -55,7 +78,7 @@ class WalletScreen extends StatelessWidget {
               ),
             ),
             TextButton.icon(
-              onPressed: () => copyText(context, user.wallet),
+              onPressed: () => copyText(context, widget.user.wallet),
               icon: const Icon(Icons.copy),
               label: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +91,7 @@ class WalletScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    user.wallet,
+                    widget.user.wallet,
                   ),
                 ],
               ),
@@ -154,7 +177,7 @@ class WalletScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'sfprod',
+                  fontFamily: 'sfprodbold',
                 ),
               ),
             ),
@@ -167,110 +190,122 @@ class WalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 30,
+      body: CustomScrollView(
+        slivers: [
+          CupertinoSliverRefreshControl(
+            onRefresh: refreshBalance,
           ),
-          Center(
-            child: TextButton.icon(
-              onPressed: () => copyText(context, user.wallet),
-              icon: Image.asset(
-                'assets/images/wallet.png',
-                width: 28.67,
-                height: 28.67,
-              ),
-              style: TextButton.styleFrom(
-                visualDensity: VisualDensity.comfortable,
-              ),
-              label: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Solana Address',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                          color: const Color(0xffADB3BC),
-                          fontWeight: FontWeight.w500,
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Center(
+                  child: TextButton.icon(
+                    onPressed: () => copyText(context, widget.user.wallet),
+                    icon: Image.asset(
+                      'assets/images/wallet.png',
+                      width: 28.67,
+                      height: 28.67,
+                    ),
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.comfortable,
+                    ),
+                    label: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Solana Address',
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: const Color(0xffADB3BC),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        user.wallet.replaceRange(8, 36, '...'),
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              widget.user.wallet.replaceRange(8, 36, '...'),
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            const Icon(
+                              Icons.copy,
+                              size: 12,
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(width: 10),
-                      const Icon(
-                        Icons.copy,
-                        size: 12,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 23,
+                ),
+                TextButton(
+                  onPressed: () {
+                    window.open(
+                      'https://solscan.io/address/${widget.user.wallet}',
+                      '_blank',
+                    );
+                  },
+                  child: const Text(
+                    'View your wallet on Solana blockchain >',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationColor: Color(0xffADB3BC),
+                      color: Color(0xffADB3BC),
+                      fontSize: 13.3,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 39,
+                ),
+                buildCurrencyBalance(
+                  context,
+                  userBalance.usdcBalance.uiAmount.toStringAsFixed(2),
+                  'USDC',
+                  'usdc_coin',
+                  title: 'Receive USDC',
+                  description:
+                      'Send Solana USDC to this address to top-up your Subdoor balance',
+                ),
+                const SizedBox(
+                  height: 33,
+                ),
+                buildCurrencyBalance(
+                  context,
+                  userBalance.nativeTokenBalance.uiAmount.toStringAsFixed(2),
+                  'DPLN',
+                  'dpln_coin',
+                  title: 'Send DPLN tokens to add bids',
+                  description:
+                      'Send DPLN on Solana to this address to add bids',
+                ),
+                const SizedBox(
+                  height: 33,
+                ),
+                buildCurrencyBalance(
+                  context,
+                  userBalance.bidBalance.toString(),
+                  'BIDS',
+                  'bids',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const AddBidsScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 23,
-          ),
-          TextButton(
-            onPressed: () {
-              window.open(
-                'https://solscan.io/address/${user.wallet}',
-                '_blank',
-              );
-            },
-            child: const Text(
-              'View your wallet on Solana blockchain >',
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-                decorationColor: Color(0xffADB3BC),
-                color: Color(0xffADB3BC),
-                fontSize: 13.3,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 39,
-          ),
-          buildCurrencyBalance(
-            context,
-            userBalance.usdcBalance.uiAmount.toStringAsFixed(2),
-            'USDC',
-            'usdc_coin',
-            title: 'Receive USDC',
-            description:
-                'Send Solana USDC to this address to top-up your Subdoor balance',
-          ),
-          const SizedBox(
-            height: 33,
-          ),
-          buildCurrencyBalance(
-            context,
-            userBalance.nativeTokenBalance.uiAmount.toStringAsFixed(2),
-            'DPLN',
-            'dpln_coin',
-            title: 'Send DPLN tokens to add bids',
-            description: 'Send DPLN on Solana to this address to add bids',
-          ),
-          const SizedBox(
-            height: 33,
-          ),
-          buildCurrencyBalance(
-            context,
-            userBalance.bidBalance.toString(),
-            'BIDS',
-            'bids',
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const AddBidsScreen()),
-              );
-            },
           ),
         ],
       ),

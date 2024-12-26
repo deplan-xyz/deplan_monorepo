@@ -179,7 +179,7 @@ class _CreditCardState extends State<CreditCard> {
       (context) => PaymentConfirmation(
         logo: widget.item.logo,
         label:
-            '\$${widget.item.originalPrice} USDC /${widget.item.formattedFrequency}',
+            '\$${widget.item.originalPrice} USDC /${AuctionItem.formatFrequencyShort(widget.item.subscriptionFrequency)}',
         title:
             'Top-Up ${widget.item.name} card for \$${widget.item.originalPrice} USDC',
         description:
@@ -317,7 +317,7 @@ class _CreditCardState extends State<CreditCard> {
                                       ),
                                     ),
                                     Text(
-                                      '\$${widget.item.originalPrice} /${widget.item.formattedFrequency}',
+                                      '\$${widget.item.originalPrice} /${AuctionItem.formatFrequencyShort(widget.item.subscriptionFrequency)}',
                                       style: const TextStyle(
                                         fontFamily: 'ibmplex',
                                         fontSize: 28,
@@ -329,19 +329,20 @@ class _CreditCardState extends State<CreditCard> {
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: 50,
-                                height: 50,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                              if (widget.item.logo != null)
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  child: Image.memory(
+                                    widget.item.logo!,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                child: Image.memory(
-                                  widget.item.logo,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
                             ],
                           ),
                           Column(

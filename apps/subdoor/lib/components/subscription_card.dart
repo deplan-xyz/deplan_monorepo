@@ -69,7 +69,11 @@ class _SubscriptionCardState extends State<SubscriptionCard> {
                 return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.data == null) {
-                return const Center(child: Text('No card details found'));
+                return Center(
+                  child: Text(
+                    'Your ${widget.item.name} card is being issued...',
+                  ),
+                );
               }
               return CreditCard(
                 item: widget.item,

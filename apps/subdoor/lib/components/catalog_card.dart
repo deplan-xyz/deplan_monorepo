@@ -47,18 +47,19 @@ class _CatalogCardState extends State<CatalogCard> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                      if (widget.item.logo != null)
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: Image.memory(widget.item.logo!),
+                          ),
                         ),
-                        clipBehavior: Clip.antiAlias,
-                        child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Image.memory(widget.item.logo),
-                        ),
-                      ),
                       // Title + original price
                       const SizedBox(width: 10),
                       Expanded(
@@ -78,7 +79,7 @@ class _CatalogCardState extends State<CatalogCard> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              '\$${widget.item.originalPrice.toStringAsFixed(2)} / ${widget.item.formattedFrequency}',
+                              '\$${widget.item.originalPrice.toStringAsFixed(2)} / ${AuctionItem.formatFrequencyShort(widget.item.subscriptionFrequency)}',
                               style: const TextStyle(
                                 color: Color(0x8011243E),
                                 fontSize: 22,

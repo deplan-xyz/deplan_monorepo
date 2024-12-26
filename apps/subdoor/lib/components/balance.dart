@@ -27,9 +27,9 @@ class Balance extends StatefulWidget {
 class _BalanceState extends State<Balance> {
   late final Socket socket;
 
-  final StreamController<int> _streamController = StreamController<int>();
+  final StreamController<int> _bidsStreamController = StreamController<int>();
 
-  Stream<int> get bidBalanceStream => _streamController.stream;
+  Stream<int> get bidBalanceStream => _bidsStreamController.stream;
 
   @override
   void initState() {
@@ -41,16 +41,21 @@ class _BalanceState extends State<Balance> {
   void dispose() {
     super.dispose();
     socket.dispose();
-    _streamController.close();
+    _bidsStreamController.close();
   }
 
   initSocket() {
     socket = io(server['ws']!, OptionBuilder().enableForceNew().build());
     socket.emit('balance_room', widget.user.id);
     socket.on('bids', (data) {
-      _streamController.add(data['balance']);
+      _bidsStreamController.add(data['balance']);
       widget.onBalanceChange
           ?.call(widget.balance.copyWith(bidBalance: data['balance']));
+    });
+    socket.on('all', (data) {
+      UserBalance balance = UserBalance.fromJson(data['balance']);
+      _bidsStreamController.add(balance.bidBalance);
+      widget.onBalanceChange?.call(balance);
     });
   }
 

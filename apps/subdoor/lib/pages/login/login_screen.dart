@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/pages/home_screen.dart';
 import 'package:subdoor/pages/login/login_basic_screen.dart';
@@ -8,7 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:deplan_core/deplan_core.dart'
+import 'package:deplan_core/utils/deplan_utils.dart'
     if (dart.library.js_interop) 'dart:html' show window;
 
 class LoginScreen extends StatefulWidget {

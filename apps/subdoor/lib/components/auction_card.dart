@@ -204,18 +204,19 @@ class _AuctionCardState extends State<AuctionCard> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                            if (widget.item.logo != null)
+                              Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Image.memory(widget.item.logo!),
+                                ),
                               ),
-                              clipBehavior: Clip.antiAlias,
-                              child: FittedBox(
-                                fit: BoxFit.cover,
-                                child: Image.memory(widget.item.logo),
-                              ),
-                            ),
                             // Title + original price
                             const SizedBox(width: 10),
                             Expanded(
@@ -244,7 +245,7 @@ class _AuctionCardState extends State<AuctionCard> {
                                     ),
                                   ),
                                   Text(
-                                    '\$${item.originalPrice.toStringAsFixed(2)} / ${item.formattedFrequency}',
+                                    '\$${item.originalPrice.toStringAsFixed(2)} / ${AuctionItem.formatFrequencyShort(item.subscriptionFrequency)}',
                                     style: const TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                       decorationColor: Color(0x8011243E),
