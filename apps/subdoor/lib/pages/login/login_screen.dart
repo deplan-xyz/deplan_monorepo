@@ -1,14 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:js_interop';
 
+import 'package:solana/base58.dart';
 import 'package:subdoor/api/auth_api.dart';
+import 'package:subdoor/models/wallet.dart';
 import 'package:subdoor/pages/home_screen.dart';
 import 'package:subdoor/pages/login/login_basic_screen.dart';
 import 'package:subdoor/theme/app_theme.dart';
+import 'package:subdoor/utils/js_wallet_api/js_wallet_api.dart';
 import 'package:subdoor/widgets/app_scaffold.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:deplan_core/utils/deplan_utils.dart'
     if (dart.library.js_interop) 'dart:html' show window;
 
@@ -21,6 +27,25 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
+  Wallet? phantomWallet;
+
+  @override
+  void initState() {
+    super.initState();
+    initPhantomWallet();
+  }
+
+  Future<void> initPhantomWallet() async {
+    final wallets = getWallets().map(
+      (wallet) => Wallet(
+        name: wallet['name'],
+        icon: wallet['icon'],
+      ),
+    );
+    setState(() {
+      phantomWallet = wallets.firstWhere((wallet) => wallet.name == 'Phantom');
+    });
+  }
 
   loginWithApple(BuildContext context) async {
     try {
@@ -81,6 +106,81 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  buildButton({
+    required Widget icon,
+    required String text,
+    required VoidCallback onPressed,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    BorderSide? borderSide,
+  }) {
+    return SizedBox(
+      width: 340,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          textStyle: const TextStyle(
+            fontSize: 16,
+          ),
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          side: borderSide,
+        ),
+        child: Row(
+          children: [
+            icon,
+            const Expanded(child: SizedBox()),
+            Text(text),
+            const Expanded(child: SizedBox()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  loginWithSolana(BuildContext context, String walletName) async {
+    final result = await signIn(walletName);
+    final signature =
+        Uint8List.fromList(List.from(result['signature']['data']));
+    final signatureStr = base58encode(signature);
+    final msg = Uint8List.fromList(List.from(result['message']['data']));
+    final msgStr = utf8.decode(msg);
+    final address = result['address'];
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await authApi.signinSolana(signatureStr, msgStr, address);
+
+      if (context.mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+          (_) => false,
+        );
+      }
+    } on DioException catch (e) {
+      if (e.response?.data['message'] != null) {
+        _displayError(e.response!.data['message']);
+      } else {
+        _displayError('Login failed. Please try again.');
+      }
+    } catch (e) {
+      print(e);
+      _displayError('Login failed. Please try again.');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -107,73 +207,57 @@ class _LoginScreenState extends State<LoginScreen> {
           Column(
             children: [
               Center(
-                child: SizedBox(
-                  width: 340,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      loginWithApple(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                      ),
-                      backgroundColor: const Color(0xff020203),
-                      foregroundColor: const Color(0xffFFFFFF),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/apple.png',
-                          width: 19,
-                        ),
-                        const Expanded(child: SizedBox()),
-                        const Text('Continue with Apple'),
-                        const Expanded(child: SizedBox()),
-                      ],
-                    ),
+                child: buildButton(
+                  icon: Image.asset(
+                    'assets/images/apple.png',
+                    width: 19,
                   ),
+                  text: 'Continue with Apple',
+                  onPressed: () {
+                    loginWithApple(context);
+                  },
+                  backgroundColor: const Color(0xff020203),
+                  foregroundColor: const Color(0xffFFFFFF),
                 ),
               ),
               const SizedBox(height: 10),
               Center(
-                child: SizedBox(
-                  width: 340,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginUsernameScreen(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
+                child: buildButton(
+                  icon: const Icon(Icons.person, color: primaryColor),
+                  text: 'Continue with Email',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginUsernameScreen(),
                       ),
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                      ),
-                      side: const BorderSide(
-                        color: primaryColor,
-                      ),
-                      foregroundColor: primaryColor,
-                      backgroundColor: Colors.white,
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.person, color: primaryColor),
-                        Expanded(child: SizedBox()),
-                        Text('Continue with Email'),
-                        Expanded(child: SizedBox()),
-                      ],
-                    ),
+                    );
+                  },
+                  backgroundColor: Colors.white,
+                  foregroundColor: primaryColor,
+                  borderSide: const BorderSide(
+                    color: primaryColor,
                   ),
                 ),
               ),
+              if (phantomWallet != null)
+                Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    buildButton(
+                      icon: SvgPicture.memory(
+                        phantomWallet!.iconBytes!,
+                        width: 25,
+                      ),
+                      text: 'Connect Phantom Wallet',
+                      backgroundColor: const Color(0xffAB9FF2),
+                      foregroundColor: Colors.white,
+                      onPressed: () {
+                        loginWithSolana(context, 'Phantom');
+                      },
+                    ),
+                  ],
+                ),
             ],
           ),
         ],

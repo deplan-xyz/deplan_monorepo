@@ -68,6 +68,25 @@ class _AuthApi extends BaseApi {
     return response;
   }
 
+  Future<Response> signinSolana(
+    String signature,
+    String message,
+    String address,
+  ) async {
+    final response = await client.post(
+      '/auth/signin/solana',
+      data: {
+        'signature': signature,
+        'message': message,
+        'address': address,
+      },
+    );
+
+    await appStorage.write('jwt_token', response.data['token']);
+
+    return response;
+  }
+
   logout() async {
     await appStorage.deleteValue('jwt_token');
   }
