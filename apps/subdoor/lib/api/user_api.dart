@@ -29,7 +29,11 @@ class _UserApi extends BaseApi {
   }
 
   Future<Response> topUpSubscription(String subscriptionId) {
-    return client.post('/user/subscriptions/$subscriptionId/topup');
+    if (authApi.isCustodial) {
+      return client.post('/user/subscriptions/$subscriptionId/topup');
+    } else {
+      return _topUpSubscriptionSolana(subscriptionId);
+    }
   }
 
   Future<Response> _paySubscriptionSolana(String subscriptionId) async {
@@ -41,6 +45,21 @@ class _UserApi extends BaseApi {
 
     response = await client.post(
       '/user/subscriptions/$subscriptionId/payment/solana',
+      data: {'tx': tx},
+    );
+
+    return response;
+  }
+
+  Future<Response> _topUpSubscriptionSolana(String subscriptionId) async {
+    Response response = await client.post(
+      '/user/subscriptions/$subscriptionId/topup/solana',
+    );
+
+    final tx = await signTransaction(response.data['tx']);
+
+    response = await client.post(
+      '/user/subscriptions/$subscriptionId/topup/solana',
       data: {'tx': tx},
     );
 
