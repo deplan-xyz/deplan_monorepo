@@ -1,5 +1,7 @@
+import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/api/base_api.dart';
 import 'package:dio/dio.dart';
+import 'package:subdoor/utils/js_wallet_api/js_wallet_api.dart';
 
 class _AuctionApi extends BaseApi {
   Future<Response> getAuctions({
@@ -27,16 +29,34 @@ class _AuctionApi extends BaseApi {
     double price,
     String frequency,
   ) async {
-    return await client.post(
-      '/auctions/requests',
-      data: {
-        'productName': productName,
-        'link': link,
-        'plan': plan,
-        'price': price,
-        'frequency': frequency,
-      },
+    final data = {
+      'productName': productName,
+      'link': link,
+      'plan': plan,
+      'price': price,
+      'frequency': frequency,
+    };
+    if (authApi.isCustodial) {
+      return await client.post(
+        '/auctions/request',
+        data: data,
+      );
+    } else {
+      return _requestSolana(data);
+    }
+  }
+
+  Future<Response> _requestSolana(Map<String, dynamic> data) async {
+    final response = await client.post(
+      '/auctions/request/solana',
+      data: data,
     );
+
+    final tx = await signTransaction(response.data['tx']);
+
+    data['tx'] = tx;
+
+    return await client.post('/auctions/request/solana', data: data);
   }
 
   Future<Response> getBidHistory(String auctionId) async {
