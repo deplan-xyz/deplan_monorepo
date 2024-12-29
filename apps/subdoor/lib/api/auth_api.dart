@@ -82,7 +82,7 @@ class _AuthApi extends BaseApi {
       },
     );
 
-    await appStorage.write('jwt_token', response.data['token']);
+    inMemoryToken = response.data['token'];
 
     return response;
   }

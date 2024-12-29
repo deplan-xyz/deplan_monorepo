@@ -18,6 +18,8 @@ class BaseApi {
   late final String baseUrl;
   late final Dio _dioClient;
 
+  String? inMemoryToken;
+
   BaseApi() {
     baseUrl = '${server['http']!}/bidonsub';
     _dioClient = Dio(
@@ -37,7 +39,7 @@ class BaseApi {
 
 final tokenInterceptor = InterceptorsWrapper(
   onRequest: (options, handler) async {
-    final token = await authApi.token;
+    final token = authApi.inMemoryToken ?? await authApi.token;
     if (token != null) {
       options.headers.addAll({'Authorization': 'Bearer $token'});
     }

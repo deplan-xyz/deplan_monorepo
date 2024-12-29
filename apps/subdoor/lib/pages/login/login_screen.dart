@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:js_interop';
 
+import 'package:collection/collection.dart';
 import 'package:solana/base58.dart';
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/models/wallet.dart';
@@ -43,7 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
     setState(() {
-      phantomWallet = wallets.firstWhere((wallet) => wallet.name == 'Phantom');
+      phantomWallet =
+          wallets.firstWhereOrNull((wallet) => wallet.name == 'Phantom');
     });
   }
 
