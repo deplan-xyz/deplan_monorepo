@@ -18,8 +18,6 @@ class BaseApi {
   late final String baseUrl;
   late final Dio _dioClient;
 
-  String? inMemoryToken;
-
   BaseApi() {
     baseUrl = '${server['http']!}/bidonsub';
     _dioClient = Dio(

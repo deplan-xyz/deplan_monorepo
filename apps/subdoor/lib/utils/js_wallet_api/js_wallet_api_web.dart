@@ -19,3 +19,10 @@ external Object _signIn(String walletName);
 Future<dynamic> signIn(String walletName) async {
   return jsonDecode(await promiseToFuture(_signIn(walletName)));
 }
+
+@JS('signTransaction')
+external Object _signTransaction(String tx);
+
+Future<String> signTransaction(String tx) async {
+  return promiseToFuture(_signTransaction(tx));
+}

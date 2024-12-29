@@ -55,6 +55,7 @@ class _PayButtonState extends State<PayButton> {
           e.response?.data['message'] ?? 'Error paying subscription',
         );
       } catch (e) {
+        print(e);
         _displayError('Error paying subscription');
       } finally {
         if (mounted) {

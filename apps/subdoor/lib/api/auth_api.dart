@@ -4,6 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class _AuthApi extends BaseApi {
+  bool isCustodial = true;
+  String? inMemoryToken;
+
   Future<String?> get token {
     return appStorage.getValue('jwt_token');
   }
@@ -82,6 +85,7 @@ class _AuthApi extends BaseApi {
       },
     );
 
+    isCustodial = false;
     inMemoryToken = response.data['token'];
 
     return response;
@@ -89,6 +93,8 @@ class _AuthApi extends BaseApi {
 
   logout() async {
     await appStorage.deleteValue('jwt_token');
+    isCustodial = true;
+    inMemoryToken = null;
   }
 
   Future<Response> deleteAccount() async {
