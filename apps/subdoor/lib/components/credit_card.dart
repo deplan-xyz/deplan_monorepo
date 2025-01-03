@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:subdoor/api/user_api.dart';
 import 'package:subdoor/components/bottom_sheet.dart';
 import 'package:subdoor/components/payment_confirmation.dart';
@@ -8,6 +9,7 @@ import 'package:subdoor/theme/app_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:subdoor/utils/payment.dart';
 
 class CreditCard extends StatefulWidget {
   final AuctionItem item;
@@ -104,45 +106,12 @@ class _CreditCardState extends State<CreditCard> {
   }
 
   Widget buildPaymentDate() {
-    Jiffy now = Jiffy.now();
-    Jiffy subscribedAt =
-        Jiffy.parse(widget.item.subscribedAt.toString(), isUtc: true).toLocal();
-    num diff = 0;
-    Jiffy nextPaymentAt = subscribedAt;
-
-    if (widget.item.subscriptionFrequency == SubscriptionFrequency.weekly) {
-      diff = now
-          .startOf(Unit.day)
-          .diff(subscribedAt.startOf(Unit.day), unit: Unit.week);
-      if (now.date >= subscribedAt.add(weeks: diff.toInt()).date) {
-        diff += 1;
-      }
-      nextPaymentAt = subscribedAt.add(weeks: diff.toInt());
-    } else if (widget.item.subscriptionFrequency ==
-        SubscriptionFrequency.monthly) {
-      diff = now
-          .startOf(Unit.month)
-          .diff(subscribedAt.startOf(Unit.month), unit: Unit.month);
-      bool isLastDayOfMonth = now.daysInMonth == now.date;
-      if (now.date >= subscribedAt.date || isLastDayOfMonth) {
-        diff += 1;
-      }
-      nextPaymentAt = subscribedAt.add(months: diff.toInt());
-    } else {
-      diff = now
-          .startOf(Unit.year)
-          .diff(subscribedAt.startOf(Unit.year), unit: Unit.year);
-      if (now
-              .format(pattern: 'MM-dd')
-              .compareTo(subscribedAt.format(pattern: 'MM-dd')) >=
-          0) {
-        diff += 1;
-      }
-      nextPaymentAt = subscribedAt.add(years: diff.toInt());
-    }
-
-    String message =
-        'Next payment ${nextPaymentAt.format(pattern: 'dd MMM yyyy')}';
+    final nextPaymentAt = calculateNextPaymentAt(
+      widget.item.subscribedAt!,
+      widget.item.subscriptionFrequency,
+    );
+    final formattedDate = DateFormat('dd MMM yyyy').format(nextPaymentAt);
+    final message = 'Next payment $formattedDate';
 
     return Text(
       message,
@@ -217,45 +186,45 @@ class _CreditCardState extends State<CreditCard> {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        widget.item.subscribedAt != null
-            ? Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 13,
-                  ),
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(24)),
-                    color: Colors.white,
-                    border: Border.all(
-                      color: const Color(0xffD5D5D5),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 13,
+            ),
+            alignment: Alignment.bottomCenter,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(24)),
+              color: Colors.white,
+              border: Border.all(
+                color: const Color(0xffD5D5D5),
+              ),
+            ),
+            height: 260,
+            width: 352,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                widget.item.subscribedAt != null
+                    ? buildPaymentDate()
+                    : const SizedBox(),
+                SizedBox(
+                  height: 29,
+                  child: ElevatedButton(
+                    onPressed: isLoading ? null : handleTopUpPressed,
+                    child: Text(
+                      isLoading ? 'Processing...' : '+ Top-Up',
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
                     ),
                   ),
-                  height: 260,
-                  width: 352,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      buildPaymentDate(),
-                      SizedBox(
-                        height: 29,
-                        child: ElevatedButton(
-                          onPressed: isLoading ? null : handleTopUpPressed,
-                          child: Text(
-                            isLoading ? 'Processing...' : '+ Top-Up',
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
-              )
-            : const SizedBox(),
+              ],
+            ),
+          ),
+        ),
         Container(
           width: 352,
           height: 206,

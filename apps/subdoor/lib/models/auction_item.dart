@@ -13,6 +13,8 @@ enum AuctionStatus {
 enum SubscriptionFrequency {
   weekly,
   monthly,
+  three_months,
+  six_months,
   yearly,
   one_time,
 }
@@ -131,6 +133,10 @@ class AuctionItem {
         return 'w';
       case SubscriptionFrequency.monthly:
         return 'mo';
+      case SubscriptionFrequency.three_months:
+        return '3mo';
+      case SubscriptionFrequency.six_months:
+        return '6mo';
       case SubscriptionFrequency.yearly:
         return 'yr';
       case SubscriptionFrequency.one_time:
@@ -144,6 +150,10 @@ class AuctionItem {
         return 'weekly';
       case SubscriptionFrequency.monthly:
         return 'monthly';
+      case SubscriptionFrequency.three_months:
+        return '3 months';
+      case SubscriptionFrequency.six_months:
+        return '6 months';
       case SubscriptionFrequency.yearly:
         return 'yearly';
       case SubscriptionFrequency.one_time:
