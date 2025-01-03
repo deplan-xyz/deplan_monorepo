@@ -1,7 +1,7 @@
 import 'package:subdoor/api/user_api.dart';
-import 'package:subdoor/app_home.dart';
 import 'package:subdoor/models/auction_item.dart';
 import 'package:subdoor/models/credit_card_details.dart';
+import 'package:subdoor/pages/home_screen.dart';
 import 'package:subdoor/theme/app_theme.dart';
 import 'package:subdoor/widgets/app_scaffold.dart';
 import 'package:subdoor/components/credit_card.dart';
@@ -162,12 +162,13 @@ class _SubscriptionAccessScreenState extends State<SubscriptionAccessScreen> {
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => const AppHome(),
+                    builder: (context) =>
+                        const HomeScreen(initialTab: HomeTab.subscriptions),
                   ),
                   (route) => false,
                 );
               },
-              child: const Text('GO TO HOME SCREEN'),
+              child: const Text('GO TO SUBSCRIPTIONS'),
             ),
           ),
           const SizedBox(

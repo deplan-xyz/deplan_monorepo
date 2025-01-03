@@ -86,33 +86,34 @@ class _OfferRequestFormState extends State<OfferRequestForm> {
       formKey: _formKey,
       child: Column(
         children: [
-          RichText(
-            text: TextSpan(
-              children: [
-                const TextSpan(
-                  text: 'Subscribe to ',
-                ),
-                TextSpan(
-                  text: widget.productName,
-                  style: const TextStyle(
-                    fontFamily: 'sfprodbold',
-                    fontWeight: FontWeight.w700,
+          if (widget.productName.isNotEmpty)
+            RichText(
+              text: TextSpan(
+                children: [
+                  const TextSpan(
+                    text: 'Subscribe to ',
                   ),
-                ),
-                if (plan.isNotEmpty)
                   TextSpan(
-                    text: ' $plan',
+                    text: widget.productName,
                     style: const TextStyle(
                       fontFamily: 'sfprodbold',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                const TextSpan(
-                  text: ' with crypto',
-                ),
-              ],
+                  if (plan.isNotEmpty)
+                    TextSpan(
+                      text: ' $plan',
+                      style: const TextStyle(
+                        fontFamily: 'sfprodbold',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  const TextSpan(
+                    text: ' with crypto',
+                  ),
+                ],
+              ),
             ),
-          ),
           const SizedBox(
             height: 17,
           ),
@@ -120,7 +121,7 @@ class _OfferRequestFormState extends State<OfferRequestForm> {
             inputType: TextInputType.url,
             textInputAction: TextInputAction.next,
             controller: linkController,
-            labelText: 'Insert pricing page link here',
+            labelText: 'Insert ${widget.productName} pricing page link here',
             onChanged: (value) {
               widget.onUpdate?.call(formData);
             },
@@ -133,7 +134,7 @@ class _OfferRequestFormState extends State<OfferRequestForm> {
             inputType: TextInputType.text,
             textInputAction: TextInputAction.next,
             controller: planController,
-            labelText: 'Enter plan name here',
+            labelText: 'Enter ${widget.productName} plan name here',
             onChanged: (value) {
               widget.onUpdate?.call(formData);
               setState(() {

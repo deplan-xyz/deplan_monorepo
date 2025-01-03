@@ -29,7 +29,6 @@ class CatalogScreen extends StatefulWidget {
 class _CatalogScreenState extends State<CatalogScreen> {
   late Future<List<AuctionItem>> futureOffers;
 
-  List<AuctionItem> allOffers = [];
   String searchQuery = '';
   bool isOfferRequestLoading = false;
 
@@ -44,21 +43,15 @@ class _CatalogScreenState extends State<CatalogScreen> {
       offerType: OfferType.buy_now.name,
       statuses: [AuctionStatus.active.name],
     );
-    allOffers = (response.data['auctionItems'] as List)
+    final allOffers = (response.data['auctionItems'] as List)
         .map((item) => AuctionItem.fromJson(item))
         .toList();
     return allOffers;
   }
 
   void _onSearch(String query) async {
-    final filteredOffers = allOffers
-        .where(
-          (offer) => offer.name.toLowerCase().contains(query.toLowerCase()),
-        )
-        .toList();
     setState(() {
       searchQuery = query;
-      futureOffers = Future.value(filteredOffers);
     });
   }
 
@@ -172,7 +165,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (snapshot.data!.isEmpty) {
+                if (snapshot.data!.isEmpty || searchQuery.isNotEmpty) {
                   return Center(
                     child: BodyPadding(
                       child: OfferRequestForm(
