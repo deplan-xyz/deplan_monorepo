@@ -8,7 +8,6 @@ import 'package:subdoor/models/credit_card_details.dart';
 import 'package:subdoor/theme/app_theme.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:subdoor/utils/payment.dart';
 
 class CreditCard extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/api/base_api.dart';
 import 'package:dio/dio.dart';
-import 'package:subdoor/utils/js_wallet_api/js_wallet_api.dart';
 
 class _AuctionApi extends BaseApi {
   Future<Response> getAuctions({
@@ -36,7 +35,7 @@ class _AuctionApi extends BaseApi {
       'price': price,
       'frequency': frequency,
     };
-    if (authApi.isCustodial) {
+    if (authApi.wallet == null) {
       return await client.post(
         '/auctions/request',
         data: data,
@@ -52,7 +51,7 @@ class _AuctionApi extends BaseApi {
       data: data,
     );
 
-    final tx = await signTransaction(response.data['tx']);
+    final tx = await authApi.wallet!.signTransaction(response.data['tx']);
 
     data['tx'] = tx;
 

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-class Wallet {
+class WalletProvider {
   final String name;
   final String icon;
   Uint8List? iconBytes;
 
-  Wallet({
+  WalletProvider({
     required this.name,
     required this.icon,
   }) {

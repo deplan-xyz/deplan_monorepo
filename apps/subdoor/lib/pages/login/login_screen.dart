@@ -1,14 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:solana/base58.dart';
+import 'package:provider/provider.dart';
 import 'package:subdoor/api/auth_api.dart';
-import 'package:subdoor/models/wallet.dart';
+import 'package:subdoor/wallet/abstract/wallet_provider_registry.dart';
+import 'package:subdoor/wallet/types/wallet_provider.dart';
 import 'package:subdoor/pages/home_screen.dart';
 import 'package:subdoor/pages/login/login_basic_screen.dart';
 import 'package:subdoor/theme/app_theme.dart';
-import 'package:subdoor/utils/js_wallet_api/js_wallet_api.dart';
+import 'package:subdoor/wallet/abstract/factory.dart';
 import 'package:subdoor/widgets/app_scaffold.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -26,25 +26,25 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late WalletFactory walletFactory;
+  late WalletProviderRegistry walletProviderRegistry;
+
   bool isLoading = false;
-  Wallet? phantomWallet;
+  WalletProvider? phantomWallet;
 
   @override
   void initState() {
     super.initState();
+    walletFactory = context.read<WalletFactory>();
+    walletProviderRegistry = walletFactory.createWalletProviderRegistry();
     initPhantomWallet();
   }
 
   Future<void> initPhantomWallet() async {
-    final wallets = getWallets().map(
-      (wallet) => Wallet(
-        name: wallet['name'],
-        icon: wallet['icon'],
-      ),
-    );
+    final walletProviders = walletProviderRegistry.solanaProviders;
     setState(() {
-      phantomWallet =
-          wallets.firstWhereOrNull((wallet) => wallet.name == 'Phantom');
+      phantomWallet = walletProviders
+          .firstWhereOrNull((wallet) => wallet.name == 'Phantom');
     });
   }
 
@@ -143,20 +143,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   loginWithSolana(BuildContext context, String walletName) async {
-    final result = await signIn(walletName);
-    final signature =
-        Uint8List.fromList(List.from(result['signature']['data']));
-    final signatureStr = base58encode(signature);
-    final msg = Uint8List.fromList(List.from(result['message']['data']));
-    final msgStr = utf8.decode(msg);
-    final address = result['address'];
+    final wallet = walletFactory.createSolanaWallet();
+    final result = await wallet.signIn(walletName);
 
     setState(() {
       isLoading = true;
     });
 
     try {
-      await authApi.signinSolana(signatureStr, msgStr, address);
+      await authApi.signinSolana(
+        wallet,
+        result.signature,
+        result.message,
+        result.address,
+      );
 
       if (context.mounted) {
         Navigator.of(context).pushAndRemoveUntil(

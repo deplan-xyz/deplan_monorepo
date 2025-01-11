@@ -1,7 +1,6 @@
 import 'package:subdoor/api/auth_api.dart';
 import 'package:subdoor/api/base_api.dart';
 import 'package:dio/dio.dart';
-import 'package:subdoor/utils/js_wallet_api/js_wallet_api.dart';
 
 class _UserApi extends BaseApi {
   Future<Response> getBalance() {
@@ -21,7 +20,7 @@ class _UserApi extends BaseApi {
   }
 
   Future<Response> paySubscription(String subscriptionId) {
-    if (authApi.isCustodial) {
+    if (authApi.wallet == null) {
       return client.post('/user/subscriptions/$subscriptionId/payment');
     } else {
       return _paySubscriptionSolana(subscriptionId);
@@ -29,7 +28,7 @@ class _UserApi extends BaseApi {
   }
 
   Future<Response> topUpSubscription(String subscriptionId) {
-    if (authApi.isCustodial) {
+    if (authApi.wallet == null) {
       return client.post('/user/subscriptions/$subscriptionId/topup');
     } else {
       return _topUpSubscriptionSolana(subscriptionId);
@@ -41,7 +40,7 @@ class _UserApi extends BaseApi {
       '/user/subscriptions/$subscriptionId/payment/solana',
     );
 
-    final tx = await signTransaction(response.data['tx']);
+    final tx = await authApi.wallet!.signTransaction(response.data['tx']);
 
     response = await client.post(
       '/user/subscriptions/$subscriptionId/payment/solana',
@@ -56,7 +55,7 @@ class _UserApi extends BaseApi {
       '/user/subscriptions/$subscriptionId/topup/solana',
     );
 
-    final tx = await signTransaction(response.data['tx']);
+    final tx = await authApi.wallet!.signTransaction(response.data['tx']);
 
     response = await client.post(
       '/user/subscriptions/$subscriptionId/topup/solana',

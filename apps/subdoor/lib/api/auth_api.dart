@@ -2,9 +2,10 @@ import 'package:subdoor/api/app_storage.dart';
 import 'package:subdoor/api/base_api.dart';
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:subdoor/wallet/abstract/wallet.dart';
 
 class _AuthApi extends BaseApi {
-  bool isCustodial = true;
+  Wallet? wallet;
   String? inMemoryToken;
 
   Future<String?> get token {
@@ -72,6 +73,7 @@ class _AuthApi extends BaseApi {
   }
 
   Future<Response> signinSolana(
+    Wallet wallet,
     String signature,
     String message,
     String address,
@@ -85,7 +87,6 @@ class _AuthApi extends BaseApi {
       },
     );
 
-    isCustodial = false;
     inMemoryToken = response.data['token'];
 
     return response;
@@ -93,7 +94,7 @@ class _AuthApi extends BaseApi {
 
   logout() async {
     await appStorage.deleteValue('jwt_token');
-    isCustodial = true;
+    wallet = null;
     inMemoryToken = null;
   }
 
