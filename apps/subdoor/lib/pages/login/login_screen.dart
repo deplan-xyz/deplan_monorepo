@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late WalletFactory walletFactory;
   late WalletProviderRegistry walletProviderRegistry;
 
-  List<WalletProvider> walletProviders = [];
+  WalletProvider? phantomProvider;
   bool isLoading = false;
 
   @override
@@ -37,7 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     walletFactory = context.read<WalletFactory>();
     walletProviderRegistry = walletFactory.createWalletProviderRegistry();
-    walletProviders = walletProviderRegistry.solanaProviders;
+    phantomProvider = walletProviderRegistry.solanaProviders.firstWhereOrNull(
+      (provider) => provider.name == 'Phantom',
+    );
   }
 
   loginWithApple(BuildContext context) async {
@@ -174,8 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Color getProviderColor(String providerName) {
-    switch (providerName) {
+  Color getProviderColor(WalletProvider provider) {
+    switch (provider.name) {
       case 'Phantom':
         return const Color(0xffAB9FF2);
       default:
@@ -242,25 +244,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              ...walletProviders.map(
-                (provider) => Column(
+              if (phantomProvider != null)
+                Column(
                   children: [
                     const SizedBox(height: 10),
                     buildButton(
                       icon: SvgPicture.memory(
-                        provider.iconBytes!,
+                        phantomProvider!.iconBytes!,
                         width: 25,
                       ),
-                      text: 'Connect ${provider.name} Wallet',
-                      backgroundColor: getProviderColor(provider.name),
+                      text: 'Connect ${phantomProvider!.name} Wallet',
+                      backgroundColor: getProviderColor(phantomProvider!),
                       foregroundColor: Colors.white,
                       onPressed: () {
-                        loginWithSolana(context, provider.name);
+                        loginWithSolana(context, phantomProvider!.name);
                       },
                     ),
                   ],
                 ),
-              ),
             ],
           ),
         ],
