@@ -5,8 +5,7 @@ DateTime calculateNextPaymentAt(
   DateTime subscribedAt,
   SubscriptionFrequency frequency,
 ) {
-  // final Jiffy now = Jiffy.now();
-  final Jiffy now = Jiffy.parse('2025-06-09');
+  final Jiffy now = Jiffy.now();
   final Jiffy subscribedAtJiffy =
       Jiffy.parseFromDateTime(subscribedAt).toLocal();
   Jiffy nextPaymentAt = subscribedAtJiffy;

@@ -29,23 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
   late WalletFactory walletFactory;
   late WalletProviderRegistry walletProviderRegistry;
 
+  List<WalletProvider> walletProviders = [];
   bool isLoading = false;
-  WalletProvider? phantomWallet;
 
   @override
   void initState() {
     super.initState();
     walletFactory = context.read<WalletFactory>();
     walletProviderRegistry = walletFactory.createWalletProviderRegistry();
-    initPhantomWallet();
-  }
-
-  Future<void> initPhantomWallet() async {
-    final walletProviders = walletProviderRegistry.solanaProviders;
-    setState(() {
-      phantomWallet = walletProviders
-          .firstWhereOrNull((wallet) => wallet.name == 'Phantom');
-    });
+    walletProviders = walletProviderRegistry.solanaProviders;
   }
 
   loginWithApple(BuildContext context) async {
@@ -182,6 +174,15 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Color getProviderColor(String providerName) {
+    switch (providerName) {
+      case 'Phantom':
+        return const Color(0xffAB9FF2);
+      default:
+        return primaryColor;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -241,24 +242,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              if (phantomWallet != null)
-                Column(
+              ...walletProviders.map(
+                (provider) => Column(
                   children: [
                     const SizedBox(height: 10),
                     buildButton(
                       icon: SvgPicture.memory(
-                        phantomWallet!.iconBytes!,
+                        provider.iconBytes!,
                         width: 25,
                       ),
-                      text: 'Connect Phantom Wallet',
-                      backgroundColor: const Color(0xffAB9FF2),
+                      text: 'Connect ${provider.name} Wallet',
+                      backgroundColor: getProviderColor(provider.name),
                       foregroundColor: Colors.white,
                       onPressed: () {
-                        loginWithSolana(context, 'Phantom');
+                        loginWithSolana(context, provider.name);
                       },
                     ),
                   ],
                 ),
+              ),
             ],
           ),
         ],
