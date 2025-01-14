@@ -87,6 +87,7 @@ class _AuthApi extends BaseApi {
       },
     );
 
+    this.wallet = wallet;
     inMemoryToken = response.data['token'];
 
     return response;
