@@ -27,11 +27,14 @@ class _UserApi extends BaseApi {
     }
   }
 
-  Future<Response> topUpSubscription(String subscriptionId) {
+  Future<Response> topUpSubscription(String subscriptionId, num amount) {
     if (authApi.wallet == null) {
-      return client.post('/user/subscriptions/$subscriptionId/topup');
+      return client.post(
+        '/user/subscriptions/$subscriptionId/topup',
+        data: {'amount': amount},
+      );
     } else {
-      return _topUpSubscriptionSolana(subscriptionId);
+      return _topUpSubscriptionSolana(subscriptionId, amount);
     }
   }
 
@@ -50,16 +53,20 @@ class _UserApi extends BaseApi {
     return response;
   }
 
-  Future<Response> _topUpSubscriptionSolana(String subscriptionId) async {
+  Future<Response> _topUpSubscriptionSolana(
+    String subscriptionId,
+    num amount,
+  ) async {
     Response response = await client.post(
       '/user/subscriptions/$subscriptionId/topup/solana',
+      data: {'amount': amount},
     );
 
     final tx = await authApi.wallet!.signTransaction(response.data['tx']);
 
     response = await client.post(
       '/user/subscriptions/$subscriptionId/topup/solana',
-      data: {'tx': tx},
+      data: {'tx': tx, 'amount': amount},
     );
 
     return response;

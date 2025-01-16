@@ -1,12 +1,8 @@
 import 'package:intl/intl.dart';
-import 'package:subdoor/api/user_api.dart';
-import 'package:subdoor/components/bottom_sheet.dart';
-import 'package:subdoor/components/payment_confirmation.dart';
 import 'package:subdoor/components/text_copy.dart';
 import 'package:subdoor/models/auction_item.dart';
 import 'package:subdoor/models/credit_card_details.dart';
-import 'package:subdoor/theme/app_theme.dart';
-import 'package:dio/dio.dart';
+import 'package:subdoor/pages/topup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:subdoor/utils/payment.dart';
 
@@ -22,7 +18,6 @@ class CreditCard extends StatefulWidget {
 
 class _CreditCardState extends State<CreditCard> {
   num count = 0;
-  bool isLoading = false;
 
   Widget buildTextRow(
     BuildContext context,
@@ -121,63 +116,12 @@ class _CreditCardState extends State<CreditCard> {
     );
   }
 
-  void _displayError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: errorColor,
-        behavior: SnackBarBehavior.floating,
+  handleTopUpPressed(BuildContext context) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TopupScreen(item: widget.item),
       ),
     );
-  }
-
-  void _displaySuccess(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: successColor,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
-
-  handleTopUpPressed() async {
-    final confirmed = await showAppBottomSheet(
-      context,
-      (context) => PaymentConfirmation(
-        logo: widget.item.logo,
-        label:
-            '\$${widget.item.originalPrice} USDC /${AuctionItem.formatFrequencyShort(widget.item.subscriptionFrequency)}',
-        title:
-            'Top-Up ${widget.item.name} card for \$${widget.item.originalPrice} USDC',
-        description:
-            '\$${widget.item.originalPrice} USDC will be charged from your Subdoor balance',
-        onCancel: () => Navigator.pop(context),
-        onConfirm: () => Navigator.pop(context, true),
-      ),
-      backgroundColor: const Color(0xff11243E),
-    );
-    if (confirmed != null && confirmed) {
-      setState(() {
-        isLoading = true;
-      });
-      try {
-        await userApi.topUpSubscription(widget.item.id);
-        _displaySuccess('Card top-up successful');
-      } on DioException catch (e) {
-        _displayError(
-          e.response?.data['message'] ?? 'Error paying subscription',
-        );
-      } catch (e) {
-        _displayError('Error paying subscription');
-      } finally {
-        if (mounted) {
-          setState(() {
-            isLoading = false;
-          });
-        }
-      }
-    }
   }
 
   @override
@@ -211,10 +155,10 @@ class _CreditCardState extends State<CreditCard> {
                 SizedBox(
                   height: 29,
                   child: ElevatedButton(
-                    onPressed: isLoading ? null : handleTopUpPressed,
-                    child: Text(
-                      isLoading ? 'Processing...' : '+ Top-Up',
-                      style: const TextStyle(
+                    onPressed: () => handleTopUpPressed(context),
+                    child: const Text(
+                      '+ Top-Up',
+                      style: TextStyle(
                         fontSize: 14,
                       ),
                     ),
