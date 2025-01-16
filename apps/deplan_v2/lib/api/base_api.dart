@@ -2,10 +2,20 @@ import 'package:deplan/api/auth.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-const baseUrl = 'https://deplan-560eb4c67350.herokuapp.com';
+const servers = {
+  'local': 'http://localhost:9899',
+  'dev': 'https://deplan-dev-ae376b80805f.herokuapp.com',
+  'prod': 'https://deplan-560eb4c67350.herokuapp.com',
+};
+final baseUrl = servers[kReleaseMode
+    ? 'prod'
+    : kProfileMode
+        ? 'dev'
+        : 'local']!;
 
 class BaseApi {
   late final Dio _dioClient;
+
   BaseApi() {
     _dioClient = Dio(
       BaseOptions(

@@ -7,12 +7,20 @@ const servers = {
     'http': 'http://localhost:9899',
     'ws': 'ws://localhost:9899',
   },
+  'dev': {
+    'http': 'https://deplan-dev-ae376b80805f.herokuapp.com',
+    'ws': 'https://deplan-dev-ae376b80805f.herokuapp.com',
+  },
   'prod': {
     'http': 'https://deplan-560eb4c67350.herokuapp.com',
     'ws': 'https://deplan-560eb4c67350.herokuapp.com',
   },
 };
-final server = servers[kReleaseMode ? 'prod' : 'local']!;
+final server = servers[kReleaseMode
+    ? 'prod'
+    : kProfileMode
+        ? 'dev'
+        : 'local']!;
 
 class BaseApi {
   late final String baseUrl;
