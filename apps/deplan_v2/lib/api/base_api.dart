@@ -10,8 +10,8 @@ const servers = {
 final baseUrl = servers[kReleaseMode
     ? 'prod'
     : kProfileMode
-        ? 'dev'
-        : 'local']!;
+        ? 'local'
+        : 'dev']!;
 
 class BaseApi {
   late final Dio _dioClient;
