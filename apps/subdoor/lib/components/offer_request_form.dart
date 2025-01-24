@@ -6,13 +6,11 @@ import 'package:subdoor/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 
 class OfferRequestFormData {
-  final String link;
   final String plan;
   final double price;
   final String frequency;
 
   OfferRequestFormData({
-    required this.link,
     required this.plan,
     required this.price,
     required this.frequency,
@@ -41,7 +39,7 @@ class OfferRequestForm extends StatefulWidget {
 
 class _OfferRequestFormState extends State<OfferRequestForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late final TextEditingController linkController;
+
   late final TextEditingController planController;
   late final TextEditingController priceController;
   late String frequency;
@@ -50,8 +48,6 @@ class _OfferRequestFormState extends State<OfferRequestForm> {
   @override
   void initState() {
     super.initState();
-    linkController =
-        TextEditingController(text: widget.offerRequestFormData?.link);
     planController =
         TextEditingController(text: widget.offerRequestFormData?.plan);
     priceController = TextEditingController(
@@ -66,7 +62,6 @@ class _OfferRequestFormState extends State<OfferRequestForm> {
       double.tryParse(priceController.text.replaceAll(',', '.')) ?? 0.0;
 
   OfferRequestFormData get formData => OfferRequestFormData(
-        link: linkController.text,
         plan: planController.text,
         price: price,
         frequency: frequency,
@@ -116,19 +111,6 @@ class _OfferRequestFormState extends State<OfferRequestForm> {
             ),
           const SizedBox(
             height: 17,
-          ),
-          AppTextFormFieldBordered(
-            inputType: TextInputType.url,
-            textInputAction: TextInputAction.next,
-            controller: linkController,
-            labelText: 'Insert ${widget.productName} pricing page link here',
-            onChanged: (value) {
-              widget.onUpdate?.call(formData);
-            },
-            validator: requiredField('Link'),
-          ),
-          const SizedBox(
-            height: 30,
           ),
           AppTextFormFieldBordered(
             inputType: TextInputType.text,

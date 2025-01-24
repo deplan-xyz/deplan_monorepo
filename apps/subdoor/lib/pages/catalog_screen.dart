@@ -1,10 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:subdoor/api/auction_api.dart';
 import 'package:subdoor/components/bottom_sheet.dart';
-import 'package:subdoor/components/catalog_card.dart';
 import 'package:subdoor/components/offer_request_form.dart';
 import 'package:subdoor/components/payment_confirmation.dart';
 import 'package:subdoor/components/search_field.dart';
-import 'package:subdoor/models/auction_item.dart';
 import 'package:subdoor/pages/home_screen.dart';
 import 'package:subdoor/theme/app_theme.dart';
 import 'package:subdoor/widgets/app_scaffold.dart';
@@ -27,27 +26,8 @@ class CatalogScreen extends StatefulWidget {
 }
 
 class _CatalogScreenState extends State<CatalogScreen> {
-  late Future<List<AuctionItem>> futureOffers;
-
   String searchQuery = '';
   bool isOfferRequestLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    futureOffers = fetchOffers();
-  }
-
-  Future<List<AuctionItem>> fetchOffers() async {
-    final response = await auctionApi.getAuctions(
-      offerType: OfferType.buy_now.name,
-      statuses: [AuctionStatus.active.name],
-    );
-    final allOffers = (response.data['auctionItems'] as List)
-        .map((item) => AuctionItem.fromJson(item))
-        .toList();
-    return allOffers;
-  }
 
   void _onSearch(String query) async {
     setState(() {
@@ -90,7 +70,6 @@ class _CatalogScreenState extends State<CatalogScreen> {
       });
       await auctionApi.request(
         searchQuery,
-        data.link,
         data.plan,
         data.price,
         data.frequency,
@@ -141,6 +120,12 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = TextStyle(
+      fontFamily: 'sfprodbold',
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: Color(0xff38536B),
+    );
     return AppScaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -148,52 +133,70 @@ class _CatalogScreenState extends State<CatalogScreen> {
           children: [
             // Search Field
             Center(
-              child: SearchField(onSearch: _onSearch),
+              child: SearchField(
+                onSearch: _onSearch,
+                hintText: 'Enter product name you need',
+              ),
             ),
             const SizedBox(height: 30),
-            // Cards
-            FutureBuilder<List<AuctionItem>>(
-              future: futureOffers,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error fetching offers: ${snapshot.error}'),
-                  );
-                }
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.data!.isEmpty || searchQuery.isNotEmpty) {
-                  return Center(
-                    child: BodyPadding(
-                      child: OfferRequestForm(
-                        productName: searchQuery,
-                        offerRequestFormData: widget.offerRequestFormData,
-                        isLoading: isOfferRequestLoading,
-                        onUpdate: (data) {
-                          widget.onOfferRequestUpdate?.call(data);
-                        },
-                        onSubmit: handleOfferRequest,
-                      ),
-                    ),
-                  );
-                }
-                return Column(
-                  children: snapshot.data!
-                      .map(
-                        (item) => Column(
+            if (searchQuery.isEmpty)
+              Center(
+                child: SizedBox(
+                  width: 310,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          style: textStyle,
                           children: [
-                            CatalogCard(item: item),
-                            const SizedBox(height: 30),
+                            const TextSpan(
+                              text: '1. Type product name in a search bar',
+                            ),
+                            const TextSpan(text: '\n\n'),
+                            const TextSpan(
+                              text:
+                                  '2. Enter name of plan you need and its price',
+                            ),
+                            const TextSpan(text: '\n\n'),
+                            const TextSpan(
+                              text:
+                                  '3. Pay with USDC from your Subdoor balance or connected Solana wallet',
+                            ),
+                            const TextSpan(text: '\n\n'),
+                            const TextSpan(
+                              text: '4. Get your card',
+                            ),
+                            const TextSpan(text: '\n\n\n'),
+                            TextSpan(
+                              style: textStyle.copyWith(
+                                fontFamily: 'sfprod',
+                                fontWeight: FontWeight.w400,
+                              ),
+                              text:
+                                  'If you have question or issue:\nsupport@deplan.xyz\nor @subdoor on TG',
+                            ),
                           ],
                         ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            if (searchQuery.isNotEmpty)
+              Center(
+                child: BodyPadding(
+                  child: OfferRequestForm(
+                    productName: searchQuery,
+                    offerRequestFormData: widget.offerRequestFormData,
+                    isLoading: isOfferRequestLoading,
+                    onUpdate: (data) {
+                      widget.onOfferRequestUpdate?.call(data);
+                    },
+                    onSubmit: handleOfferRequest,
+                  ),
+                ),
+              ),
           ],
         ),
       ),

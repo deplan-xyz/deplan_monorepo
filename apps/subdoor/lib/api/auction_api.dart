@@ -23,14 +23,12 @@ class _AuctionApi extends BaseApi {
 
   Future<Response> request(
     String productName,
-    String link,
     String plan,
     double price,
     String frequency,
   ) async {
     final data = {
       'productName': productName,
-      'link': link,
       'plan': plan,
       'price': price,
       'frequency': frequency,

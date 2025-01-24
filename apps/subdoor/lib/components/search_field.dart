@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SearchField extends StatelessWidget {
   final Function(String) onSearch;
+  final String? hintText;
 
-  const SearchField({super.key, required this.onSearch});
+  const SearchField({super.key, required this.onSearch, this.hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class SearchField extends StatelessWidget {
             minWidth: 25,
             minHeight: 25,
           ),
-          hintText: 'Search subscription',
+          hintText: hintText ?? 'Search subscription',
           hintStyle: const TextStyle(
             fontFamily: 'sfui',
             fontSize: 16,

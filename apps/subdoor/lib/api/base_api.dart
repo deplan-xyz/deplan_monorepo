@@ -19,8 +19,8 @@ const servers = {
 final server = servers[kReleaseMode
     ? 'prod'
     : kProfileMode
-        ? 'dev'
-        : 'local']!;
+        ? 'local'
+        : 'dev']!;
 
 class BaseApi {
   late final String baseUrl;
