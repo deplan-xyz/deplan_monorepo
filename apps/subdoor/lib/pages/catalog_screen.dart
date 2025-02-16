@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:subdoor/api/auction_api.dart';
 import 'package:subdoor/components/bottom_sheet.dart';
 import 'package:subdoor/components/offer_request_form.dart';

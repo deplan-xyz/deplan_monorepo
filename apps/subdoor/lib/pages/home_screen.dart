@@ -6,7 +6,6 @@ import 'package:subdoor/components/offer_request_form.dart';
 import 'package:subdoor/models/user.dart';
 import 'package:subdoor/models/user_balance.dart';
 import 'package:subdoor/pages/account_settings_screen.dart';
-import 'package:subdoor/pages/auctions_screen.dart';
 import 'package:subdoor/pages/catalog_screen.dart';
 import 'package:subdoor/pages/my_subscriptions_screen.dart';
 import 'package:subdoor/pages/wallet/wallet_screen.dart';
@@ -16,7 +15,7 @@ import 'package:flutter/material.dart';
 
 enum HomeTab {
   catalog,
-  auctions,
+  // auctions,
   subscriptions,
   wallet,
 }
@@ -75,8 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
             });
           },
         );
-      case HomeTab.auctions:
-        return AuctionsScreen(balance: balance, user: user);
+      // case HomeTab.auctions:
+      //   return AuctionsScreen(balance: balance, user: user);
       case HomeTab.subscriptions:
         return MySubscriptionsScreen(balance: balance, user: user);
       case HomeTab.wallet:
@@ -87,7 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   buildHeaderTitle(UserBalance balance, User user) {
-    if (_selectedTab == HomeTab.catalog || _selectedTab == HomeTab.auctions) {
+    // if (_selectedTab == HomeTab.catalog || _selectedTab == HomeTab.auctions) {
+    if (_selectedTab == HomeTab.catalog) {
       return Balance(
         balance: balance,
         user: user,
@@ -176,13 +176,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       iconHeight: 24,
                       label: 'Search',
                     ),
-                    BottomNavBarItem(
-                      iconPath: 'assets/icons/auctions.png',
-                      activeIconPath: 'assets/icons/auctions_active.png',
-                      iconWidth: 24,
-                      iconHeight: 24,
-                      label: 'Auctions',
-                    ),
+                    // BottomNavBarItem(
+                    //   iconPath: 'assets/icons/auctions.png',
+                    //   activeIconPath: 'assets/icons/auctions_active.png',
+                    //   iconWidth: 24,
+                    //   iconHeight: 24,
+                    //   label: 'Auctions',
+                    // ),
                     BottomNavBarItem(
                       iconPath: 'assets/icons/subs.png',
                       activeIconPath: 'assets/icons/subs_active.png',
