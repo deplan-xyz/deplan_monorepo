@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:subdoor/api/auth_api.dart';
+import 'package:subdoor/services/telegram_mini_app_service.dart';
 import 'package:subdoor/wallet/abstract/wallet_provider_registry.dart';
 import 'package:subdoor/wallet/types/wallet_provider.dart';
 import 'package:subdoor/pages/home_screen.dart';
@@ -30,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late WalletProviderRegistry walletProviderRegistry;
 
   WalletProvider? phantomProvider;
+  bool isInTelegram = false;
   bool isLoading = false;
 
   @override
@@ -40,6 +43,41 @@ class _LoginScreenState extends State<LoginScreen> {
     phantomProvider = walletProviderRegistry.solanaProviders.firstWhereOrNull(
       (provider) => provider.name == 'Phantom',
     );
+    isInTelegram = TelegramWebAppService.isInTelegram;
+    // if in telegram call signinTelegram
+    if (isInTelegram) {
+      loginWithTelegram(context);
+    }
+  }
+
+  loginWithTelegram(BuildContext context) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      authApi.signinTelegram(TelegramWebAppService.getUserId()!);
+      if (context.mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+          (_) => false,
+        );
+      }
+    } on DioException catch (e) {
+      if (e.response?.data['message'] != null) {
+        _displayError(e.response!.data['message']);
+      } else {
+        _displayError('Login failed. Please reload app and try again.');
+      }
+    } catch (e) {
+      print(e);
+      _displayError('Login failed. Please reload app and try again.');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   loginWithApple(BuildContext context) async {
@@ -208,62 +246,67 @@ class _LoginScreenState extends State<LoginScreen> {
               color: primaryColor,
             ),
           ),
-          Column(
-            children: [
-              Center(
-                child: buildButton(
-                  icon: Image.asset(
-                    'assets/images/apple.png',
-                    width: 19,
-                  ),
-                  text: 'Continue with Apple',
-                  onPressed: () {
-                    loginWithApple(context);
-                  },
-                  backgroundColor: const Color(0xff020203),
-                  foregroundColor: const Color(0xffFFFFFF),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: buildButton(
-                  icon: const Icon(Icons.person, color: primaryColor),
-                  text: 'Continue with Email',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginUsernameScreen(),
-                      ),
-                    );
-                  },
-                  backgroundColor: Colors.white,
-                  foregroundColor: primaryColor,
-                  borderSide: const BorderSide(
-                    color: primaryColor,
-                  ),
-                ),
-              ),
-              if (phantomProvider != null)
-                Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    buildButton(
-                      icon: SvgPicture.memory(
-                        phantomProvider!.iconBytes!,
-                        width: 25,
-                      ),
-                      text: 'Connect ${phantomProvider!.name} Wallet',
-                      backgroundColor: getProviderColor(phantomProvider!),
-                      foregroundColor: Colors.white,
-                      onPressed: () {
-                        loginWithSolana(context, phantomProvider!.name);
-                      },
+          if (!isInTelegram)
+            Column(
+              children: [
+                Center(
+                  child: buildButton(
+                    icon: Image.asset(
+                      'assets/images/apple.png',
+                      width: 19,
                     ),
-                  ],
+                    text: 'Continue with Apple',
+                    onPressed: () {
+                      loginWithApple(context);
+                    },
+                    backgroundColor: const Color(0xff020203),
+                    foregroundColor: const Color(0xffFFFFFF),
+                  ),
                 ),
-            ],
-          ),
+                const SizedBox(height: 10),
+                Center(
+                  child: buildButton(
+                    icon: const Icon(Icons.person, color: primaryColor),
+                    text: 'Continue with Email',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginUsernameScreen(),
+                        ),
+                      );
+                    },
+                    backgroundColor: Colors.white,
+                    foregroundColor: primaryColor,
+                    borderSide: const BorderSide(
+                      color: primaryColor,
+                    ),
+                  ),
+                ),
+                if (phantomProvider != null)
+                  Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      buildButton(
+                        icon: SvgPicture.memory(
+                          phantomProvider!.iconBytes!,
+                          width: 25,
+                        ),
+                        text: 'Connect ${phantomProvider!.name} Wallet',
+                        backgroundColor: getProviderColor(phantomProvider!),
+                        foregroundColor: Colors.white,
+                        onPressed: () {
+                          loginWithSolana(context, phantomProvider!.name);
+                        },
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          if (isInTelegram)
+            const Center(
+              child: CupertinoActivityIndicator(),
+            ),
         ],
       ),
     );
