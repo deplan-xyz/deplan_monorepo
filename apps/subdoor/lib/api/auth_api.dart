@@ -93,6 +93,17 @@ class _AuthApi extends BaseApi {
     return response;
   }
 
+  Future<Response> signinTelegram(String userId) async {
+    final response = await client.post(
+      '/auth/signin/telegram',
+      data: {
+        'telegramUserId': userId,
+      },
+    );
+    await appStorage.write('jwt_token', response.data['token']);
+    return response;
+  }
+
   logout() async {
     await appStorage.deleteValue('jwt_token');
     wallet = null;
