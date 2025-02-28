@@ -124,6 +124,23 @@ class _CreditCardState extends State<CreditCard> {
     );
   }
 
+  Widget buildBalance() {
+    Color? color = widget.cardDetails.balance < widget.item.originalPrice ||
+            widget.cardDetails.status == CreditCardStatus.blocked
+        ? const Color(0xffC60003)
+        : null;
+    String title = 'Balance: \$${widget.cardDetails.balance}';
+
+    if (widget.cardDetails.status == CreditCardStatus.blocked) {
+      title = 'Card Blocked';
+    }
+
+    return Text(
+      title,
+      style: TextStyle(color: color, fontSize: 14),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -144,26 +161,34 @@ class _CreditCardState extends State<CreditCard> {
                 color: const Color(0xffD5D5D5),
               ),
             ),
-            height: 260,
+            height: 285,
             width: 352,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                widget.item.subscribedAt != null
-                    ? buildPaymentDate()
-                    : const SizedBox(),
-                SizedBox(
-                  height: 29,
-                  child: ElevatedButton(
-                    onPressed: () => handleTopUpPressed(context),
-                    child: const Text(
-                      '+ Top-Up',
-                      style: TextStyle(
-                        fontSize: 14,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    widget.item.subscribedAt != null
+                        ? buildPaymentDate()
+                        : const SizedBox(),
+                    SizedBox(
+                      height: 29,
+                      child: ElevatedButton(
+                        onPressed: () => handleTopUpPressed(context),
+                        child: const Text(
+                          '+ Top-Up',
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
+                const SizedBox(height: 5),
+                buildBalance(),
               ],
             ),
           ),

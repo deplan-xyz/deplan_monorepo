@@ -16,54 +16,10 @@
       ]
     },
     {
-      "name": "deplan_connect (profile mode)",
-      "cwd": "${workspaceFolder}/apps/deplan_connect",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "args": [
-        "--web-port",
-        "10001"
-      ]
-    },
-    {
-      "name": "deplan_connect (release mode)",
-      "cwd": "${workspaceFolder}/apps/deplan_connect",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "args": [
-        "--web-port",
-        "10001"
-      ]
-    },
-    {
       "name": "deplan_v1",
       "cwd": "${workspaceFolder}/apps/deplan_v1",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--web-port",
-        "10002"
-      ]
-    },
-    {
-      "name": "deplan_v1 (profile mode)",
-      "cwd": "${workspaceFolder}/apps/deplan_v1",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "args": [
-        "--web-port",
-        "10002"
-      ]
-    },
-    {
-      "name": "deplan_v1 (release mode)",
-      "cwd": "${workspaceFolder}/apps/deplan_v1",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
       "args": [
         "--web-port",
         "10002"
@@ -80,54 +36,10 @@
       ]
     },
     {
-      "name": "deplan_v2 (profile mode)",
-      "cwd": "${workspaceFolder}/apps/deplan_v2",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "args": [
-        "--web-port",
-        "10003"
-      ]
-    },
-    {
-      "name": "deplan_v2 (release mode)",
-      "cwd": "${workspaceFolder}/apps/deplan_v2",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "args": [
-        "--web-port",
-        "10003"
-      ]
-    },
-    {
       "name": "phorevr_v1",
       "cwd": "${workspaceFolder}/apps/phorevr_v1",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--web-port",
-        "10004"
-      ]
-    },
-    {
-      "name": "phorevr_v1 (profile mode)",
-      "cwd": "${workspaceFolder}/apps/phorevr_v1",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "args": [
-        "--web-port",
-        "10004"
-      ]
-    },
-    {
-      "name": "phorevr_v1 (release mode)",
-      "cwd": "${workspaceFolder}/apps/phorevr_v1",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
       "args": [
         "--web-port",
         "10004"
@@ -144,57 +56,25 @@
       ]
     },
     {
-      "name": "phorevr_v2 (profile mode)",
-      "cwd": "${workspaceFolder}/apps/phorevr_v2",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile",
-      "args": [
-        "--web-port",
-        "10005"
-      ]
-    },
-    {
-      "name": "phorevr_v2 (release mode)",
-      "cwd": "${workspaceFolder}/apps/phorevr_v2",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "args": [
-        "--web-port",
-        "10005"
-      ]
-    },
-    {
-      "name": "subdoor",
+      "name": "subdoor (local)",
       "cwd": "${workspaceFolder}/apps/subdoor",
       "request": "launch",
       "type": "dart",
       "args": [
         "--web-port",
-        "10006"
+        "10006",
+        "--dart-define=ENV=local"
       ]
     },
     {
-      "name": "subdoor (profile mode)",
+      "name": "subdoor (dev)",
       "cwd": "${workspaceFolder}/apps/subdoor",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile",
       "args": [
         "--web-port",
-        "10006"
-      ]
-    },
-    {
-      "name": "subdoor (release mode)",
-      "cwd": "${workspaceFolder}/apps/subdoor",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release",
-      "args": [
-        "--web-port",
-        "10006"
+        "10006",
+        "--dart-define=ENV=dev"
       ]
     },
   ],

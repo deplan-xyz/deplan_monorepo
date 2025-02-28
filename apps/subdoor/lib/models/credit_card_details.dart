@@ -1,6 +1,7 @@
+import 'package:deplan_core/deplan_core.dart';
 import 'package:subdoor/utils/common.dart';
 
-enum CreditCardStatus { active, inactive }
+enum CreditCardStatus { active, inactive, blocked }
 
 class CreditCardDetails {
   final String id;
@@ -12,7 +13,7 @@ class CreditCardDetails {
   final String state;
   final String zip;
   final CreditCardStatus status;
-
+  final double balance;
   CreditCardDetails({
     required this.id,
     required this.cardNumber,
@@ -23,6 +24,7 @@ class CreditCardDetails {
     required this.state,
     required this.zip,
     required this.status,
+    required this.balance,
   });
 
   factory CreditCardDetails.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,7 @@ class CreditCardDetails {
       state: json['state'],
       zip: json['zip'],
       status: CommonUtils.stringToEnum(json['status'], CreditCardStatus.values),
+      balance: intToDouble(json['balance']) ?? 0.0,
     );
   }
 
@@ -50,6 +53,7 @@ class CreditCardDetails {
       'state': state,
       'zip': zip,
       'status': status.name,
+      'balance': balance,
     };
   }
 }

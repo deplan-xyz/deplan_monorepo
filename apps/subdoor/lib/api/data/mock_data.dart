@@ -50,4 +50,5 @@ final CreditCardDetails creditCardDetails = CreditCardDetails(
   state: 'CA',
   zip: '12345',
   status: CreditCardStatus.active,
+  balance: 0.0,
 );
